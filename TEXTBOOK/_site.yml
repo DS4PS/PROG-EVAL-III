@@ -13,7 +13,7 @@ navbar:
     - text: "Specification"
       href: specification-part-I.html
   right:
-    - icon: fa-github fa-3x
+    - icon: fa-github fa-2x
       href: https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK
 output:
   bookdown::html_document2:
