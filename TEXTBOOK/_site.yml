@@ -22,3 +22,4 @@ output:
     toc_depth: 3
     toc_float: true
     number_sections: yes
+    highlight: textmate
