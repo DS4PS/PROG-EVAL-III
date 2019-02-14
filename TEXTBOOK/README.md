@@ -15,6 +15,7 @@ rmarkdown::render_site()
 rmarkdown::render_site("about.Rmd")
 ```
 
+For theme examples see [HERE](http://www.datadreaming.org/post/r-markdown-theme-gallery/).
 
 -----
 

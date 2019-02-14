@@ -23,76 +23,27 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
-
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
-
-
-</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
 
 
 <style type="text/css">
@@ -523,10 +474,10 @@ code[class] {
 <p>Applied Econometrics with R</p>
 <p>Functions, data sets, examples, demos, and vignettes for the book Christian Kleiber and Achim Zeileis (2008),
 Applied Econometrics with R, Springer-Verlag, New York.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>( <span class="st">&quot;AER&quot;</span> )</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>( AER )</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">vignette</span>( <span class="st">&quot;AER&quot;</span> )</a></code></pre></div>
+<pre class="r"><code>install.packages( &quot;AER&quot; )
+library( AER )
+
+vignette( &quot;AER&quot; )</code></pre>
 <div id="california-schools-data" class="section level2">
 <h2><span class="header-section-number">1.1</span> California Schools Data</h2>
 <p>The data used here are from all 420 K-6 and K-8 districts in California with data available for 1998
@@ -561,35 +512,35 @@ are English learners (that is, students for whom English is a second language).<
 <div id="specification" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> Specification</h3>
 <p>What happens to the significance of the student-teacher ratio variable once appropriate controls are added to the model?</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>( <span class="st">&quot;CASchools&quot;</span> )</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">## variable transformations</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">CASchools<span class="op">$</span>stratio &lt;-<span class="st"> </span><span class="kw">with</span>(CASchools, students<span class="op">/</span>teachers)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">CASchools<span class="op">$</span>score &lt;-<span class="st"> </span><span class="kw">with</span>(CASchools, (math <span class="op">+</span><span class="st"> </span>read)<span class="op">/</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">dat &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>( CASchools, score, stratio, expenditure, english, lunch, calworks )</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">pairs</span>( dat, <span class="dt">lower.panel=</span>panel.smooth, <span class="dt">upper.panel=</span>panel.cor)</a></code></pre></div>
+<pre class="r"><code>data( &quot;CASchools&quot; )
+
+## variable transformations
+CASchools$stratio &lt;- with(CASchools, students/teachers)
+CASchools$score &lt;- with(CASchools, (math + read)/2)
+
+
+dat &lt;- dplyr::select( CASchools, score, stratio, expenditure, english, lunch, calworks )
+
+pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">## Stock and Watson (2007)</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## p. 152</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">fm1 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio, <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># coeftest(fm1, vcov = sandwich)</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## p. 159</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">fm2 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(stratio <span class="op">&lt;</span><span class="st"> </span><span class="dv">20</span>), <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">## p. 199</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">fm3 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio <span class="op">+</span><span class="st"> </span>english, <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">## p. 224</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">fm4 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio <span class="op">+</span><span class="st"> </span>expenditure <span class="op">+</span><span class="st"> </span>english, <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="kw">stargazer</span>( fm1, fm2, fm3, fm4, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;ser&quot;</span>),</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">           <span class="dt">digits=</span><span class="dv">2</span>)</a></code></pre></div>
+<pre class="r"><code>## Stock and Watson (2007)
+## p. 152
+fm1 &lt;- lm( score ~ stratio, data = CASchools )
+# coeftest(fm1, vcov = sandwich)
+
+## p. 159
+fm2 &lt;- lm( score ~ I(stratio &lt; 20), data = CASchools )
+
+## p. 199
+fm3 &lt;- lm( score ~ stratio + english, data = CASchools )
+
+## p. 224
+fm4 &lt;- lm( score ~ stratio + expenditure + english, data = CASchools )
+
+
+stargazer( fm1, fm2, fm3, fm4, type=&quot;html&quot;,
+           omit.stat = c(&quot;rsq&quot;, &quot;f&quot;, &quot;ser&quot;),
+           digits=2)</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="5" style="border-bottom: 1px solid black">
@@ -897,13 +848,13 @@ Adjusted R<sup>2</sup>
 <div id="additional-controls" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Additional Controls</h3>
 <p>Control for non-native speakers and income level of students.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## Table 7.1, p. 242 (numbers refer to columns)</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">fmc3 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio <span class="op">+</span><span class="st"> </span>english <span class="op">+</span><span class="st"> </span>lunch, <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">fmc4 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio <span class="op">+</span><span class="st"> </span>english <span class="op">+</span><span class="st"> </span>calworks, <span class="dt">data =</span> CASchools )</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">fmc5 &lt;-<span class="st"> </span><span class="kw">lm</span>( score <span class="op">~</span><span class="st"> </span>stratio <span class="op">+</span><span class="st"> </span>english <span class="op">+</span><span class="st"> </span>lunch <span class="op">+</span><span class="st"> </span>calworks, <span class="dt">data =</span> CASchools )</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">stargazer</span>( fmc3, fmc4, fmc5, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;ser&quot;</span>),</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">           <span class="dt">digits=</span><span class="dv">2</span> )</a></code></pre></div>
+<pre class="r"><code>## Table 7.1, p. 242 (numbers refer to columns)
+fmc3 &lt;- lm( score ~ stratio + english + lunch, data = CASchools )
+fmc4 &lt;- lm( score ~ stratio + english + calworks, data = CASchools )
+fmc5 &lt;- lm( score ~ stratio + english + lunch + calworks, data = CASchools )</code></pre>
+<pre class="r"><code>stargazer( fmc3, fmc4, fmc5, type=&quot;html&quot;,
+           omit.stat = c(&quot;rsq&quot;, &quot;f&quot;, &quot;ser&quot;),
+           digits=2 )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -1176,11 +1127,11 @@ Adjusted R<sup>2</sup>
 </div>
 <div id="teacher-ratings" class="section level2">
 <h2><span class="header-section-number">1.2</span> Teacher Ratings</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;TeachingRatings&quot;</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">TeachingRatings<span class="op">$</span>response.rate &lt;-<span class="st"> </span>TeachingRatings<span class="op">$</span>students <span class="op">/</span><span class="st"> </span>TeachingRatings<span class="op">$</span>allstudents</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">TeachingRatings <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<pre class="r"><code>data(&quot;TeachingRatings&quot;)
+
+TeachingRatings$response.rate &lt;- TeachingRatings$students / TeachingRatings$allstudents
+
+TeachingRatings %&gt;% head() %&gt;% pander()</code></pre>
 <table>
 <caption>Table continues below</caption>
 <colgroup>
@@ -1330,47 +1281,47 @@ Adjusted R<sup>2</sup>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">dat &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>( TeachingRatings, eval, age, beauty, response.rate )</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">pairs</span>( dat, <span class="dt">lower.panel=</span>panel.smooth, <span class="dt">upper.panel=</span>panel.cor)</a></code></pre></div>
+<pre class="r"><code>dat &lt;- dplyr::select( TeachingRatings, eval, age, beauty, response.rate )
+
+pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
 <ul>
 <li>Are beautiful people better teachers?</li>
 <li>What is the relationship between age and response rate?</li>
 <li>Are people content with a course more or less likely to submit evaluations?</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>) )</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">plot</span>( TeachingRatings<span class="op">$</span>gender, TeachingRatings<span class="op">$</span>eval, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Gender&quot;</span> )</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">plot</span>( TeachingRatings<span class="op">$</span>minority, TeachingRatings<span class="op">$</span>eval, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Minority&quot;</span> )</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">plot</span>( TeachingRatings<span class="op">$</span>tenure, TeachingRatings<span class="op">$</span>eval, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Tenure Status&quot;</span> )</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">plot</span>( TeachingRatings<span class="op">$</span>credits, TeachingRatings<span class="op">$</span>eval, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Credits&quot;</span> )</a></code></pre></div>
+<pre class="r"><code>par( mfrow=c(2,2) )
+plot( TeachingRatings$gender, TeachingRatings$eval, frame.plot=F, outline=F, main=&quot;Gender&quot; )
+plot( TeachingRatings$minority, TeachingRatings$eval, frame.plot=F, outline=F, main=&quot;Minority&quot; )
+plot( TeachingRatings$tenure, TeachingRatings$eval, frame.plot=F, outline=F, main=&quot;Tenure Status&quot; )
+plot( TeachingRatings$credits, TeachingRatings$eval, frame.plot=F, outline=F, main=&quot;Credits&quot; )</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">group.structure &lt;-<span class="st"> </span><span class="kw">formula</span>( TeachingRatings<span class="op">$</span>eval <span class="op">~</span><span class="st"> </span>TeachingRatings<span class="op">$</span>minority <span class="op">*</span><span class="st"> </span>TeachingRatings<span class="op">$</span>gender )</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">boxplot</span>( group.structure, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">         <span class="dt">las=</span><span class="dv">0</span>, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, </a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">         <span class="dt">main=</span><span class="st">&quot;Performance by Gender &amp; Minority Status&quot;</span>,</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">         <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;steelblue4&quot;</span>,<span class="st">&quot;steelblue3&quot;</span>,<span class="st">&quot;firebrick4&quot;</span>,<span class="st">&quot;firebrick3&quot;</span>), </a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">         <span class="dt">staplewex=</span><span class="dv">0</span>, <span class="dt">whisklty=</span><span class="dv">0</span>, <span class="dt">border=</span><span class="st">&quot;gray90&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">seq</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="fl">0.25</span>), <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="fl">0.25</span> )</a></code></pre></div>
+<pre class="r"><code>group.structure &lt;- formula( TeachingRatings$eval ~ TeachingRatings$minority * TeachingRatings$gender )
+
+boxplot( group.structure, ylim=c(3,5),
+         las=0, frame.plot=F, outline=F, 
+         main=&quot;Performance by Gender &amp; Minority Status&quot;,
+         col=c(&quot;steelblue4&quot;,&quot;steelblue3&quot;,&quot;firebrick4&quot;,&quot;firebrick3&quot;), 
+         staplewex=0, whisklty=0, border=&quot;gray90&quot;, lwd=2 )
+
+abline( h=seq(3,5,0.25), col=&quot;gray&quot;, lty=3, lwd=0.25 )</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">group.structure &lt;-<span class="st"> </span><span class="kw">formula</span>( TeachingRatings<span class="op">$</span>eval <span class="op">~</span><span class="st"> </span>TeachingRatings<span class="op">$</span>gender <span class="op">*</span><span class="st"> </span>TeachingRatings<span class="op">$</span>tenure )</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">boxplot</span>( group.structure, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">         <span class="dt">las=</span><span class="dv">0</span>, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">         <span class="dt">main=</span><span class="st">&quot;Performance by Gender and Tenure Status of the Professor&quot;</span>,</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">         <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;firebrick&quot;</span>,<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;firebrick&quot;</span> ), </a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">         <span class="dt">staplewex=</span><span class="dv">0</span>, <span class="dt">whisklty=</span><span class="dv">0</span>, <span class="dt">border=</span><span class="st">&quot;gray90&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">seq</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="fl">0.25</span>), <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">lwd=</span><span class="fl">0.25</span> )</a></code></pre></div>
+<pre class="r"><code>group.structure &lt;- formula( TeachingRatings$eval ~ TeachingRatings$gender * TeachingRatings$tenure )
+
+boxplot( group.structure, ylim=c(3,5),
+         las=0, frame.plot=F, outline=F, 
+         main=&quot;Performance by Gender and Tenure Status of the Professor&quot;,
+         col=c(&quot;steelblue&quot;,&quot;firebrick&quot;,&quot;steelblue&quot;,&quot;firebrick&quot; ), 
+         staplewex=0, whisklty=0, border=&quot;gray90&quot;, lwd=2 )
+
+abline( h=seq(3,5,0.25), col=&quot;gray&quot;, lty=3, lwd=0.25 )</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">## evaluation score vs. beauty</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">jplot</span>( TeachingRatings<span class="op">$</span>beauty, TeachingRatings<span class="op">$</span>eval, <span class="dt">xlab=</span><span class="st">&quot;Beauty&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Student Evaluations&quot;</span> )</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">fm &lt;-<span class="st"> </span><span class="kw">lm</span>(eval <span class="op">~</span><span class="st"> </span>beauty, <span class="dt">data =</span> TeachingRatings)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">abline</span>(fm)</a></code></pre></div>
+<pre class="r"><code>## evaluation score vs. beauty
+jplot( TeachingRatings$beauty, TeachingRatings$eval, xlab=&quot;Beauty&quot;, ylab=&quot;Student Evaluations&quot; )
+fm &lt;- lm(eval ~ beauty, data = TeachingRatings)
+abline(fm)</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">summary</span>(fm)</a></code></pre></div>
+<pre class="r"><code>summary(fm)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = eval ~ beauty, data = TeachingRatings)
@@ -1389,17 +1340,17 @@ Adjusted R<sup>2</sup>
 ## Residual standard error: 0.5455 on 461 degrees of freedom
 ## Multiple R-squared:  0.03574,    Adjusted R-squared:  0.03364 
 ## F-statistic: 17.08 on 1 and 461 DF,  p-value: 4.247e-05</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">## prediction of Stock &amp; Watson&#39;s evaluation score</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">sw &lt;-<span class="st"> </span><span class="kw">with</span>(TeachingRatings, <span class="kw">mean</span>(beauty) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(beauty))</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">names</span>(sw) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Watson&quot;</span>, <span class="st">&quot;Stock&quot;</span>)</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="kw">predict</span>(fm, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">beauty =</span> sw))</a></code></pre></div>
+<pre class="r"><code>## prediction of Stock &amp; Watson&#39;s evaluation score
+sw &lt;- with(TeachingRatings, mean(beauty) + c(0, 1) * sd(beauty))
+names(sw) &lt;- c(&quot;Watson&quot;, &quot;Stock&quot;)
+predict(fm, newdata = data.frame(beauty = sw))</code></pre>
 <pre><code>##   Watson    Stock 
 ## 3.998272 4.103163</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co">## Hamermesh and Parker, 2005, Table 3</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">fmw &lt;-<span class="st"> </span><span class="kw">lm</span>(eval <span class="op">~</span><span class="st"> </span>beauty <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>minority <span class="op">+</span><span class="st"> </span>native <span class="op">+</span><span class="st"> </span>tenure <span class="op">+</span><span class="st"> </span>division <span class="op">+</span><span class="st"> </span>credits,</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="dt">weights =</span> students, <span class="dt">data =</span> TeachingRatings)</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw">coeftest</span>(fmw, <span class="dt">vcov =</span> sandwich)</a></code></pre></div>
+<pre class="r"><code>## Hamermesh and Parker, 2005, Table 3
+
+fmw &lt;- lm(eval ~ beauty + gender + minority + native + tenure + division + credits,
+weights = students, data = TeachingRatings)
+coeftest(fmw, vcov = sandwich)</code></pre>
 <pre><code>## 
 ## t test of coefficients:
 ## 
@@ -1414,10 +1365,10 @@ Adjusted R<sup>2</sup>
 ## creditssingle  0.686507   0.114675  5.9866 4.351e-09 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co">## (same coefficients but with different covariances)</span></a></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">stargazer</span>( fmc3, fmc4, fmc5, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>,</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;ser&quot;</span>),</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3">           <span class="dt">digits=</span><span class="dv">2</span> )</a></code></pre></div>
+<pre class="r"><code>## (same coefficients but with different covariances)</code></pre>
+<pre class="r"><code>stargazer( fmc3, fmc4, fmc5, type=&quot;html&quot;,
+           omit.stat = c(&quot;rsq&quot;, &quot;f&quot;, &quot;ser&quot;),
+           digits=2 )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -1691,18 +1642,18 @@ Adjusted R<sup>2</sup>
 <div id="package-woolridge" class="section level1">
 <h1><span class="header-section-number">2</span> Package ‘woolridge’</h1>
 <p>Read directly from the website:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>( foreign )</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3">dat &lt;-<span class="st"> </span><span class="kw">read.dta</span>( <span class="st">&quot;http://fmwww.bc.edu/ec-p/data/wooldridge/meap01.dta&quot;</span> )</a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">dat &lt;-<span class="st"> </span><span class="kw">read.dta</span>( <span class="st">&quot;http://fmwww.bc.edu/ec-p/data/wooldridge/affairs.dta&quot;</span> )</a></code></pre></div>
+<pre class="r"><code>library( foreign )
+
+dat &lt;- read.dta( &quot;http://fmwww.bc.edu/ec-p/data/wooldridge/meap01.dta&quot; )
+
+dat &lt;- read.dta( &quot;http://fmwww.bc.edu/ec-p/data/wooldridge/affairs.dta&quot; )</code></pre>
 <p>R package:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">install.packages</span>( <span class="st">&quot;wooldridge&quot;</span> )</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">library</span>( wooldridge )</a></code></pre></div>
+<pre class="r"><code>install.packages( &quot;wooldridge&quot; )
+library( wooldridge )</code></pre>
 <div id="affairs-dataset" class="section level2">
 <h2><span class="header-section-number">2.1</span> Affairs Dataset</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">data</span>( <span class="st">&quot;affairs&quot;</span> )</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">head</span>( affairs ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<pre class="r"><code>data( &quot;affairs&quot; )
+head( affairs ) %&gt;% pander()</code></pre>
 <table>
 <caption>Table continues below</caption>
 <colgroup>
@@ -1928,8 +1879,8 @@ Adjusted R<sup>2</sup>
 </div>
 <div id="school-voucher-dataset" class="section level2">
 <h2><span class="header-section-number">2.2</span> School Voucher Dataset</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">data</span>( <span class="st">&#39;voucher&#39;</span> )</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">head</span>( voucher ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<pre class="r"><code>data( &#39;voucher&#39; )
+head( voucher ) %&gt;% pander()</code></pre>
 <table>
 <caption>Table continues below</caption>
 <colgroup>
@@ -2154,8 +2105,8 @@ Adjusted R<sup>2</sup>
 </div>
 <div id="package-ecdat" class="section level1">
 <h1><span class="header-section-number">3</span> Package ‘Ecdat’</h1>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">install.packages</span>( <span class="st">&quot;Ecdat&quot;</span> )</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">library</span>( Ecdat )</a></code></pre></div>
+<pre class="r"><code>install.packages( &quot;Ecdat&quot; )
+library( Ecdat )</code></pre>
 <div id="star-dataset" class="section level2">
 <h2><span class="header-section-number">3.1</span> Star Dataset</h2>
 <ul>
@@ -2168,8 +2119,8 @@ Adjusted R<sup>2</sup>
 <li>race a factor with levels (white,black,other)</li>
 <li>schidkn school indicator variable</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">data</span>( Star )</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">head</span>( Star ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<pre class="r"><code>data( Star )
+head( Star ) %&gt;% pander()</code></pre>
 <table>
 <caption>Table continues below</caption>
 <colgroup>
@@ -2295,30 +2246,30 @@ Adjusted R<sup>2</sup>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">dat &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>( Star, tmathssk,treadssk, totexpk ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>( <span class="dt">Math_Score=</span>tmathssk, <span class="dt">Reading_Score=</span>treadssk, <span class="dt">Teacher_Experience=</span>totexpk )</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="kw">pairs</span>( dat, <span class="dt">lower.panel=</span>panel.smooth, <span class="dt">upper.panel=</span>panel.cor)</a></code></pre></div>
+<pre class="r"><code>dat &lt;- dplyr::select( Star, tmathssk,treadssk, totexpk ) %&gt;% 
+  dplyr::rename( Math_Score=tmathssk, Reading_Score=treadssk, Teacher_Experience=totexpk )
+
+pairs( dat, lower.panel=panel.smooth, upper.panel=panel.cor)</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>) )</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">plot</span>( Star<span class="op">$</span>class, Star<span class="op">$</span>tmathssk, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Class Type&quot;</span> )</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">plot</span>( Star<span class="op">$</span>sex, Star<span class="op">$</span>tmathssk, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Gender&quot;</span> )</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw">plot</span>( Star<span class="op">$</span>freelunk, Star<span class="op">$</span>tmathssk, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Free Lunch&quot;</span> )</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="kw">plot</span>( Star<span class="op">$</span>race, Star<span class="op">$</span>tmathssk, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Race&quot;</span> )</a></code></pre></div>
+<pre class="r"><code>par( mfrow=c(2,2) )
+plot( Star$class, Star$tmathssk, frame.plot=F, outline=F, main=&quot;Class Type&quot; )
+plot( Star$sex, Star$tmathssk, frame.plot=F, outline=F, main=&quot;Gender&quot; )
+plot( Star$freelunk, Star$tmathssk, frame.plot=F, outline=F, main=&quot;Free Lunch&quot; )
+plot( Star$race, Star$tmathssk, frame.plot=F, outline=F, main=&quot;Race&quot; )</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">group.structure &lt;-<span class="st"> </span><span class="kw">formula</span>( Star<span class="op">$</span>tmathssk <span class="op">~</span><span class="st"> </span>Star<span class="op">$</span>freelunk <span class="op">*</span><span class="st"> </span>Star<span class="op">$</span>totexpk )</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">boxplot</span>( group.structure, </a>
-<a class="sourceLine" id="cb28-4" data-line-number="4">         <span class="dt">las=</span><span class="dv">2</span>, <span class="dt">frame.plot=</span>F, <span class="dt">outline=</span>F, <span class="dt">main=</span><span class="st">&quot;Age Group by Gender&quot;</span>,</a>
-<a class="sourceLine" id="cb28-5" data-line-number="5">         <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;firebrick&quot;</span>,<span class="st">&quot;steelblue&quot;</span>), <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb28-6" data-line-number="6">         <span class="dt">staplewex=</span><span class="dv">0</span>, <span class="dt">whisklty=</span><span class="dv">0</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">400</span>,<span class="dv">600</span>) )</a></code></pre></div>
+<pre class="r"><code>group.structure &lt;- formula( Star$tmathssk ~ Star$freelunk * Star$totexpk )
+
+boxplot( group.structure, 
+         las=2, frame.plot=F, outline=F, main=&quot;Age Group by Gender&quot;,
+         col=c(&quot;firebrick&quot;,&quot;steelblue&quot;), xaxt=&quot;n&quot;,
+         staplewex=0, whisklty=0, ylim=c(400,600) )</code></pre>
 <p><img src="Datasets_in_R_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>( tmathssk <span class="op">~</span><span class="st"> </span>classk, <span class="dt">data=</span>Star )</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">m2 &lt;-<span class="st"> </span><span class="kw">lm</span>( tmathssk <span class="op">~</span><span class="st"> </span>classk <span class="op">+</span><span class="st"> </span>totexpk <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>freelunk, <span class="dt">data=</span>Star )</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">m3 &lt;-<span class="st"> </span><span class="kw">lm</span>( treadssk <span class="op">~</span><span class="st"> </span>classk, <span class="dt">data=</span>Star )</a>
-<a class="sourceLine" id="cb29-4" data-line-number="4">m4 &lt;-<span class="st"> </span><span class="kw">lm</span>( treadssk <span class="op">~</span><span class="st"> </span>classk <span class="op">+</span><span class="st"> </span>totexpk <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>freelunk, <span class="dt">data=</span>Star )</a>
-<a class="sourceLine" id="cb29-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="kw">stargazer</span>( m1, m2, m3, m4, <span class="dt">type=</span><span class="st">&quot;html&quot;</span> )</a></code></pre></div>
+<pre class="r"><code>m1 &lt;- lm( tmathssk ~ classk, data=Star )
+m2 &lt;- lm( tmathssk ~ classk + totexpk + sex + race + freelunk, data=Star )
+m3 &lt;- lm( treadssk ~ classk, data=Star )
+m4 &lt;- lm( treadssk ~ classk + totexpk + sex + race + freelunk, data=Star )
+
+stargazer( m1, m2, m3, m4, type=&quot;html&quot; )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="5" style="border-bottom: 1px solid black">
@@ -2812,8 +2763,8 @@ F Statistic
 </div>
 <div id="dataset-treatment" class="section level2">
 <h2><span class="header-section-number">3.2</span> Dataset ‘Treatment’</h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">data</span>( <span class="st">&#39;Treatment&#39;</span> )</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">head</span>( Treatment ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</a></code></pre></div>
+<pre class="r"><code>data( &#39;Treatment&#39; )
+head( Treatment ) %&gt;% pander()</code></pre>
 <table style="width:100%;">
 <colgroup>
 <col width="10%" />
