@@ -1,3 +1,5 @@
+# Rmarkdown Website Basics
+
 The RMD files go in TEXTBOOK.
 
 In the _site.yml file we can specify where the rendered HTML files are stored. Send them to the 'docs' folder to keep things clean. The website will live in that directory.
