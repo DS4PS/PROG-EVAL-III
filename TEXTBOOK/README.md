@@ -1,15 +1,20 @@
 # Instructions for Creating Website Files
 
-*Overview of RMD Websites and Bookdown files.* 
+*Overview of [RMD Websites](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) opitions in Bookdown.* 
 
 The RMD files go in TEXTBOOK folder.
 
 To render all RMD files at once for a fresh website build:
 
 ```r
-setwd( ...your directory here... )
+setwd( ...your directory here... )  
+# or run this in the R console in R Studio
+# render the entire site
 rmarkdown::render_site()
+# render a single file only
+rmarkdown::render_site("about.Rmd")
 ```
+
 
 -----
 
