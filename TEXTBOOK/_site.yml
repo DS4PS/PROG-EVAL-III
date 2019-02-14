@@ -1,7 +1,8 @@
 name: "Program Eval III"
 output_dir: "../docs"
 navbar:
-  title: "My Website"
+  title: "Program Eval III"
+  type: inverse
   left:
     - text: "Home"
       href: index.html
@@ -11,9 +12,11 @@ navbar:
       href: Datasets_in_R.html
     - text: "Specification"
       href: specification-part-I.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK
 output:
   bookdown::html_document2:
-    theme: yeti
     toc: yes
     toc_depth: 3
     toc_float: true
