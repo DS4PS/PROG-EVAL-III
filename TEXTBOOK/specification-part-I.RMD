@@ -1,14 +1,5 @@
 ---
 title: "Specification Part I"
-output:
-  html_document:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hide
-
 ---
 
 
