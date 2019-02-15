@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -23,27 +23,85 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
 
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #ffffff;
+    color: #a0a0a0;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+div.sourceCode
+  { color: #1f1c1b; background-color: #ffffff; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span. { color: #1f1c1b; } /* Normal */
+code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+code span.an { color: #ca60ca; } /* Annotation */
+code span.at { color: #0057ae; } /* Attribute */
+code span.bn { color: #b08000; } /* BaseN */
+code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #924c9d; } /* Char */
+code span.cn { color: #aa5500; } /* Constant */
+code span.co { color: #898887; } /* Comment */
+code span.cv { color: #0095ff; } /* CommentVar */
+code span.do { color: #607880; } /* Documentation */
+code span.dt { color: #0057ae; } /* DataType */
+code span.dv { color: #b08000; } /* DecVal */
+code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+code span.fl { color: #b08000; } /* Float */
+code span.fu { color: #644a9b; } /* Function */
+code span.im { color: #ff5500; } /* Import */
+code span.in { color: #b08000; } /* Information */
+code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+code span.op { color: #1f1c1b; } /* Operator */
+code span.ot { color: #006e28; } /* Other */
+code span.pp { color: #006e28; } /* Preprocessor */
+code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #ff5500; } /* SpecialString */
+code span.st { color: #bf0303; } /* String */
+code span.va { color: #0057ae; } /* Variable */
+code span.vs { color: #bf0303; } /* VerbatimString */
+code span.wa { color: #bf0303; } /* Warning */
+</style>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
 
 
 <style type="text/css">
@@ -107,70 +165,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 52px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
+
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 </style>
 
@@ -192,77 +214,18 @@ $(document).ready(function () {
 });
 </script>
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -285,7 +248,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify
@@ -348,6 +311,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -409,101 +378,158 @@ div.tocify {
 </div>
 
 
+<style type="text/css">
+p {
+  color: black;
+  margin: 20px 0 20px 0 !important;
+}
+
+td {
+    padding: 3px 10px 3px 10px;
+    text-align: center;
+}
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+h1, h2{
+  margin-top: 30px !important;
+  margin-bottom: 20px !important;
+}
+
+H5{
+    text-align: center;
+    color: gray;
+    font-size:0.8em;
+}
+
+img {
+    max-width: 90%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   margin-bottom: 1px !important;
+   margin-top: 1px !important;
+}
+
+code {
+  font-size: 92%;
+  margin-bottom: 50px !important;
+  margin-top: 50px !important;
+}
+
+</style>
 <div id="outliers" class="section level1">
 <h1><span class="header-section-number">1</span> OUTLIERS</h1>
 <div id="anscombes-quartet-data" class="section level2">
 <h2><span class="header-section-number">1.1</span> Anscombe’s Quartet Data</h2>
-<pre class="r"><code>data( anscombe )
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>( anscombe )
 
-m1 &lt;- lm( y1 ~ x1, data=anscombe )
-m2 &lt;- lm( y2 ~ x2, data=anscombe )
-m3 &lt;- lm( y3 ~ x3, data=anscombe )
-m4 &lt;- lm( y4 ~ x4, data=anscombe )
+m1 &lt;-<span class="st"> </span><span class="kw">lm</span>( y1 <span class="op">~</span><span class="st"> </span>x1, <span class="dt">data=</span>anscombe )
+m2 &lt;-<span class="st"> </span><span class="kw">lm</span>( y2 <span class="op">~</span><span class="st"> </span>x2, <span class="dt">data=</span>anscombe )
+m3 &lt;-<span class="st"> </span><span class="kw">lm</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe )
+m4 &lt;-<span class="st"> </span><span class="kw">lm</span>( y4 <span class="op">~</span><span class="st"> </span>x4, <span class="dt">data=</span>anscombe )
 
 
-par(mfrow = c(2, 2), mar = 0.1+c(4,4,1,1), oma =  c(0, 0, 2, 0))
+<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="fl">0.1</span><span class="op">+</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">oma =</span>  <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))
 
-plot( y1 ~ x1, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 13))
-abline( m1, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y1 <span class="op">~</span><span class="st"> </span>x1, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m1, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
-plot( y2 ~ x2, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 13))
-abline( m2, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y2 <span class="op">~</span><span class="st"> </span>x2, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m2, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
-plot( y3 ~ x3, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 13))
-abline( m3, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m3, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
-plot( y4 ~ x4, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 13))
-abline( m4, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y4 <span class="op">~</span><span class="st"> </span>x4, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m4, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
-mtext(&quot;Anscombe&#39;s 4 Regression data sets&quot;, outer = TRUE, cex = 1.5)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-1-1.png" width="960" /></p>
+<span class="kw">mtext</span>(<span class="st">&quot;Anscombe&#39;s 4 Regression data sets&quot;</span>, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 <p><img src="anscombes.png" /></p>
-<pre class="r"><code># {r, results=&#39;asis&#39;}
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># {r, results=&#39;asis&#39;}</span>
 
-stargazer( m1, m2, m3, m4, type=&quot;html&quot;, digits=2,
-           omit.stat = c(&quot;f&quot;,&quot;ser&quot;) )</code></pre>
+<span class="kw">stargazer</span>( m1, m2, m3, m4, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,
+           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>) )</code></pre>
 </div>
 <div id="model-fit-diagnostics" class="section level2">
 <h2><span class="header-section-number">1.2</span> Model Fit Diagnostics</h2>
 <p>There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.</p>
-<pre class="r"><code>par( mfrow=c(2,2), oma=c(2,0,0,0) )
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">oma=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>) )
 
-# plot( m1 )
-# mtext( &quot;Model 1&quot;, side=1, outer = TRUE, cex = 1.5)
+<span class="co"># plot( m1 )</span>
+<span class="co"># mtext( &quot;Model 1&quot;, side=1, outer = TRUE, cex = 1.5)</span>
 
-plot( m3 )
-mtext(&quot;Model 3&quot;, size=1, outer = TRUE, cex = 1.5)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
+<span class="kw">plot</span>( m3 )
+<span class="kw">mtext</span>(<span class="st">&quot;Model 3&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
 </div>
 <div id="residual-analysis" class="section level2">
 <h2><span class="header-section-number">1.3</span> Residual Analysis</h2>
 <p>The first step in outlier analysis is finding points that are the furthest away from the regression line. We can simply look at the residuals.</p>
-<pre class="r"><code>plot( m3$residuals, type=&quot;h&quot;, main=&quot;Residual Analysis&quot;, bty=&quot;n&quot;, ylab=&quot;Y - Yhat&quot; )
-points( m3$residuals, pch=19 )
-text( 1:11, m3$residuals, 1:11, pos=4, cex=0.8 )
-abline( h=0, col=&quot;gray&quot;)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
-<p>The problem with this approach is that not all outliers impact the regression in the same way. Outliers near the mean of X and Y will tug the regression line up or down slightly, so they impact the intercept only. Outliers near the lower and upper range of X will tilt the regression line, impacting both the slope and the intercept.</p>
-<pre class="r"><code>par( mfrow=c(2,2))
-
-x &lt;- 1:11
-y &lt;- 1:11
-
-mm1 &lt;- lm( y ~ x )
-
-plot( x, y, bty=&quot;n&quot;, pch=19, col=&quot;darkgray&quot;, cex=2, ylim=c(-5,25), xlim=c(0,13) )
-abline( mm1, col=&quot;red&quot; )
-
-y[6] &lt;- y[6]+10
-mm2 &lt;- lm( y ~ x )
-
-plot( x, y, bty=&quot;n&quot;, pch=19, col=&quot;darkgray&quot;, cex=2, ylim=c(-5,25), xlim=c(0,13) )
-abline( mm2, col=&quot;red&quot; )
-
-y &lt;- 1:11
-y[1] &lt;- y[1] + 10
-mm3 &lt;- lm( y ~ x )
-
-plot( x, y, bty=&quot;n&quot;, pch=19, col=&quot;darkgray&quot;, cex=2, ylim=c(-5,25), xlim=c(0,13) )
-abline( mm3, col=&quot;red&quot; )
-
-y &lt;- 1:11
-y[11] &lt;- y[11] + 10
-mm4 &lt;- lm( y ~ x )
-
-plot( x, y, bty=&quot;n&quot;, pch=19, col=&quot;darkgray&quot;, cex=2, ylim=c(-5,25), xlim=c(0,13) )
-abline( mm4, col=&quot;red&quot; )</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( m3<span class="op">$</span>residuals, <span class="dt">type=</span><span class="st">&quot;h&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Residual Analysis&quot;</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Y - Yhat&quot;</span> )
+<span class="kw">points</span>( m3<span class="op">$</span>residuals, <span class="dt">pch=</span><span class="dv">19</span> )
+<span class="kw">text</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, m3<span class="op">$</span>residuals, <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, <span class="dt">pos=</span><span class="dv">4</span>, <span class="dt">cex=</span><span class="fl">0.8</span> )
+<span class="kw">abline</span>( <span class="dt">h=</span><span class="dv">0</span>, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</code></pre>
 <p><img src="specification-part-I_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
-<pre class="r"><code>stargazer( mm1, mm2, mm3, mm4, type=&quot;html&quot;, digits=2,
-           omit.stat = c(&quot;f&quot;,&quot;ser&quot;) )</code></pre>
+<p>The problem with this approach is that not all outliers impact the regression in the same way. Outliers near the mean of X and Y will tug the regression line up or down slightly, so they impact the intercept only. Outliers near the lower and upper range of X will tilt the regression line, impacting both the slope and the intercept.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))
+
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">11</span>
+y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">11</span>
+
+mm1 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x )
+
+<span class="kw">plot</span>( x, y, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">13</span>) )
+<span class="kw">abline</span>( mm1, <span class="dt">col=</span><span class="st">&quot;red&quot;</span> )
+
+y[<span class="dv">6</span>] &lt;-<span class="st"> </span>y[<span class="dv">6</span>]<span class="op">+</span><span class="dv">10</span>
+mm2 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x )
+
+<span class="kw">plot</span>( x, y, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">13</span>) )
+<span class="kw">abline</span>( mm2, <span class="dt">col=</span><span class="st">&quot;red&quot;</span> )
+
+y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">11</span>
+y[<span class="dv">1</span>] &lt;-<span class="st"> </span>y[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span>
+mm3 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x )
+
+<span class="kw">plot</span>( x, y, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">13</span>) )
+<span class="kw">abline</span>( mm3, <span class="dt">col=</span><span class="st">&quot;red&quot;</span> )
+
+y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">11</span>
+y[<span class="dv">11</span>] &lt;-<span class="st"> </span>y[<span class="dv">11</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span>
+mm4 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x )
+
+<span class="kw">plot</span>( x, y, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span><span class="st">&quot;darkgray&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">25</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">13</span>) )
+<span class="kw">abline</span>( mm4, <span class="dt">col=</span><span class="st">&quot;red&quot;</span> )</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>( mm1, mm2, mm3, mm4, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,
+           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>) )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="5" style="border-bottom: 1px solid black">
@@ -711,76 +737,70 @@ Adjusted R<sup>2</sup>
 <div id="cooks-distance" class="section level2">
 <h2><span class="header-section-number">1.4</span> Cook’s Distance</h2>
 <p>Let’s focus on one common measure one used to identify outliers that are having a large impact on our regression model. Cook’s distance focuses not on distance from the regression line, but instead is a measure of how much leverage each point will have on the slope of the model.</p>
-<pre class="r"><code>cooks.distance( m3 ) %&gt;% pander</code></pre>
-<table>
-<caption>Table continues below</caption>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) )
+
+<span class="kw">plot</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m3, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
+<span class="kw">text</span>( anscombe<span class="op">$</span>x3, anscombe<span class="op">$</span>y3, <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+
+<span class="kw">plot</span>( <span class="kw">cooks.distance</span>( m3 ), <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Cook&#39;s Distance&quot;</span> )
+<span class="kw">text</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, <span class="kw">cooks.distance</span>( m3 ), <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cbind</span>( <span class="dv">1</span><span class="op">:</span><span class="dv">11</span>, <span class="kw">cooks.distance</span>( m3 ) ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pander</span>()</code></pre>
+<table style="width:22%;">
 <colgroup>
-<col width="12%" />
-<col width="13%" />
-<col width="9%" />
-<col width="13%" />
-<col width="12%" />
-<col width="10%" />
-<col width="14%" />
-<col width="14%" />
+<col width="6%" />
+<col width="15%" />
 </colgroup>
-<thead>
-<tr class="header">
-<th align="center">1</th>
-<th align="center">2</th>
-<th align="center">3</th>
-<th align="center">4</th>
-<th align="center">5</th>
-<th align="center">6</th>
-<th align="center">7</th>
-<th align="center">8</th>
-</tr>
-</thead>
 <tbody>
 <tr class="odd">
+<td align="center">1</td>
 <td align="center">0.01176</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
 <td align="center">0.002141</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
 <td align="center">1.393</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
 <td align="center">0.005473</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
 <td align="center">0.02598</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
 <td align="center">0.3006</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
 <td align="center">0.0005176</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
 <td align="center">0.03382</td>
 </tr>
-</tbody>
-</table>
-<table style="width:47%;">
-<colgroup>
-<col width="13%" />
-<col width="16%" />
-<col width="16%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">9</th>
-<th align="center">10</th>
-<th align="center">11</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
+<td align="center">9</td>
 <td align="center">0.05954</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
 <td align="center">0.0003546</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
 <td align="center">0.006948</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>par( mfrow=c(1,2) )
-
-plot( y3 ~ x3, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 13))
-abline( m3, col = &quot;blue&quot;)
-text( anscombe$x3, anscombe$y3, 1:11, pos=4 )
-
-plot( cooks.distance( m3 ), pch=19, bty=&quot;n&quot;, ylab=&quot;Cook&#39;s Distance&quot; )
-text( 1:11, cooks.distance( m3 ), 1:11, pos=4 )</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
 <p>Dealing with outliers can be tricky because once you start changing your data you are going down a slippery slope toward manufacturing results. In the case that the outlier is a data entry error you can fix it or eliminate it without hesitation. But if the data point is accurate and it has a large impact on your outcome then you need to take care to explain and justify your actions. If you delete outliers then report results before and after you have altered the data for the sake of transparency.</p>
 <p>There are several rules of thumb on how to use Cook’s distance to identify outliers:</p>
 <ul>
@@ -789,26 +809,26 @@ text( 1:11, cooks.distance( m3 ), 1:11, pos=4 )</code></pre>
 <li>Other authors suggest that any “large” Di should be investigated. How large is “too large”? The consensus seems to be that a Di value of more that 1 indicates an influential value, but you may want to look at values above 0.5.</li>
 <li>An alternative (but slightly more technical) way to interpret Di is to find the potential outlier’s percentile value using the F-distribution. A percentile of over 50 indicates a highly influential point.</li>
 </ul>
-<pre class="r"><code>par( mfrow=c(1,2) )
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) )
 
-plot( y3 ~ x3, data=anscombe, main=&quot;Original Data&quot;,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 15), ylim = c(3, 13))
-abline( m3, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe, <span class="dt">main=</span><span class="st">&quot;Original Data&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">15</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m3, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
 
-anscombe$x3[3] &lt;- NA
-anscombe$y3[3] &lt;- NA
+anscombe<span class="op">$</span>x3[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+anscombe<span class="op">$</span>y3[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
 
-m3.2 &lt;- lm( y3 ~ x3, data=anscombe )
+m3<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe )
 
-plot( y3 ~ x3, data=anscombe, main=&quot;After Outlier Removal&quot;,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 15), ylim = c(3, 13))
-abline( m3.2, col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
-<pre class="r"><code>stargazer( m3, m3.2, type=&quot;html&quot;, digits=2,
-           omit.stat = c(&quot;ser&quot;) )</code></pre>
+<span class="kw">plot</span>( y3 <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data=</span>anscombe, <span class="dt">main=</span><span class="st">&quot;After Outlier Removal&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">15</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>))
+<span class="kw">abline</span>( m3<span class="fl">.2</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>( m3, m3<span class="fl">.2</span>, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,
+           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;ser&quot;</span>) )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="3" style="border-bottom: 1px solid black">
@@ -973,27 +993,27 @@ F Statistic
 <h1><span class="header-section-number">2</span> NONLINEAR RELATIONSHIPS</h1>
 <p>How do we address the situation when our relationships are nonlinear? This is important in public policy and program evaluation because of the economic phenomenon of diminishing marginal returns. If we have no resources or program services then providing a little big might have a large impact on the outcome. If we already have lots of resources and access then adding a little more might not have as much of an impact.</p>
 <p>Let’s now consider the second case in the quartet.</p>
-<pre class="r"><code>plot( y2 ~ x2, data=anscombe,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 3, 
-     xlim = c(3, 15), ylim = c(3, 13), bty=&quot;n&quot;)
-abline( m2, col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( y2 <span class="op">~</span><span class="st"> </span>x2, <span class="dt">data=</span>anscombe,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="dv">3</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">15</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">13</span>), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)
+<span class="kw">abline</span>( m2, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-11-1.png" width="960" /></p>
 <p>We can see that the linear model does not adequately represent the true relationship. To get a better model we must introduce quadratic terms to allow for non-linear fit.</p>
 <p><strong>Linear:</strong> <span class="math inline">\(Y = b_{0} + b_{1}X1 + e\)</span></p>
 <p><strong>Nonlinear:</strong> <span class="math inline">\(Y = b_{0} + b_{1}X1 + b_{2}X1^2 + e\)</span></p>
-<pre class="r"><code>x &lt;- anscombe$x2
-y &lt;- anscombe$y2
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>anscombe<span class="op">$</span>x2
+y &lt;-<span class="st"> </span>anscombe<span class="op">$</span>y2
 
-x_squared &lt;- x^2
+x_squared &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>
 
-df &lt;- data.frame( Y=y, X=x, X_squared=x_squared )
-row.names(df) &lt;- NULL
-df %&gt;% pander</code></pre>
-<table style="width:33%;">
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">Y=</span>y, <span class="dt">X=</span>x, <span class="dt">X_squared=</span>x_squared )
+<span class="kw">row.names</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span>
+df <span class="op">%&gt;%</span><span class="st"> </span>pander</code></pre>
+<table style="width:32%;">
 <colgroup>
 <col width="9%" />
 <col width="6%" />
-<col width="16%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1060,13 +1080,13 @@ df %&gt;% pander</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="linear-and-quadratic-models" class="section level3">
-<h3><span class="header-section-number">2.0.1</span> Linear and Quadratic Models</h3>
-<pre class="r"><code>quad1 &lt;- lm( y ~ x )
-quad2 &lt;- lm( y ~ x + x_squared )
+<div id="linear-and-quadratic-models" class="section level2">
+<h2><span class="header-section-number">2.1</span> Linear and Quadratic Models</h2>
+<pre class="sourceCode r"><code class="sourceCode r">quad1 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x )
+quad2 &lt;-<span class="st"> </span><span class="kw">lm</span>( y <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>x_squared )
 
-stargazer( quad1, quad2, type=&quot;html&quot;, digits=2,
-           omit.stat = c(&quot;ser&quot;,&quot;f&quot;) )</code></pre>
+<span class="kw">stargazer</span>( quad1, quad2, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">2</span>,
+           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;ser&quot;</span>,<span class="st">&quot;f&quot;</span>) )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="3" style="border-bottom: 1px solid black">
@@ -1241,26 +1261,27 @@ Adjusted R<sup>2</sup>
 </td>
 </tr>
 </table>
-<pre class="r"><code>par( mfrow=c(1,2) )
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>( <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) )
 
-plot( y2 ~ x2, data=anscombe, main=&quot;Linear Fit&quot;,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 10), bty=&quot;n&quot;)
-abline( m2, col = &quot;blue&quot;)
+<span class="kw">plot</span>( y2 <span class="op">~</span><span class="st"> </span>x2, <span class="dt">data=</span>anscombe, <span class="dt">main=</span><span class="st">&quot;Linear Fit&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)
+<span class="kw">abline</span>( m2, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)
 
-plot( y2 ~ x2, data=anscombe, main=&quot;Quadratic Fit&quot;,
-     col = &quot;red&quot;, pch = 21, bg = &quot;orange&quot;, cex = 1.2, 
-     xlim = c(3, 19), ylim = c(3, 10), bty=&quot;n&quot;)
+<span class="kw">plot</span>( y2 <span class="op">~</span><span class="st"> </span>x2, <span class="dt">data=</span>anscombe, <span class="dt">main=</span><span class="st">&quot;Quadratic Fit&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">19</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)
 
 
-lines( x[order(x)], quad2$fitted.values[order(x)], col = &quot;blue&quot;)</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-13-1.png" width="960" /></p>
+<span class="kw">lines</span>( x[<span class="kw">order</span>(x)], quad2<span class="op">$</span>fitted.values[<span class="kw">order</span>(x)], <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
 </div>
-<div id="interpretation-of-program-effects" class="section level2">
-<h2><span class="header-section-number">2.1</span> Interpretation of Program Effects</h2>
+</div>
+<div id="interpretation-of-program-effects" class="section level1">
+<h1><span class="header-section-number">3</span> Interpretation of Program Effects</h1>
 <p>The main challenge that nonlinear models present is the interpretation of effects.</p>
 <p>Up until now we have used the slope of X to determine the impact of our program. If the slope is negative five, for exmaple, we infer that for each additional student we add to the classroom we see a drop in the average standardized test score in the classroom of five points. That doesn’t matter if we have 10 students and we are adding an 11th, or if we have 40 students and we are adding a 41st (which is likely an unrealistic scenario).</p>
-<pre class="r"><code>coefficients( quad2 ) %&gt;% round(4)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coefficients</span>( quad2 ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">4</span>)</code></pre>
 <p>In the nonlinear case, however, the marginal impact of an additional student will be different depending upon the initial class size. Consider Anscombe’s second case above.</p>
 <p><span class="math inline">\(Y = b_{0} + b_{1}X1 + b_{2}X1^2\)</span></p>
 <p>Where</p>
@@ -1268,44 +1289,44 @@ lines( x[order(x)], quad2$fitted.values[order(x)], col = &quot;blue&quot;)</code
 <p><span class="math inline">\(b_1 = 2.78\)</span></p>
 <p><span class="math inline">\(b_2 = -0.13\)</span></p>
 <p>Now let’s consider what happens when we add an additional unit of the treatment in three cases:</p>
-<div id="case-1-x6" class="section level4">
-<h4><span class="header-section-number">2.1.0.1</span> Case 1: X=6</h4>
-<pre class="r"><code>x_pos &lt;- 6
+<div id="case-1-x6" class="section level2">
+<h2><span class="header-section-number">3.1</span> Case 1: X=6</h2>
+<pre class="sourceCode r"><code class="sourceCode r">x_pos &lt;-<span class="st"> </span><span class="dv">6</span>
 
-(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )</code></pre>
+(<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos<span class="op">+</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>((x_pos<span class="op">+</span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span>  <span class="op">-</span><span class="st"> </span>(  (<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>(x_pos<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span> )</code></pre>
 <p>Program Effect of one additional unit of X: <span class="math inline">\((\hat{Y} | X=7) - (\hat{Y} | X=6 )\)</span></p>
 <p><span class="math inline">\([ (2.78)(7) + (-0.13)(7^2) -6 ] - [ (2.78)(6) + (-0.13)(6^2) -6 ] = 1.13\)</span></p>
 <p><br></p>
 </div>
-<div id="case-1-x10" class="section level4">
-<h4><span class="header-section-number">2.1.0.2</span> Case 1: X=10</h4>
-<pre class="r"><code>x_pos &lt;- 10
+<div id="case-1-x10" class="section level2">
+<h2><span class="header-section-number">3.2</span> Case 1: X=10</h2>
+<pre class="sourceCode r"><code class="sourceCode r">x_pos &lt;-<span class="st"> </span><span class="dv">10</span>
 
-(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )</code></pre>
+(<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos<span class="op">+</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>((x_pos<span class="op">+</span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span>  <span class="op">-</span><span class="st"> </span>(  (<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>(x_pos<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span> )</code></pre>
 <p><span class="math inline">\((\hat{Y} | X=11) - (\hat{Y} | X=10 )\)</span></p>
 <p><span class="math inline">\([ (2.78)(11) + (-0.13)(11^2) -6 ] - [ (2.78)(10) + (-0.13)(10^2) -6 ] = 0.12\)</span></p>
 <p><br></p>
 </div>
-<div id="case-1-x13" class="section level4">
-<h4><span class="header-section-number">2.1.0.3</span> Case 1: X=13</h4>
-<pre class="r"><code>x_pos &lt;- 13
+<div id="case-1-x13" class="section level2">
+<h2><span class="header-section-number">3.3</span> Case 1: X=13</h2>
+<pre class="sourceCode r"><code class="sourceCode r">x_pos &lt;-<span class="st"> </span><span class="dv">13</span>
 
-(2.7808)*(x_pos+1) + (-0.1267)*((x_pos+1)^2) -5.9957  - (  (2.7808)*(x_pos) + (-0.1267)*(x_pos^2) -5.9957 )</code></pre>
+(<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos<span class="op">+</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>((x_pos<span class="op">+</span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span>  <span class="op">-</span><span class="st"> </span>(  (<span class="fl">2.7808</span>)<span class="op">*</span>(x_pos) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span><span class="fl">0.1267</span>)<span class="op">*</span>(x_pos<span class="op">^</span><span class="dv">2</span>) <span class="fl">-5.9957</span> )</code></pre>
 <p>Program Effect of one additional unit of X: <span class="math inline">\((\hat{Y} | X=14) - (\hat{Y} | X=13 )\)</span></p>
 <p><span class="math inline">\([ (2.78)(14) + (-0.13)(14^2) -6 ] - [ (2.78)(13) + (-0.13)(13^2) -6 ] = -0.64\)</span></p>
 <p><br></p>
 </div>
-<div id="or-more-generally" class="section level4">
-<h4><span class="header-section-number">2.1.0.4</span> Or More Generally</h4>
-<pre class="r"><code>y.hat &lt;- quad2$fitted.values[order(x)]
+<div id="or-more-generally" class="section level2">
+<h2><span class="header-section-number">3.4</span> Or More Generally</h2>
+<pre class="sourceCode r"><code class="sourceCode r">y.hat &lt;-<span class="st"> </span>quad2<span class="op">$</span>fitted.values[<span class="kw">order</span>(x)]
 
-dt &lt;- data.frame(  X=4:13, MarginEffect=round(diff( y.hat ),2) ) 
-row.names(dt) &lt;- NULL
-dt %&gt;% pander</code></pre>
-<table style="width:28%;">
+dt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(  <span class="dt">X=</span><span class="dv">4</span><span class="op">:</span><span class="dv">13</span>, <span class="dt">MarginEffect=</span><span class="kw">round</span>(<span class="kw">diff</span>( y.hat ),<span class="dv">2</span>) ) 
+<span class="kw">row.names</span>(dt) &lt;-<span class="st"> </span><span class="ot">NULL</span>
+dt <span class="op">%&gt;%</span><span class="st"> </span>pander</code></pre>
+<table style="width:26%;">
 <colgroup>
 <col width="6%" />
-<col width="20%" />
+<col width="19%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1356,18 +1377,17 @@ dt %&gt;% pander</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># diff( y[order(x)] )</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># diff( y[order(x)] )</span></code></pre>
 <p><br></p>
 </div>
-<div id="effects-of-adding-unit-or-subtracting-are-nonsymmetrical" class="section level4">
-<h4><span class="header-section-number">2.1.0.5</span> Effects of Adding Unit or Subtracting are Nonsymmetrical</h4>
+<div id="effects-of-adding-unit-or-subtracting-are-nonsymmetrical" class="section level2">
+<h2><span class="header-section-number">3.5</span> Effects of Adding Unit or Subtracting are Nonsymmetrical</h2>
 <p>Also note that if you are in a classroom with ten students, then the effect of adding a student will not be the same as the effect of removing a student.</p>
 <p><span class="math inline">\(ABS( (\hat{Y} | X=5) - (\hat{Y} | X=4 ) )\)</span> does not equal <span class="math inline">\(ABS( (\hat{Y} | X=4) - (\hat{Y} | X=5 ) )\)</span></p>
 <p><br></p>
 </div>
-</div>
 <div id="reporting-program-effects" class="section level2">
-<h2><span class="header-section-number">2.2</span> Reporting Program Effects</h2>
+<h2><span class="header-section-number">3.6</span> Reporting Program Effects</h2>
 <p>The typical way to address this issue in a program evaluation report is to select several representative cases and report the program effects for each. For example, you might select the typical (median) student, a small classroom (1st quartile of X), and a large classroom (3rd quartile of X).</p>
 <p>It is discouraged to interpret model effects at the min and max values of X because they may be outliers and the model predictions will be less robust.</p>
 <p><br>
@@ -1375,27 +1395,27 @@ dt %&gt;% pander</code></pre>
 </div>
 </div>
 <div id="regressions-with-groups" class="section level1">
-<h1><span class="header-section-number">3</span> REGRESSIONS WITH GROUPS</h1>
+<h1><span class="header-section-number">4</span> REGRESSIONS WITH GROUPS</h1>
 <p>Let’s consider a basic model of wages as a function of experience.</p>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-19-1.png" width="960" /></p>
-<p>Our analysis gets much more interesting when we can include groups. In this instance we will include a dummy variable (one that takes on values of 1 or 0) for gender.</p>
-<pre class="r"><code>palette( c(&quot;steelblue&quot;,&quot;darkorange3&quot;) )
-plot( years, wages, pch=19, col=(female+1), cex=1.5, bty=&quot;n&quot;, 
-      main=&quot;Wages by Years of Experience&quot;, xlab=&quot;Years of Experience&quot; )
-abline( lm(wages~years), col=&quot;black&quot;, lwd=2 )
-
-points( 25, 1500, col=&quot;steelblue&quot;, pch=19, cex=2 )
-text( 25, 1500, &quot;Male&quot;, col=&quot;steelblue&quot;, pos=4 )
-points( 25, 7000, col=&quot;darkorange3&quot;, pch=19, cex=2 )
-text( 25, 7000, &quot;Female&quot;, col=&quot;darkorange3&quot;, pos=4 )</code></pre>
 <p><img src="specification-part-I_files/figure-html/unnamed-chunk-20-1.png" width="960" /></p>
+<p>Our analysis gets much more interesting when we can include groups. In this instance we will include a dummy variable (one that takes on values of 1 or 0) for gender.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">palette</span>( <span class="kw">c</span>(<span class="st">&quot;steelblue&quot;</span>,<span class="st">&quot;darkorange3&quot;</span>) )
+<span class="kw">plot</span>( years, wages, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span>(female<span class="op">+</span><span class="dv">1</span>), <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, 
+      <span class="dt">main=</span><span class="st">&quot;Wages by Years of Experience&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Years of Experience&quot;</span> )
+<span class="kw">abline</span>( <span class="kw">lm</span>(wages<span class="op">~</span>years), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
+
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="st">&quot;Male&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="st">&quot;Female&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-21-1.png" width="960" /></p>
 <p>When we have dummy variables, our data looks something like this where Female=1 represents women, and Female=0 represents men in the data.</p>
-<pre class="r"><code>data.frame( Wages=wages, Years=years, Female=female )[1:10,] %&gt;% pander</code></pre>
-<table style="width:35%;">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.frame</span>( <span class="dt">Wages=</span>wages, <span class="dt">Years=</span>years, <span class="dt">Female=</span>female )[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,] <span class="op">%&gt;%</span><span class="st"> </span>pander</code></pre>
+<table style="width:33%;">
 <colgroup>
 <col width="11%" />
 <col width="11%" />
-<col width="12%" />
+<col width="11%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1406,89 +1426,89 @@ text( 25, 7000, &quot;Female&quot;, col=&quot;darkorange3&quot;, pos=4 )</code><
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">27022</td>
+<td align="center">42333</td>
 <td align="center">22</td>
 <td align="center">1</td>
 </tr>
 <tr class="even">
-<td align="center">15778</td>
-<td align="center">1</td>
-<td align="center">1</td>
-</tr>
-<tr class="odd">
-<td align="center">26577</td>
-<td align="center">20</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">12876</td>
-<td align="center">0</td>
-<td align="center">1</td>
-</tr>
-<tr class="odd">
-<td align="center">12208</td>
-<td align="center">4</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">6714</td>
-<td align="center">2</td>
+<td align="center">26119</td>
+<td align="center">24</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">42489</td>
-<td align="center">27</td>
-<td align="center">0</td>
+<td align="center">42226</td>
+<td align="center">19</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
-<td align="center">20049</td>
+<td align="center">23868</td>
+<td align="center">13</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">42013</td>
+<td align="center">25</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">31404</td>
+<td align="center">12</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">7525</td>
 <td align="center">3</td>
-<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">32687</td>
+<td align="center">28</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">21598</td>
-<td align="center">3</td>
+<td align="center">44081</td>
+<td align="center">28</td>
 <td align="center">1</td>
 </tr>
 <tr class="even">
-<td align="center">39492</td>
+<td align="center">23135</td>
 <td align="center">19</td>
 <td align="center">1</td>
 </tr>
 </tbody>
 </table>
 <p>When we have categorical variables we can now look at many interesting nuances in relationships between the groups. Specifically, in the models reported below we can ask more interesting questions:</p>
-<div id="model-1-do-men-and-women-earn-different-wages-on-average" class="section level4">
-<h4><span class="header-section-number">3.0.0.1</span> Model 1: Do men and women earn different wages, on average?</h4>
+<div id="model-1-do-men-and-women-earn-different-wages-on-average" class="section level2">
+<h2><span class="header-section-number">4.1</span> Model 1: Do men and women earn different wages, on average?</h2>
 <p><strong>Model:</strong> <span class="math inline">\(Wages = b_0 + b_1*Female\)</span></p>
 <p><strong>Test:</strong> If b0 is significant, Men’s wages are different than zero. If b1 is significant, Women’s wages are different than Men’s.</p>
 <p><em>Note:</em> This is an unconditional average, so it might be explained by other factors like differences in experience between men and women.</p>
 </div>
-<div id="model-2-what-is-the-wage-gain-related-to-an-extra-year-of-experience" class="section level4">
-<h4><span class="header-section-number">3.0.0.2</span> Model 2: What is the wage gain related to an extra year of experience?</h4>
+<div id="model-2-what-is-the-wage-gain-related-to-an-extra-year-of-experience" class="section level2">
+<h2><span class="header-section-number">4.2</span> Model 2: What is the wage gain related to an extra year of experience?</h2>
 <p><strong>Model:</strong> <span class="math inline">\(Wages = b_0 + b_1*Years\)</span></p>
 <p><strong>Test:</strong> If b1 is significant then it is different than zero, experience does impact wages.</p>
 </div>
-<div id="model-3-do-men-and-women-have-different-initial-wages-at-the-start-of-their-careers" class="section level4">
-<h4><span class="header-section-number">3.0.0.3</span> Model 3: Do men and women have different initial wages at the start of their careers?</h4>
+<div id="model-3-do-men-and-women-have-different-initial-wages-at-the-start-of-their-careers" class="section level2">
+<h2><span class="header-section-number">4.3</span> Model 3: Do men and women have different initial wages at the start of their careers?</h2>
 <p><strong>Model:</strong> <span class="math inline">\(Wages = b_0 + b_1*Years + b_2*Female\)</span></p>
 <p><strong>Test:</strong> If b2 is significant then the Female intercept (b0+b2) is different than the Male intercept (b0).</p>
 </div>
-<div id="model-4-are-the-gains-in-wages-related-to-experience-the-same-for-men-and-women" class="section level4">
-<h4><span class="header-section-number">3.0.0.4</span> Model 4: Are the gains in wages related to experience the same for men and women?</h4>
+<div id="model-4-are-the-gains-in-wages-related-to-experience-the-same-for-men-and-women" class="section level2">
+<h2><span class="header-section-number">4.4</span> Model 4: Are the gains in wages related to experience the same for men and women?</h2>
 <p><strong>Model:</strong> <span class="math inline">\(Wages = b_0 + b_1*Years + b_2*Female + b_3*Years*Female\)</span></p>
 <p><strong>Test:</strong> If b3 is significant then the slope for Women (b1+b3) is different than the slope for Men (b1).</p>
 <p><em>Note:</em> If b3 is not significant it is better to use the model with one slope for both groups.</p>
 <p><br></p>
-<pre class="r"><code>m.01 &lt;- lm( wages ~ female )
-m.02 &lt;- lm( wages ~ years )
-m.03 &lt;- lm( wages ~ years + female )
-m.04 &lt;- lm( wages ~ years + female + years*female )
+<pre class="sourceCode r"><code class="sourceCode r">m<span class="fl">.01</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( wages <span class="op">~</span><span class="st"> </span>female )
+m<span class="fl">.02</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( wages <span class="op">~</span><span class="st"> </span>years )
+m<span class="fl">.03</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( wages <span class="op">~</span><span class="st"> </span>years <span class="op">+</span><span class="st"> </span>female )
+m<span class="fl">.04</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( wages <span class="op">~</span><span class="st"> </span>years <span class="op">+</span><span class="st"> </span>female <span class="op">+</span><span class="st"> </span>years<span class="op">*</span>female )
 
 
-stargazer( m.01, m.02, m.03, m.04, type=&quot;html&quot;, digits=0,
-           intercept.bottom = FALSE,
-           omit.stat = c(&quot;ser&quot;,&quot;f&quot;,&quot;rsq&quot;,&quot;adj.rsq&quot;) )</code></pre>
+<span class="kw">stargazer</span>( m<span class="fl">.01</span>, m<span class="fl">.02</span>, m<span class="fl">.03</span>, m<span class="fl">.04</span>, <span class="dt">type=</span><span class="st">&quot;html&quot;</span>, <span class="dt">digits=</span><span class="dv">0</span>,
+           <span class="dt">intercept.bottom =</span> <span class="ot">FALSE</span>,
+           <span class="dt">omit.stat =</span> <span class="kw">c</span>(<span class="st">&quot;ser&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;rsq&quot;</span>,<span class="st">&quot;adj.rsq&quot;</span>) )</code></pre>
 <table style="text-align:center">
 <tr>
 <td colspan="5" style="border-bottom: 1px solid black">
@@ -1539,32 +1559,32 @@ wages
 Constant
 </td>
 <td>
-23,007<sup>***</sup>
+23,162<sup>***</sup>
 </td>
 <td>
-10,187<sup>***</sup>
+10,351<sup>***</sup>
 </td>
 <td>
-6,701<sup>***</sup>
+7,037<sup>***</sup>
 </td>
 <td>
-7,906<sup>***</sup>
+8,478<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(500)
+(494)
 </td>
 <td>
-(387)
+(372)
 </td>
 <td>
-(355)
+(353)
 </td>
 <td>
-(433)
+(440)
 </td>
 </tr>
 <tr>
@@ -1584,30 +1604,30 @@ Constant
 female
 </td>
 <td>
-7,638<sup>***</sup>
+6,607<sup>***</sup>
 </td>
 <td>
 </td>
 <td>
-7,154<sup>***</sup>
+6,587<sup>***</sup>
 </td>
 <td>
-4,588<sup>***</sup>
+3,763<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(701)
+(696)
 </td>
 <td>
 </td>
 <td>
-(324)
+(323)
 </td>
 <td>
-(629)
+(617)
 </td>
 </tr>
 <tr>
@@ -1633,7 +1653,7 @@ years:female
 <td>
 </td>
 <td>
-170<sup>***</sup>
+190<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1668,13 +1688,13 @@ years
 <td>
 </td>
 <td>
-1,109<sup>***</sup>
+1,088<sup>***</sup>
 </td>
 <td>
-1,099<sup>***</sup>
+1,088<sup>***</sup>
 </td>
 <td>
-1,018<sup>***</sup>
+991<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1683,7 +1703,7 @@ years
 <td>
 </td>
 <td>
-(22)
+(21)
 </td>
 <td>
 (18)
@@ -1738,187 +1758,69 @@ Observations
 </td>
 </tr>
 </table>
-<pre class="r"><code>palette( c( adjustcolor( &quot;steelblue&quot;, alpha.f=0.3), adjustcolor( &quot;darkorange3&quot;, alpha.f=0.3)  ) )
-plot( female+rnorm(1000,0,0.08), wages, col=female+1, pch=19, bty=&quot;n&quot;,
-      xlab=&quot;&quot;, xaxt=&quot;n&quot;, cex=2, main=&quot;Hypothesis 1: Difference in Wages Between Men and Women?&quot; )
-axis( side=1, at=c(0,1), c(&quot;Male&quot;,&quot;Female&quot;) )
-abline( h=coefficients( m.01 )[1], col=&quot;steelblue&quot;, lwd=2 )
-abline( h=sum(coefficients( m.01 )), col=&quot;darkorange3&quot;, lwd=2 )
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">palette</span>( <span class="kw">c</span>( <span class="kw">adjustcolor</span>( <span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>), <span class="kw">adjustcolor</span>( <span class="st">&quot;darkorange3&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>)  ) )
+<span class="kw">plot</span>( female<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="fl">0.08</span>), wages, <span class="dt">col=</span>female<span class="op">+</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,
+      <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">main=</span><span class="st">&quot;Hypothesis 1: Difference in Wages Between Men and Women?&quot;</span> )
+<span class="kw">axis</span>( <span class="dt">side=</span><span class="dv">1</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>) )
+<span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">coefficients</span>( m<span class="fl">.01</span> )[<span class="dv">1</span>], <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
+<span class="kw">abline</span>( <span class="dt">h=</span><span class="kw">sum</span>(<span class="kw">coefficients</span>( m<span class="fl">.01</span> )), <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
 
-text( 0.5, coefficients( m.01 )[1], &quot;b0&quot;, pos=3, col=&quot;steelblue&quot; )
-text( 0.5, sum(coefficients( m.01 )), &quot;b0 + b1&quot;, pos=3, col=&quot;darkorange3&quot; )</code></pre>
-<p><img src="specification-part-I_files/figure-html/unnamed-chunk-23-1.png" width="960" /></p>
-<pre class="r"><code>palette( c( adjustcolor( &quot;steelblue&quot;, alpha.f=0.3), adjustcolor( &quot;darkorange3&quot;, alpha.f=0.3)  ) )
-plot( years+rnorm(1000,0,0.25), wages, pch=19, col=(female+1), cex=1.5, bty=&quot;n&quot;, 
-      main=&quot;Hypothesis 2: Relationship Between Experience and Wages?&quot;, xlab=&quot;Years of Experience&quot; )
-abline( lm(wages~years), col=&quot;black&quot;, lwd=2 )
-
-points( 25, 1500, col=&quot;steelblue&quot;, pch=19, cex=2 )
-text( 25, 1500, &quot;Male&quot;, col=&quot;steelblue&quot;, pos=4 )
-points( 25, 7000, col=&quot;darkorange3&quot;, pch=19, cex=2 )
-text( 25, 7000, &quot;Female&quot;, col=&quot;darkorange3&quot;, pos=4 )
-text( 5, 50000, &quot;Wages = b0 + b1*Years&quot;, cex=1, col=&quot;gray10&quot; )
-text( 5, 45000, &quot;Slope = b1&quot;, cex=1, col=&quot;gray10&quot; )</code></pre>
+<span class="kw">text</span>( <span class="fl">0.5</span>, <span class="kw">coefficients</span>( m<span class="fl">.01</span> )[<span class="dv">1</span>], <span class="st">&quot;b0&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span> )
+<span class="kw">text</span>( <span class="fl">0.5</span>, <span class="kw">sum</span>(<span class="kw">coefficients</span>( m<span class="fl">.01</span> )), <span class="st">&quot;b0 + b1&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span> )</code></pre>
 <p><img src="specification-part-I_files/figure-html/unnamed-chunk-24-1.png" width="960" /></p>
-<pre class="r"><code>b0 &lt;- coefficients(m.03)[1]
-b1 &lt;- coefficients(m.03)[2]
-b2 &lt;- coefficients(m.03)[3]
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">palette</span>( <span class="kw">c</span>( <span class="kw">adjustcolor</span>( <span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>), <span class="kw">adjustcolor</span>( <span class="st">&quot;darkorange3&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>)  ) )
+<span class="kw">plot</span>( years<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="fl">0.25</span>), wages, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span>(female<span class="op">+</span><span class="dv">1</span>), <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, 
+      <span class="dt">main=</span><span class="st">&quot;Hypothesis 2: Relationship Between Experience and Wages?&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Years of Experience&quot;</span> )
+<span class="kw">abline</span>( <span class="kw">lm</span>(wages<span class="op">~</span>years), <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
 
-palette( c( adjustcolor( &quot;steelblue&quot;, alpha.f=0.3), adjustcolor( &quot;darkorange3&quot;, alpha.f=0.3)  ) )
-plot( years+rnorm(1000,0,0.25), wages, pch=19, col=(female+1), cex=1.5, bty=&quot;n&quot;, 
-      main=&quot;Hypothesis 3: Difference Wages for Women Conditional on Experience?&quot;, xlab=&quot;Years of Experience&quot;, xlim=c(-5,30) )
-abline( a=b0, b=b1, col=&quot;steelblue&quot;, lwd=2 )
-abline( a=b0+b2, b=b1, col=&quot;darkorange3&quot;, lwd=2 )
-
-points( 25, 1500, col=&quot;steelblue&quot;, pch=19, cex=2 )
-text( 25, 1500, &quot;Male&quot;, col=&quot;steelblue&quot;, pos=4 )
-points( 25, 7000, col=&quot;darkorange3&quot;, pch=19, cex=2 )
-text( 25, 7000, &quot;Female&quot;, col=&quot;darkorange3&quot;, pos=4 )
-text( 5, 50000, &quot;Wages = b0 + b1*Years + b2*Female&quot;, cex=1, col=&quot;gray10&quot; )
-text( 5, 45000, &quot;Slope = b1&quot;, cex=1, col=&quot;gray10&quot; )
-
-text( -3.5, 10000, &quot;b0 + b2&quot;, col=&quot;darkorange3&quot;, pos=3 )
-text( -3.5, 2450, &quot;b0&quot;, col=&quot;steelblue&quot;, pos=1 )</code></pre>
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="st">&quot;Male&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="st">&quot;Female&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">text</span>( <span class="dv">5</span>, <span class="dv">50000</span>, <span class="st">&quot;Wages = b0 + b1*Years&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;gray10&quot;</span> )
+<span class="kw">text</span>( <span class="dv">5</span>, <span class="dv">45000</span>, <span class="st">&quot;Slope = b1&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;gray10&quot;</span> )</code></pre>
 <p><img src="specification-part-I_files/figure-html/unnamed-chunk-25-1.png" width="960" /></p>
-<pre class="r"><code>b0 &lt;- coefficients(m.04)[1]
-b1 &lt;- coefficients(m.04)[2]
-b2 &lt;- coefficients(m.04)[3]
-b3 &lt;- coefficients(m.04)[4]
+<pre class="sourceCode r"><code class="sourceCode r">b0 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.03</span>)[<span class="dv">1</span>]
+b1 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.03</span>)[<span class="dv">2</span>]
+b2 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.03</span>)[<span class="dv">3</span>]
 
+<span class="kw">palette</span>( <span class="kw">c</span>( <span class="kw">adjustcolor</span>( <span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>), <span class="kw">adjustcolor</span>( <span class="st">&quot;darkorange3&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>)  ) )
+<span class="kw">plot</span>( years<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="fl">0.25</span>), wages, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span>(female<span class="op">+</span><span class="dv">1</span>), <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, 
+      <span class="dt">main=</span><span class="st">&quot;Hypothesis 3: Difference Wages for Women Conditional on Experience?&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Years of Experience&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">30</span>) )
+<span class="kw">abline</span>( <span class="dt">a=</span>b0, <span class="dt">b=</span>b1, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
+<span class="kw">abline</span>( <span class="dt">a=</span>b0<span class="op">+</span>b2, <span class="dt">b=</span>b1, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
 
-palette( c( adjustcolor( &quot;steelblue&quot;, alpha.f=0.3), adjustcolor( &quot;darkorange3&quot;, alpha.f=0.3)  ) )
-plot( years+rnorm(1000,0,0.25), wages, pch=19, col=(female+1), cex=1.5, bty=&quot;n&quot;, 
-      main=&quot;Hypothesis 4: Difference Rates of Raises for Women?&quot;, xlab=&quot;Years of Experience&quot;, xlim=c(0,35) )
-abline( a=b0, b=b1, col=&quot;steelblue&quot;, lwd=2 )
-abline( a=b0+b2, b=b1+b3, col=&quot;darkorange3&quot;, lwd=2 )
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="st">&quot;Male&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="st">&quot;Female&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">text</span>( <span class="dv">5</span>, <span class="dv">50000</span>, <span class="st">&quot;Wages = b0 + b1*Years + b2*Female&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;gray10&quot;</span> )
+<span class="kw">text</span>( <span class="dv">5</span>, <span class="dv">45000</span>, <span class="st">&quot;Slope = b1&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;gray10&quot;</span> )
 
-points( 25, 1500, col=&quot;steelblue&quot;, pch=19, cex=2 )
-text( 25, 1500, &quot;Male&quot;, col=&quot;steelblue&quot;, pos=4 )
-points( 25, 7000, col=&quot;darkorange3&quot;, pch=19, cex=2 )
-text( 25, 7000, &quot;Female&quot;, col=&quot;darkorange3&quot;, pos=4 )
-text( 10, 55000, &quot;Wages = b0 + b1*Years + b2*Female + b3*Years*Female&quot;, cex=1, col=&quot;gray10&quot; )
-
-text( 33, 55000, &quot;b1 + b3&quot;, col=&quot;darkorange3&quot;, pos=3 )
-text( 33, 40000, &quot;b1&quot;, col=&quot;steelblue&quot;, pos=1 )</code></pre>
+<span class="kw">text</span>( <span class="fl">-3.5</span>, <span class="dv">10000</span>, <span class="st">&quot;b0 + b2&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span> )
+<span class="kw">text</span>( <span class="fl">-3.5</span>, <span class="dv">2450</span>, <span class="st">&quot;b0&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">1</span> )</code></pre>
 <p><img src="specification-part-I_files/figure-html/unnamed-chunk-26-1.png" width="960" /></p>
-<pre class="css"><code>p {
-color: black;
-margin: 0 0 20px 0;
-}
+<pre class="sourceCode r"><code class="sourceCode r">b0 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.04</span>)[<span class="dv">1</span>]
+b1 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.04</span>)[<span class="dv">2</span>]
+b2 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.04</span>)[<span class="dv">3</span>]
+b3 &lt;-<span class="st"> </span><span class="kw">coefficients</span>(m<span class="fl">.04</span>)[<span class="dv">4</span>]
 
-td {
-    padding: 3px 10px 3px 10px;
-    text-align: center;
-}
 
-table
-{ 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:80px;
-    margin-bottom:100px;
-}
+<span class="kw">palette</span>( <span class="kw">c</span>( <span class="kw">adjustcolor</span>( <span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>), <span class="kw">adjustcolor</span>( <span class="st">&quot;darkorange3&quot;</span>, <span class="dt">alpha.f=</span><span class="fl">0.3</span>)  ) )
+<span class="kw">plot</span>( years<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,<span class="fl">0.25</span>), wages, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">col=</span>(female<span class="op">+</span><span class="dv">1</span>), <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>, 
+      <span class="dt">main=</span><span class="st">&quot;Hypothesis 4: Difference Rates of Raises for Women?&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Years of Experience&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">35</span>) )
+<span class="kw">abline</span>( <span class="dt">a=</span>b0, <span class="dt">b=</span>b1, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
+<span class="kw">abline</span>( <span class="dt">a=</span>b0<span class="op">+</span>b2, <span class="dt">b=</span>b1<span class="op">+</span>b3, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span> )
 
-h1, h2{
-  margin-top:100px;
-  margin-bottom:20px;
-}
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">1500</span>, <span class="st">&quot;Male&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">points</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
+<span class="kw">text</span>( <span class="dv">25</span>, <span class="dv">7000</span>, <span class="st">&quot;Female&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
+<span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">55000</span>, <span class="st">&quot;Wages = b0 + b1*Years + b2*Female + b3*Years*Female&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="st">&quot;gray10&quot;</span> )
 
-H5{
-    text-align: center;
-    color: gray;
-    font-size:0.8em;
-}
-
-img {
-    max-width: 90%;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top:30px;
-    margin-bottom:20px;
-}
-
-pre {
-  overflow-x: auto;
-}
-
-pre code {
-   display: block; 
-   padding: 0.5em;
-   margin-bottom:20px;
-}
-
-code {
-  font-size: 92%;
-  border: 10px solid #F8F8F8;
-  margin-bottom: 2px;
-}
-
-code[class] {
-  background-color: #F8F8F8;
-}
-</code></pre>
-<style type="text/css">
-p {
-color: black;
-margin: 0 0 20px 0;
-}
-
-td {
-    padding: 3px 10px 3px 10px;
-    text-align: center;
-}
-
-table
-{ 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-
-h1, h2{
-  margin-top:100px;
-  margin-bottom:20px;
-}
-
-H5{
-    text-align: center;
-    color: gray;
-    font-size:0.8em;
-}
-
-img {
-    max-width: 90%;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top:30px;
-    margin-bottom:20px;
-}
-
-pre {
-  overflow-x: auto;
-}
-
-pre code {
-   display: block; 
-   padding: 0.5em;
-   margin-bottom:20px;
-}
-
-code {
-  font-size: 92%;
-  border: 10px solid #F8F8F8;
-  margin-bottom: 2px;
-}
-
-code[class] {
-  background-color: #F8F8F8;
-}
-
-</style>
+<span class="kw">text</span>( <span class="dv">33</span>, <span class="dv">55000</span>, <span class="st">&quot;b1 + b3&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkorange3&quot;</span>, <span class="dt">pos=</span><span class="dv">3</span> )
+<span class="kw">text</span>( <span class="dv">33</span>, <span class="dv">40000</span>, <span class="st">&quot;b1&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">1</span> )</code></pre>
+<p><img src="specification-part-I_files/figure-html/unnamed-chunk-27-1.png" width="960" /></p>
 </div>
 </div>
 

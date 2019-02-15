@@ -5,14 +5,76 @@ title: "Specification Part I"
 
 ```{r setup, include=FALSE}
 
-knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.width = 10)
+knitr::opts_chunk$set( echo = TRUE, message=F, warning=F, fig.width = 10)
 
 library( stargazer )
 library( xtable )
 library( dplyr )
 library( pander )
+library( knitr )
 
 ```
+
+
+```{css, echo=FALSE}
+p {
+  color: black;
+  margin: 20px 0 20px 0 !important;
+}
+
+td {
+    padding: 3px 10px 3px 10px;
+    text-align: center;
+}
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+h1, h2{
+  margin-top: 30px !important;
+  margin-bottom: 20px !important;
+}
+
+H5{
+    text-align: center;
+    color: gray;
+    font-size:0.8em;
+}
+
+img {
+    max-width: 90%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   margin-bottom: 1px !important;
+   margin-top: 1px !important;
+}
+
+code {
+  font-size: 92%;
+  margin-bottom: 50px !important;
+  margin-top: 50px !important;
+}
+
+```
+
+
 
 
 
@@ -23,8 +85,7 @@ library( pander )
 
 ## Anscombe's Quartet Data
 
-```{r}
-
+```{r, fig.height=8}
 data( anscombe )
 
 m1 <- lm( y1 ~ x1, data=anscombe )
@@ -56,21 +117,16 @@ plot( y4 ~ x4, data=anscombe,
 abline( m4, col = "blue")
 
 mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
-
-
 ```
 
 
 ![](anscombes.png)
 
 ```{r, results='asis', eval=F}
-
 # {r, results='asis'}
 
 stargazer( m1, m2, m3, m4, type="html", digits=2,
            omit.stat = c("f","ser") )
-
-
 ```
 
 
@@ -80,7 +136,6 @@ stargazer( m1, m2, m3, m4, type="html", digits=2,
 There are a bunch of diagnostics that we can run to examine whether we should worry about specification bias.
 
 ```{r, }
-
 par( mfrow=c(2,2), oma=c(2,0,0,0) )
 
 # plot( m1 )
@@ -88,8 +143,6 @@ par( mfrow=c(2,2), oma=c(2,0,0,0) )
 
 plot( m3 )
 mtext("Model 3", size=1, outer = TRUE, cex = 1.5)
-
-
 ```
 
 
@@ -99,7 +152,6 @@ The first step in outlier analysis is finding points that are the furthest away 
 
 
 ```{r}
-
 plot( m3$residuals, type="h", main="Residual Analysis", bty="n", ylab="Y - Yhat" )
 points( m3$residuals, pch=19 )
 text( 1:11, m3$residuals, 1:11, pos=4, cex=0.8 )
@@ -111,7 +163,6 @@ abline( h=0, col="gray")
 The problem with this approach is that not all outliers impact the regression in the same way. Outliers near the mean of X and Y will tug the regression line up or down slightly, so they impact the intercept only. Outliers near the lower and upper range of X will tilt the regression line, impacting both the slope and the intercept.
 
 ```{r, fig.width=10, fig.height=10}
-
 par( mfrow=c(2,2))
 
 x <- 1:11
@@ -141,15 +192,12 @@ mm4 <- lm( y ~ x )
 
 plot( x, y, bty="n", pch=19, col="darkgray", cex=2, ylim=c(-5,25), xlim=c(0,13) )
 abline( mm4, col="red" )
-
 ```
 
 
 ```{r, results='asis'}
-
 stargazer( mm1, mm2, mm3, mm4, type="html", digits=2,
            omit.stat = c("f","ser") )
-
 ```
 
 
@@ -159,7 +207,6 @@ Let's focus on one common measure one used to identify outliers that are having 
 
 ```{r}
 
-cooks.distance( m3 ) %>% pander
 
 par( mfrow=c(1,2) )
 
@@ -171,6 +218,8 @@ text( anscombe$x3, anscombe$y3, 1:11, pos=4 )
 
 plot( cooks.distance( m3 ), pch=19, bty="n", ylab="Cook's Distance" )
 text( 1:11, cooks.distance( m3 ), 1:11, pos=4 )
+
+cbind( 1:11, cooks.distance( m3 ) ) %>% pander()
 
 ```
 
@@ -261,7 +310,7 @@ df %>% pander
 ```
 
 
-### Linear and Quadratic Models
+## Linear and Quadratic Models
 
 ```{r, results='asis'}
 quad1 <- lm( y ~ x )
@@ -290,7 +339,7 @@ lines( x[order(x)], quad2$fitted.values[order(x)], col = "blue")
 ```
 
 
-## Interpretation of Program Effects
+# Interpretation of Program Effects
 
 The main challenge that nonlinear models present is the interpretation of effects.
 
@@ -317,7 +366,7 @@ Now let's consider what happens when we add an additional unit of the treatment 
 
 
 
-#### Case 1: X=6
+## Case 1: X=6
 
 ```{r, eval=F}
 
@@ -338,7 +387,7 @@ $[ (2.78)(7) + (-0.13)(7^2) -6 ]  -  [ (2.78)(6) + (-0.13)(6^2) -6 ]  = 1.13$
 
 
 
-#### Case 1: X=10
+## Case 1: X=10
 
 ```{r, eval=F}
 
@@ -357,7 +406,7 @@ $[ (2.78)(11) + (-0.13)(11^2) -6 ]  -  [ (2.78)(10) + (-0.13)(10^2) -6 ]  = 0.12
 
 
 
-#### Case 1: X=13
+## Case 1: X=13
 
 ```{r, eval=F}
 
@@ -374,7 +423,7 @@ $[ (2.78)(14) + (-0.13)(14^2) -6 ]  -  [ (2.78)(13) + (-0.13)(13^2) -6 ]  = -0.6
 
 <br>
 
-#### Or More Generally
+## Or More Generally
 
 ```{r}
 
@@ -389,7 +438,7 @@ dt %>% pander
 
 <br>
 
-#### Effects of Adding Unit or Subtracting are Nonsymmetrical
+## Effects of Adding Unit or Subtracting are Nonsymmetrical
 
 Also note that if you are in a classroom with ten students, then the effect of adding a student will not be the same as the effect of removing a student. 
 
@@ -462,7 +511,7 @@ When we have categorical variables we can now look at many interesting nuances i
 
 
 
-#### Model 1: Do men and women earn different wages, on average?
+## Model 1: Do men and women earn different wages, on average?
 
 **Model:**  $Wages = b_0 + b_1*Female$
 
@@ -472,14 +521,14 @@ When we have categorical variables we can now look at many interesting nuances i
 
 
 
-#### Model 2: What is the wage gain related to an extra year of experience?
+## Model 2: What is the wage gain related to an extra year of experience?
 
 **Model:**  $Wages = b_0 + b_1*Years$
 
 **Test:** If b1 is significant then it is different than zero, experience does impact wages.
 
 
-#### Model 3: Do men and women have different initial wages at the start of their careers?
+## Model 3: Do men and women have different initial wages at the start of their careers?
 
 **Model:**  $Wages = b_0 + b_1*Years + b_2*Female$
 
@@ -488,7 +537,7 @@ When we have categorical variables we can now look at many interesting nuances i
 
 
 
-#### Model 4: Are the gains in wages related to experience the same for men and women?
+## Model 4: Are the gains in wages related to experience the same for men and women?
 
 **Model:**  $Wages = b_0 + b_1*Years + b_2*Female + b_3*Years*Female$
 
@@ -619,63 +668,4 @@ text( 33, 40000, "b1", col="steelblue", pos=1 )
 
 
 
-```{css}
-p {
-color: black;
-margin: 0 0 20px 0;
-}
 
-td {
-    padding: 3px 10px 3px 10px;
-    text-align: center;
-}
-
-table
-{ 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-
-h1, h2{
-  margin-top:100px;
-  margin-bottom:20px;
-}
-
-H5{
-    text-align: center;
-    color: gray;
-    font-size:0.8em;
-}
-
-img {
-    max-width: 90%;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top:30px;
-    margin-bottom:20px;
-}
-
-pre {
-  overflow-x: auto;
-}
-
-pre code {
-   display: block; 
-   padding: 0.5em;
-   margin-bottom:20px;
-}
-
-code {
-  font-size: 92%;
-  border: 10px solid #F8F8F8;
-  margin-bottom: 2px;
-}
-
-code[class] {
-  background-color: #F8F8F8;
-}
-
-```

@@ -17,9 +17,10 @@ navbar:
       href: https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK
 output:
   bookdown::html_document2:
-    theme: default
+    theme: spacelab
     toc: yes
     toc_depth: 3
-    toc_float: true
+    toc_float: 
+      collapsed: false
     number_sections: yes
-    highlight: textmate
+    highlight: kate
