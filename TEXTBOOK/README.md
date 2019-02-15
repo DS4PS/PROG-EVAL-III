@@ -8,6 +8,7 @@ The RMD files go in TEXTBOOK folder. To render all RMD files at once for a fresh
 # open RMD file from the website directory or setwd()
 # then run this in the R console in R Studio
 # render the entire site
+library( rmarkdown )
 rmarkdown::render_site()
 
 # render a single file only
