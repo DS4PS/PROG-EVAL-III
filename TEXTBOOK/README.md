@@ -2,24 +2,60 @@
 
 *Overview of [RMD Websites](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) opitions in Bookdown.* 
 
-The RMD files go in TEXTBOOK folder.
-
-To render all RMD files at once for a fresh website build:
+The RMD files go in TEXTBOOK folder. To render all RMD files at once for a fresh website build:
 
 ```r
-setwd( ...your directory here... )  
-# or run this in the R console in R Studio
+# open RMD file from the website directory or setwd()
+# then run this in the R console in R Studio
 # render the entire site
 rmarkdown::render_site()
+
 # render a single file only
 rmarkdown::render_site("about.Rmd")
 ```
 
-For theme examples see [HERE](http://www.datadreaming.org/post/r-markdown-theme-gallery/).
+For syntax highlighting styles check out this [GALLERY](http://animation.r-forge.r-project.org/knitr/) of options.
+
+For theme examples try [HERE](http://www.datadreaming.org/post/r-markdown-theme-gallery/).
+
+Or to generate all of the **knitr** package theme styles for preview try:
+
+```r
+library(knitr)
+themes = knit_theme$get()
+pat_brew()  # use brew patterns <%  %>
+for (theme in themes) knit('theme.brew', paste('theme-', theme, '.Rhtml', sep = ''))
+knit_patterns$restore() # clear patterns
+
+mapply(knit, input = list.files(pattern = '\\.Rhtml$'))
+
+writeLines(c(
+  '<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Highlight themes in knitr</title>
+<meta name="author" content="Taiyun Wei and Yihui Xie" />
+</head>
+<body>', 
+  paste(sprintf('<iframe src="%s" width="800" height="520" scrolling="auto" style="display: block; margin: auto;"></iframe>',
+                list.files(pattern = '^theme-.*\\.html$')), collapse = '<hr />\n'),
+  '</body>
+</html>'),
+  con = 'index.html')
+
+browseURL('index.html')
+```
+
+
 
 -----
 
-In the _site.yml file we can specify where the rendered HTML files are stored. Send them to the 'docs' folder to keep things clean. The website will live in that directory.
+# HTML Settings
+
+The HTML options are set in the file called *_site.yml*. 
+
+For example, we can specify where the rendered HTML files are stored. Send them to the 'docs' folder to keep things clean. The website is hosted from that directory.
 
 You will also add new navbar items in the _site.yml file:
 
