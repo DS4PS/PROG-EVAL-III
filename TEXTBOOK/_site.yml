@@ -23,4 +23,4 @@ output:
     toc_float: 
       collapsed: false
     number_sections: yes
-    highlight: monochrome
+    highlight: haddock
