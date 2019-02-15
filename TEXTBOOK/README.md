@@ -14,12 +14,38 @@ rmarkdown::render_site()
 rmarkdown::render_site("about.Rmd")
 ```
 
-For syntax highlighting styles check out this [GALLERY](http://animation.r-forge.r-project.org/knitr/) of options.
+The default rmarkdown [syntax highlighting options](https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/) are:
 
-For theme examples try [HERE](http://www.datadreaming.org/post/r-markdown-theme-gallery/).
+* default 
+* tango 
+* pygments 
+* kate 
+* monochrome 
+* espresso 
+* zenburn 
+* haddock 
+* textmate
 
+For more syntax highlighting styles check out this [GALLERY](http://animation.r-forge.r-project.org/knitr/) of options from knitr. 
 
+For theme options you can use the default [Bootswatch](https://bootswatch.com/3/) selections.
 
+* default 
+* cerulean  
+* journal  
+* flatly  
+* darkly  
+* readable 
+* spacelab 
+* united 
+* cosmo 
+* lumen 
+* paper 
+* sandstone 
+* simplex 
+* yeti 
+
+Or scroll to the end here for some [additional options](http://www.datadreaming.org/post/r-markdown-theme-gallery/) from custom theme pacakges.
 
 -----
 
