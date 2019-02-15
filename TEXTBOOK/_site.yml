@@ -1,5 +1,5 @@
 name: "Program Eval III"
-output_dir: "../docs"
+output_dir: "/../docs"
 navbar:
   title: "Program Eval III"
   type: inverse
