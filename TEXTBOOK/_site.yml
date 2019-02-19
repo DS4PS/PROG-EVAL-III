@@ -10,8 +10,6 @@ navbar:
       href: about.html
     - text: "Data"
       href: Datasets_in_R.html
-    - text: "Specification"
-      href: specification-part-I.html
     - text: "Difference-in-Difference"
       href: DiffInDiff.html
   right:
