@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1821,3 +1822,1828 @@ $(document).ready(function () {
 
 </body>
 </html>
+=======
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Interrupted Time Series</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Program Eval III</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="Datasets_in_R.html">Data</a>
+</li>
+<li>
+  <a href="specification-part-I.html">Specification</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK">
+    <span class="fa fa-github fa-2x"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Interrupted Time Series</h1>
+
+</div>
+
+
+<p><strong>Packages</strong></p>
+<p>Here are the packages we will use in this lecture. If you don’t remember how to install them, you can have a look at the code.</p>
+<ul>
+<li><strong>stargazer</strong> for nice tables</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>( stargazer )
+<span class="kw">library</span>( <span class="st">&quot;stargazer&quot;</span> )</code></pre></div>
+<p><strong>What you should know after this lecture</strong></p>
+<ul>
+<li>What is the scope of an interrupted time series?</li>
+<li>What is the right design to apply an interrupted time series?</li>
+<li>How should you organize your data before using an interrupted time series?</li>
+<li>What are the key coefficients of an interrupted time series? How do you interpret them?</li>
+<li>What are the main threats to validity that you need to pay attention to?</li>
+<li>What is autocorrelation?</li>
+<li>Applying a time series model to data in R</li>
+</ul>
+<div id="the-key-concept" class="section level1">
+<h1><span class="header-section-number">1</span> The key concept</h1>
+<p>Interrupted time series can be used when:</p>
+<ol style="list-style-type: decimal">
+<li>we have data about a certain outcome over time (longitudinal data) AND</li>
+<li>we want to understand how and if the outcome has changed after an intervention (e.g., a new policy program) was implemented.</li>
+</ol>
+<p>Note that your data need to include observations <strong>before and after</strong> the intervention had occured.</p>
+<p>Examples include:</p>
+<table>
+<colgroup>
+<col width="35%" />
+<col width="64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>** Data **</th>
+<th>** Research question **</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yearly data on marijuana consumption in a state</td>
+<td>Does marijuana consumption increase after the state passes a law the legalize marijuana use?</td>
+</tr>
+<tr class="even">
+<td>Monthly employment data on local businesses in a city</td>
+<td>Does a raise in the minimum wage affect local levels of employment?</td>
+</tr>
+<tr class="odd">
+<td>Number of books read monthly by students in a school</td>
+<td>Does the opening of a new library within the school affect the number of books read by students?</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>In our first example, let’s assume we have data on the total consumption of tobacco in a US state from a point in time (t0) to ten years later (t10). Our observations are represented in the graph <a href="#fig:f1">1.1</a> below. The line suggests an upward trend, with state residents consuming more tobacco over time.</p>
+<div class="figure"><span id="fig:f1"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture1.png" alt="Yearly consumption of tobacco from t0 to t10" width="60%" />
+<p class="caption">
+Figure 1.1: Yearly consumption of tobacco from t0 to t10
+</p>
+</div>
+<p>Now let’s imagine that the policymakers decide to introduce a new tax on tobacco at the end of year t10 to reduce its consumption. <em>What are the possible outcomes of this intervention?</em></p>
+<p>We can represent some possible outcomes in figures <a href="#fig:f2">1.2</a> - <a href="#fig:f5">1.5</a>.</p>
+<p>In figure <a href="#fig:f2">1.2</a>, the tax has no effect on tobacco consumption, which continues to increase at the same trend as before.</p>
+<div class="figure"><span id="fig:f2"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture2.1.png" alt="No policy effect" width="60%" />
+<p class="caption">
+Figure 1.2: No policy effect
+</p>
+</div>
+<p>In figure <a href="#fig:f3">1.3</a>, the tax reduces tobacco consumption right after the policy intervention but the upward trend continues over time. There is an <strong>immediate policy effect</strong> but no sustained effect.</p>
+<div class="figure"><span id="fig:f3"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture2.2.png" alt="Immediate policy effect" width="60%" />
+<p class="caption">
+Figure 1.3: Immediate policy effect
+</p>
+</div>
+<p>In figure <a href="#fig:f4">1.4</a>, the tax does not reduce tobacco consumption immediately, but it shifts the trend downward in the long term. There is no immediate policy effect but we observe a <strong>sustained effect</strong> of the policy.</p>
+<div class="figure"><span id="fig:f4"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture2.3.png" alt="Sustained policy effect" width="60%" />
+<p class="caption">
+Figure 1.4: Sustained policy effect
+</p>
+</div>
+<p>Finally, we can also imagine that the tax decreases tobacco consumption immediately after AND shifts the trend downward. Figure <a href="#fig:f5">1.5</a> shows <strong>both an immediate and a sustained policy effect</strong>.</p>
+<div class="figure"><span id="fig:f5"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture2.4.png" alt="Immediate + sustained policy effect" width="60%" />
+<p class="caption">
+Figure 1.5: Immediate + sustained policy effect
+</p>
+</div>
+<p>Interrupted time series enable us to investigate each effect, thereby understanding if the policy intervention:</p>
+<ul>
+<li>has no effect (<a href="#fig:f2">1.2</a>); OR<br />
+</li>
+<li>has only an immediate effect (<a href="#fig:f3">1.3</a>); OR</li>
+<li>has only a sustained, long term effect (<a href="#fig:f4">1.4</a>); OR</li>
+<li>has both an immediate and a sustained effect (<a href="#fig:f5">1.5</a>).</li>
+</ul>
+<div id="the-statistical-model" class="section level2">
+<h2><span class="header-section-number">1.1</span> The statistical model</h2>
+<p>In mathematical terms, it means that the time series equation includes four key coefficients:</p>
+<span class="math display" id="eq:timeseries">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_2D + \text{b}_3P + \text{e}
+  \tag{1.1}
+\end{equation}\]</span>
+<p>Where: <br> <br> <span class="math inline">\(\text{Y}\)</span> is the outcome variable; <br> <br> <span class="math inline">\(\text{T}\)</span> is a continuous variable which indicates the time (e.g., days, months, years…) passed from the start of the observational period; <br> <br> <span class="math inline">\(\text{D}\)</span> is a dummy variable indicating observation collected before (=0) or after (=1) the policy intervention; <br> <br> <span class="math inline">\(\text{P}\)</span> is a continuous variable indicating time passed since the intervention has occured (before intervention has occured P is equal to 0).</p>
+<p>Our dataset will look like this:</p>
+<div class="figure"><span id="fig:fdataset"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture5.png" alt="A time series dataset" width="60%" />
+<p class="caption">
+Figure 1.6: A time series dataset
+</p>
+</div>
+<p>We can graphically illustrated each coefficient and gradually build equation <a href="#eq:timeseries">(1.1)</a>.</p>
+<p>In figure <a href="#fig:f6">1.7</a>, <span class="math inline">\(\text{b}_0\)</span> is the baseline level of the outcome (the intercept or constant) and <span class="math inline">\(\text{b}_1\)</span> is the <strong>slope of the line before the intervention</strong> (green line).</p>
+<span class="math display" id="eq:baseline">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{e}
+  \tag{1.2}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f6"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture3.1.png" alt="Coefficients b0 and b1, if b2 = 0 and b3 = 0" width="60%" />
+<p class="caption">
+Figure 1.7: Coefficients b0 and b1, if b2 = 0 and b3 = 0
+</p>
+</div>
+<p>In figure <a href="#fig:f7">1.8</a>, <span class="math inline">\(\text{b}_2\)</span> is the <strong>immediate effect</strong> that occurs after the intervention. It represents how the outcome level has changed from the last observation before the intervention to the first one after. In this case the slope of the line has not changed, and the lines after and before the intervention are parallel. Their slope is equal to <span class="math inline">\(\text{b}_1\)</span>.</p>
+<span class="math display" id="eq:immediateEffect">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_2D + \text{e}
+  \tag{1.3}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f7"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture3.2.png" alt="Coefficient b0, b1, and b2, if b3 = 0" width="60%" />
+<p class="caption">
+Figure 1.8: Coefficient b0, b1, and b2, if b3 = 0
+</p>
+</div>
+<p>In figure <a href="#fig:f8">1.9</a>, the slope has changed after the intervention. <span class="math inline">\(\text{b}_3\)</span> is the <strong>difference between the slope of the line before and the slope of the line after the intervention</strong>. It represents the <strong>sustained effect</strong> of the policy intervention. Note that <span class="math inline">\(\text{b}_2\)</span> = 0, meaning that there has been no immediate effect of the policy.</p>
+<span class="math display" id="eq:sustainedEffect">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_3P + \text{e}
+  \tag{1.4}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f8"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture3.3.png" alt="Coefficient b0, b1, and b3, with b2 = 0" width="60%" />
+<p class="caption">
+Figure 1.9: Coefficient b0, b1, and b3, with b2 = 0
+</p>
+</div>
+<p>Finally, in figure <a href="#fig:f9">1.10</a>, we have <strong>both an immediate and sustained effect</strong> and <span class="math inline">\(\text{b}_2\)</span> and <span class="math inline">\(\text{b}_3\)</span> are both different from zero.</p>
+<span class="math display" id="eq:timeseries">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_2D + \text{b}_3P + \text{e}
+  \tag{1.1}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f9"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture3.4.png" alt="Coefficient b0, b1, b2, and b3" width="60%" />
+<p class="caption">
+Figure 1.10: Coefficient b0, b1, b2, and b3
+</p>
+</div>
+</div>
+<div id="the-counterfactual" class="section level2">
+<h2><span class="header-section-number">1.2</span> The counterfactual</h2>
+<p>In time series, it is important to understand the counterfactual. The counterfactual refers to <em>what it would have occured to Y, had the policy intervention not happened</em>.</p>
+<p>Let’s take a case where our policy intervention had both an immediate and a sustained effect, as shown in figure <a href="#fig:f10">1.11</a>. The green line is represented by the equation <a href="#eq:timeseries">(1.1)</a>, where <span class="math inline">\(\beta{b}_2\)</span> and <span class="math inline">\(\beta{b}_3\)</span> are both different from 0.</p>
+<span class="math display" id="eq:timeseries">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_2D + \text{b}_3P + \text{e}
+  \tag{1.1}
+\end{equation}\]</span>
+<p>To calculate the counterfactual, we need to assume that the intervention has never occured and there has been no immediate nor sustained effect. In other words, if the policy intervention had not happenend, the green line would have continued as shown by the dotted gray line. Our equation <a href="#eq:timeseries">(1.1)</a> would become:</p>
+<span class="math display" id="eq:counterfactual">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{b}_2*0 + \text{b}_3*0 + \text{e}
+  \tag{1.5}
+\end{equation}\]</span>
+<p>Or just:</p>
+<span class="math display" id="eq:counterfactual2">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1T + \text{e}
+  \tag{1.6}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f10"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture4.png" alt="Time series counterfactual " width="60%" />
+<p class="caption">
+Figure 1.11: Time series counterfactual
+</p>
+</div>
+<p>We can calculate the counterfactual for each point in time. For instance, we look at t = 12. The predicted Y is calculated in the equation <a href="#eq:t12">(1.7)</a>. The predicted Y for t = 12 falls on the green line in figure <a href="#fig:f11">1.12</a>. Its counterfactual is calculcated in equation <a href="#eq:t12counterfactual">(1.8)</a>. It is located on the dotted line, perpendicularly above the predicted Y.</p>
+<span class="math display" id="eq:t12">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*12 + \text{b}_2*D*1 + \text{b}_3*P*2 + \text{e}
+  \tag{1.7}
+\end{equation}\]</span>
+<span class="math display" id="eq:t12counterfactual">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*12 + \text{b}_2*D*0 + \text{b}_3*P*0 + \text{e}
+  \tag{1.8}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f11"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture4.1.png" alt="Time series counterfactual, T=12 " width="60%" />
+<p class="caption">
+Figure 1.12: Time series counterfactual, T=12
+</p>
+</div>
+<p>The counterfactual changes for each point in time. Let’s look at t = 18.</p>
+<span class="math display" id="eq:t18">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*18 + \text{b}_2*D*1 + \text{b}_3*P*8 + \text{e}
+  \tag{1.9}
+\end{equation}\]</span>
+<span class="math display" id="eq:t18counterfactual">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*18 + \text{b}_2*D*0 + \text{b}_3*P*0 + \text{e}
+  \tag{1.10}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f12"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture4.2.png" alt="Time series counterfactual, T=18 " width="60%" />
+<p class="caption">
+Figure 1.13: Time series counterfactual, T=18
+</p>
+</div>
+<p>We will apply these concepts in the following working example.</p>
+</div>
+</div>
+<div id="a-time-series-model" class="section level1">
+<h1><span class="header-section-number">2</span> A time series model</h1>
+<p><img src="O:/Users/ffusi/Jesse/TimeSeries/StudentWellbeing.jpg" width="50%" style="display: block; margin: auto;" /></p>
+<p>We are going to have a look at a simulated dataset describing the wellbeing of a class of students. Students’ wellbeing is an increasingly discussed topic in <a href="http://oecdeducationtoday.blogspot.com/2018/03/mental-health-students-school.html">policy debates</a> and some states are introducing <a href="https://www.nbcnews.com/better/health/fall-all-new-york-students-will-be-learning-about-mental-ncna911031">mental health education classes</a> (even some <a href="https://www.nytimes.com/2018/01/26/nyregion/at-yale-class-on-happiness-draws-huge-crowd-laurie-santos.html">universities</a>).</p>
+<p>The dataset contains 365 daily observations of the wellbeing of a class of students. Wellbeing is measured by a index from 0 to 300. At t = 201 students will start attend a mental health education class. We want to understand how (and if) their wellbeing improves.</p>
+<p>First, we have a look at how the dataset is structured using the <em>head</em> and <em>tail</em> function. We can also look at rows 198-204 where the interruption occurs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbind</span>( <span class="kw">head</span>(dataTS), dataTS[ <span class="dv">198</span><span class="op">:</span><span class="dv">204</span>, ] ,  <span class="kw">tail</span>(dataTS) )</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["T"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["D"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["P"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"38.50479","2":"1","3":"0","4":"0","_rn_":"1"},{"1":"48.61841","2":"2","3":"0","4":"0","_rn_":"2"},{"1":"102.44811","2":"3","3":"0","4":"0","_rn_":"3"},{"1":"58.05859","2":"4","3":"0","4":"0","_rn_":"4"},{"1":"60.03438","2":"5","3":"0","4":"0","_rn_":"5"},{"1":"107.77661","2":"6","3":"0","4":"0","_rn_":"6"},{"1":"59.97480","2":"198","3":"0","4":"0","_rn_":"198"},{"1":"79.37382","2":"199","3":"0","4":"0","_rn_":"199"},{"1":"62.37483","2":"200","3":"0","4":"0","_rn_":"200"},{"1":"173.09831","2":"201","3":"1","4":"1","_rn_":"201"},{"1":"147.25952","2":"202","3":"1","4":"2","_rn_":"202"},{"1":"100.70560","2":"203","3":"1","4":"3","_rn_":"203"},{"1":"125.66062","2":"204","3":"1","4":"4","_rn_":"204"},{"1":"300.00000","2":"360","3":"1","4":"160","_rn_":"360"},{"1":"217.50425","2":"361","3":"1","4":"161","_rn_":"361"},{"1":"243.90251","2":"362","3":"1","4":"162","_rn_":"362"},{"1":"233.31834","2":"363","3":"1","4":"163","_rn_":"363"},{"1":"256.55203","2":"364","3":"1","4":"164","_rn_":"364"},{"1":"251.07539","2":"365","3":"1","4":"165","_rn_":"365"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>The dataset contains four variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Column</strong></th>
+<th><strong>Variable name </strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\text{Y}\)</span></td>
+<td><span class="math inline">\(\text{Wellbeing}\)</span></td>
+<td>Wellbeing index (from 0 to 300)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{T}\)</span></td>
+<td><span class="math inline">\(\text{Time}\)</span></td>
+<td>Time (from 1 to 365)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{D}\)</span></td>
+<td><span class="math inline">\(\text{Treatment}\)</span></td>
+<td>Observation post (=1) and pre (=0) intervention</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{P}\)</span></td>
+<td><span class="math inline">\(\text{Time Since}\)</span></td>
+<td>Time passed since the intervention</td>
+</tr>
+</tbody>
+</table>
+<p>Our model is based on the equation <a href="#eq:timeseries">(1.1)</a>:</p>
+<span class="math display" id="eq:example">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*Time + \text{b}_2*Treatment + \text{b}_3*Time Since + \text{e}
+  \tag{2.1}
+\end{equation}\]</span>
+<p>We can run the model using the <strong>lm</strong> function in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regTS =<span class="st"> </span><span class="kw">lm</span> ( Y <span class="op">~</span><span class="st"> </span>T <span class="op">+</span><span class="st"> </span>D <span class="op">+</span><span class="st"> </span>P)  <span class="co"># Our time series model</span>
+
+<span class="kw">stargazer</span>( regTS, 
+           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, 
+           <span class="dt">dep.var.labels =</span> (<span class="st">&quot;Wellbeing&quot;</span>),
+           <span class="dt">column.labels =</span> (<span class="st">&quot;Model results&quot;</span>),
+           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Time&quot;</span>, <span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Time Since&quot;</span>),
+           <span class="dt">omit.stat =</span> <span class="st">&quot;all&quot;</span>, 
+           <span class="dt">digits =</span> <span class="dv">2</span> )</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Wellbeing
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model results
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time
+</td>
+<td>
+0.19<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Treatment
+</td>
+<td>
+13.09<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(6.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time Since
+</td>
+<td>
+0.54<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+57.15<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(4.13)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Let’s interpret our coefficients:</p>
+<ul>
+<li>The <strong>Time</strong> coefficient indicates the wellbeing trend before the intervention. It’s positive and significant, indicating that students’ wellbeing increases over time. For each day that passes, the wellbeing increases of 0.19 points on the index. <br> <br></li>
+<li>The <strong>Treatment</strong> coefficient indicates the increase in the students’ wellbeing immediately after the intervention. We can see that the immediate effect is positive and significant indicating that attending the first class increased the students’ wellbeing of 13.09. <br> <br></li>
+<li>The <strong>Time Since</strong> coefficient indicates that the trend has changed after the intervention. The sustained effect is positive and significant, indicating that for each day that passes after the intervention, the wellbeing of students increases of 0.54 points on the index.</li>
+</ul>
+<div id="plotting-the-results" class="section level2">
+<h2><span class="header-section-number">2.1</span> Plotting the results</h2>
+<p>A useful exercise is to calculate outcomes at different points in time as we did in section <a href="#the-counterfactual">1.2</a>. For instance, we can calculate the outcome right after the intervention, which occured at time = 200. Note that while <span class="math inline">\(\text{Time}\)</span> = 201, <span class="math inline">\(\text{Time Since}\)</span> is equal to 1 because it is the first day after the intervention.</p>
+<span class="math display" id="eq:examplet201">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*201 + \text{b}_2*1 + \text{b}_3*1 + \text{e}
+  \tag{2.2}
+\end{equation}\]</span>
+<p>We can also represent the point on a graph:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We create a small dataset with the new values</span>
+data1 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>( <span class="kw">cbind</span>( <span class="dt">T =</span> <span class="dv">201</span>, <span class="dt">D =</span> <span class="dv">1</span>, <span class="dt">P =</span> <span class="dv">1</span> )) 
+
+<span class="co"># We use the function predict to (1) take the coefficients estimated in regTS and (2) calculate the outcome Y based on the values we set in the new datset</span>
+y1 &lt;-<span class="st"> </span><span class="kw">predict</span>( regTS, data1 ) 
+
+<span class="co"># We plot our initial observations, the column Y in our dataset</span>
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="co"># We add a point showing the level of wellbeing at time = 201)</span>
+<span class="kw">points</span>(<span class="dv">201</span>, y1, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">bg =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+<span class="kw">text</span>(<span class="dv">201</span>, y1, <span class="dt">labels =</span> <span class="st">&quot;t = 201&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:ft1"></span>
+<img src="TimeSeries_files/figure-html/ft1-1.png" alt="Wellbeing level at t = 201" width="960" />
+<p class="caption">
+Figure 2.1: Wellbeing level at t = 201
+</p>
+</div>
+<p>Now, we can calculate the outcome 30 days after the intervention. <span class="math inline">\(\text{Time}\)</span> will be equal to 230 while <span class="math inline">\(\text{Time Since}\)</span> will be equal to 30. <span class="math inline">\(\text{Treatment}\)</span> is always equal to 1 since it is a dummy variable indicating pre or post intervention.</p>
+<span class="math display" id="eq:examplet230">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*230 + \text{b}_2*1 + \text{b}_3*30 + \text{e}
+  \tag{2.3}
+\end{equation}\]</span>
+<p>We can add the new point at t = 230 to the graph:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>( <span class="kw">cbind</span>( <span class="dt">T =</span> <span class="dv">230</span>, <span class="dt">D =</span> <span class="dv">1</span>, <span class="dt">P =</span> <span class="dv">30</span> )) <span class="co"># New data</span>
+
+y2 &lt;-<span class="st"> </span><span class="kw">predict</span>( regTS, data2 ) <span class="co"># We predict the new outcome</span>
+
+<span class="co"># We plot our initial observations, the column Y in our dataset</span>
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="co"># We add a point showing the level of wellbeing at time = 201</span>
+<span class="kw">points</span>(<span class="dv">201</span>, y1, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">bg =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># We add a new point showing the level of wellbeing at time = 230)</span>
+<span class="kw">points</span>(<span class="dv">230</span>, y2, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">bg =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Label for our predicted outcome</span>
+<span class="kw">text</span>(<span class="dv">201</span>, y1, <span class="dt">labels =</span> <span class="st">&quot;t = 201&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co">#Label for the counterfactual </span>
+<span class="kw">text</span>(<span class="dv">230</span>, y2, <span class="dt">labels =</span> <span class="st">&quot;t = 230&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:ft30"></span>
+<img src="TimeSeries_files/figure-html/ft30-1.png" alt="Wellbeing level at t = 230" width="960" />
+<p class="caption">
+Figure 2.2: Wellbeing level at t = 230
+</p>
+</div>
+</div>
+<div id="the-counterfactual-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> The counterfactual</h2>
+<p>Using the same mechanism illustrated in section <a href="#the-counterfactual">1.2</a> and <a href="#plotting-the-results">2.1</a>, we can calculate the counterfactual for any point in time. The counterfactual at <span class="math inline">\(\text{Time}\)</span> = 230 is the level of wellbeing at that point in time <em>if the intervention had not occured</em>.</p>
+<p>Note the changes in our equation <a href="#eq:examplet230">(2.3)</a>: <span class="math inline">\(\text{Treatment}\)</span> and <span class="math inline">\(\text{Time Since}\)</span> are both equal to 0.</p>
+<span class="math display" id="eq:examplet230counterfactual">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*230 + \text{b}_2*0 + \text{b}_3*0 + \text{e}
+  \tag{2.4}
+\end{equation}\]</span>
+<p>As before, we plot the results on a graph. Y is our predict value and C is the counterfactual.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data3 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>( <span class="dt">T=</span> <span class="dv">230</span>, <span class="dt">D =</span> <span class="dv">0</span>, <span class="dt">P =</span> <span class="dv">0</span>)) <span class="co"># Data if the intervention does not occur</span>
+
+y3 &lt;-<span class="st"> </span><span class="kw">predict</span>(regTS, data3) <span class="co">#Counterfactual</span>
+
+<span class="co"># We plot our initial observations, the column Y in our dataset</span>
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="co"># We add a  point showing the level of wellbeing at time = 230</span>
+<span class="kw">points</span>(<span class="dv">230</span>, y2, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">bg =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># We add a point indicating the counterfactual</span>
+<span class="kw">points</span>(<span class="dv">230</span>, y3, <span class="dt">col =</span> <span class="st">&quot;darkorange2&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Label for our predicted outcome</span>
+<span class="kw">text</span>(<span class="dv">230</span>, y2, <span class="dt">labels =</span> <span class="st">&quot;Y at t = 230&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co">#Label for the counterfactual </span>
+<span class="kw">text</span>(<span class="dv">230</span>, y3, <span class="dt">labels =</span> <span class="st">&quot;C at t = 230&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:ft30c"></span>
+<img src="TimeSeries_files/figure-html/ft30c-1.png" alt="Counterfactual for t = 230" width="960" />
+<p class="caption">
+Figure 2.3: Counterfactual for t = 230
+</p>
+</div>
+<p>It is important to note the counterfactual <em>varies for each point in time</em>. We can clearly see this if we plot a new point at time = 320 and its counterfactual.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data4 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>( <span class="dt">T =</span> <span class="dv">320</span>, <span class="dt">D =</span> <span class="dv">1</span>, <span class="dt">P =</span> <span class="dv">80</span>)) 
+data5 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>( <span class="dt">T =</span> <span class="dv">320</span>, <span class="dt">D =</span> <span class="dv">0</span>, <span class="dt">P =</span> <span class="dv">0</span>))
+
+y4 &lt;-<span class="st"> </span><span class="kw">predict</span>(regTS, data4)
+y5 &lt;-<span class="st"> </span><span class="kw">predict</span>(regTS, data5)
+
+<span class="co"># We plot our initial observations, the column Y in our dataset</span>
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="co"># Wellbeing at time = 230</span>
+<span class="kw">points</span>(<span class="dv">230</span>, y2, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">bg =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Counterfactual at time = 230</span>
+<span class="kw">points</span>(<span class="dv">230</span>, y3, <span class="dt">col =</span> <span class="st">&quot;darkorange2&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Wellbeing at time = 320</span>
+<span class="kw">points</span>(<span class="dv">320</span>, y4, <span class="dt">col =</span> <span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Counterfactual at time = 320</span>
+<span class="kw">points</span>(<span class="dv">320</span>, y5, <span class="dt">col =</span> <span class="st">&quot;darkorange2&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="dv">2</span>)
+
+<span class="co"># Adding labels</span>
+<span class="kw">text</span>(<span class="dv">320</span>, y4, <span class="dt">labels =</span> <span class="st">&quot;Y at t = 320&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+<span class="kw">text</span>(<span class="dv">320</span>, y5, <span class="dt">labels =</span> <span class="st">&quot;C at t = 320&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+<span class="kw">text</span>(<span class="dv">230</span>, y2, <span class="dt">labels =</span> <span class="st">&quot;Y at at = 230&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+<span class="kw">text</span>(<span class="dv">230</span>, y3, <span class="dt">labels =</span> <span class="st">&quot;C at t = 230&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:ft320"></span>
+<img src="TimeSeries_files/figure-html/ft320-1.png" alt="Wellbeing level and counterfactual for t = 320" width="960" />
+<p class="caption">
+Figure 2.4: Wellbeing level and counterfactual for t = 320
+</p>
+</div>
+<p>Finally, we can look at the results by plotting all predicted outcomes and their counterfactuals. In figure <a href="#fig:allValues">2.5</a> We can see that there is an increasing in the wellbeing index after the intervention. The dashed line represents the counterfactual.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred1 &lt;-<span class="st"> </span><span class="kw">predict</span>(regTS, dataTS) 
+<span class="co"># To estimate all predicted values of Y, we just use our dataset</span>
+
+datanew &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dt">T =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="dv">365</span>), <span class="dt">D =</span> <span class="kw">rep</span>(<span class="dv">0</span>), <span class="dt">P =</span> <span class="kw">rep</span>(<span class="dv">0</span>))) 
+<span class="co"># Create a new dataset where Treatment and Time Since are equal to 0 as the intervention did not occur.</span>
+
+pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(regTS, datanew) 
+<span class="co"># Predict the counterfactuals</span>
+
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">199</span>), pred1[<span class="dv">1</span><span class="op">:</span><span class="dv">199</span>], <span class="dt">col=</span><span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span> )
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">201</span><span class="op">:</span><span class="dv">365</span>), pred1[<span class="dv">201</span><span class="op">:</span><span class="dv">365</span>], <span class="dt">col=</span><span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span> )
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">200</span><span class="op">:</span><span class="dv">365</span>), pred2[<span class="dv">200</span><span class="op">:</span><span class="dv">365</span>], <span class="dt">col=</span><span class="st">&quot;darkorange2&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">5</span> ) 
+
+<span class="kw">text</span>(<span class="dv">0</span>, <span class="dv">45</span>, <span class="dt">labels =</span> <span class="st">&quot;Predicted values&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>)
+<span class="kw">text</span>(<span class="dv">300</span>, <span class="dv">95</span>, <span class="dt">labels =</span> <span class="st">&quot;Counterfactual&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;darkorange2&quot;</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:allValues"></span>
+<img src="TimeSeries_files/figure-html/allValues-1.png" alt="Time series and its counterfactual" width="960" />
+<p class="caption">
+Figure 2.5: Time series and its counterfactual
+</p>
+</div>
+</div>
+<div id="note-delayed-effects-in-time-series" class="section level2">
+<h2><span class="header-section-number">2.3</span> Note: Delayed effects in time series</h2>
+<p>Note that the coefficients obtained from equation <a href="#eq:example">(2.1)</a> <em>do not</em> tell us if the difference between each point (the predicted outcomes) and its counterfactual is statistically significant. They only tell you if</p>
+<ol style="list-style-type: decimal">
+<li>there is an immediate change after the intervention and</li>
+<li>the slope has changed after the intervention.</li>
+</ol>
+<p>There is no statistical test to look at whether there is a statistically significant difference between a predicted outcome and its counterfactual. This has important implications. It could be that effect of the intervetion <em>varies over time</em> as in figure <a href="#fig:mixedeffect">2.6</a>. In this case, there is a drop in students’ wellbeing right after the intervention. For instance, it could be that the class challenges students to think about their emotions, thereby decreasing their overall sense of wellbeing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg2 =<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>T <span class="op">+</span><span class="st"> </span>D <span class="op">+</span><span class="st"> </span>P, <span class="dt">data =</span> dataTS2)
+
+<span class="kw">stargazer</span>( reg2, 
+           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, 
+           <span class="dt">dep.var.labels =</span> (<span class="st">&quot;Wellbeing&quot;</span>),
+           <span class="dt">column.labels =</span> (<span class="st">&quot;Model results&quot;</span>),
+           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Time&quot;</span>, <span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Time Since&quot;</span>),
+           <span class="dt">omit.stat =</span> <span class="st">&quot;all&quot;</span>, 
+           <span class="dt">digits =</span> <span class="dv">2</span> )</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Wellbeing
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model results
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time
+</td>
+<td>
+0.22<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Treatment
+</td>
+<td>
+-34.67<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(7.14)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time Since
+</td>
+<td>
+0.63<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+66.67<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(4.81)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>We represent these results on graph <a href="#fig:mixedeffect">2.6</a>. Depending on the point in time we consider the graph, the intervention had a negative effect or a positive one. If we look at results immediately after the intervention had occured (the red dotted line), we might conclude that the effect is negative. But if we consider some delay and look at the intervention at t = 300 (green dotted line), the effect are positive.</p>
+<p>Thinking about <strong>when</strong> the effect is likely to occur is important in time series. We discuss other example in section <a href="#time-of-the-intervention-effect">4.2</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pred1 &lt;-<span class="st"> </span><span class="kw">predict</span>(reg2, dataTS2) 
+
+datanew &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dt">T =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="dv">365</span>), <span class="dt">D =</span> <span class="kw">rep</span>(<span class="dv">0</span>), <span class="dt">P =</span> <span class="kw">rep</span>(<span class="dv">0</span>))) 
+
+pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(reg2, datanew) 
+
+<span class="kw">plot</span>(Y,
+    <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+    <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">365</span>), 
+    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>),
+    <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+    <span class="dt">ylab =</span> <span class="st">&quot;Wellbeing index&quot;</span>)
+
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">199</span>), pred1[<span class="dv">1</span><span class="op">:</span><span class="dv">199</span>], <span class="dt">col=</span><span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span> )
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">201</span><span class="op">:</span><span class="dv">365</span>), pred1[<span class="dv">201</span><span class="op">:</span><span class="dv">365</span>], <span class="dt">col=</span><span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span> )
+<span class="kw">lines</span>( <span class="kw">rep</span>(<span class="dv">200</span><span class="op">:</span><span class="dv">365</span>), pred2[<span class="dv">200</span><span class="op">:</span><span class="dv">365</span>], <span class="dt">col=</span><span class="st">&quot;darkorange2&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">lty =</span> <span class="dv">5</span> ) 
+
+<span class="kw">text</span>(<span class="dv">0</span>, <span class="dv">45</span>, <span class="dt">labels =</span> <span class="st">&quot;Predicted values&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>)
+<span class="kw">text</span>(<span class="dv">300</span>, <span class="dv">105</span>, <span class="dt">labels =</span> <span class="st">&quot;Counterfactual&quot;</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;darkorange2&quot;</span>)
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">200</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )
+
+<span class="co"># Line at t = 300</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">300</span>, <span class="dt">col=</span><span class="st">&quot;forestgreen&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:mixedeffect"></span>
+<img src="TimeSeries_files/figure-html/mixedeffect-1.png" alt="The effect of the policy changes over time" width="960" />
+<p class="caption">
+Figure 2.6: The effect of the policy changes over time
+</p>
+</div>
+</div>
+</div>
+<div id="replication-of-a-study" class="section level1">
+<h1><span class="header-section-number">3</span> Replication of a study</h1>
+<p>We are going to replicate a study conducted by <a href="https://www-jstor-org.ezproxy1.lib.asu.edu/stable/pdf/4147334.pdf?refreqid=excelsior%3A41336456a16a95f70eb557b0257c5013">Rodgers, John, and Coleman (2005)</a> to investigate fertility rates in Oklahoma after the <a href="https://www.britannica.com/event/Oklahoma-City-bombing">Oklahoma City bombing in 1995</a>, which killed 168 persons.</p>
+<p><a href="https://www.prb.org/whywedontexpectababyboomafter911/">Theories</a> suggest that birth rates respond to sociocultural situations, including the occurence of major disasters - both natural, such as hurricanes, and man-made, such as 9/11. Individuals feel more prone to have children as a response to major life losses or because they feel closer to traditional values (such as having a family) when unexpected events occur. By contrast, they might be less willing to have children when experiencing events that negatively affect their life style.</p>
+<p>Evidence supporting these theories is <a href="https://www.nytimes.com/2002/06/11/nyregion/baby-boom-nobody-told-stork-little-evidence-seen-yet-post-9-11-surge-births.html">limited</a> but there have been ongoing investigations, especially as fertility rates <a href="https://ourworldindata.org/fertility-rate">steadily declined in past years</a>.</p>
+<p>Data used in the study are available in the <a href="https://cran.r-project.org/web/packages/Wats/Wats.pdf">Wats</a> package in R and utilized by <a href="https://www.tandfonline.com/doi/full/10.1080/00273171.2014.946589?scroll=top&amp;needAccess=true">Rodgers, Beasley, and Schuelke to discuss representation of interrupted time series</a>.</p>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Data</h2>
+<p>We start by uploading the Wats package and the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>( <span class="st">&quot;Wats&quot;</span> )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Upload the data from the package</span>
+<span class="kw">data</span>( CountyMonthBirthRate2014Version )
+
+<span class="co"># We rename the data set to avoid the long name!</span>
+data =<span class="st"> </span>CountyMonthBirthRate2014Version </code></pre></div>
+<p>These are the variables contained in the dataset.</p>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Variable name </strong></th>
+<th><strong>Description </strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fips</td>
+<td>Fips code</td>
+</tr>
+<tr class="even">
+<td>CountyName</td>
+<td>Name of the county</td>
+</tr>
+<tr class="odd">
+<td>Year</td>
+<td>Year (1990-1999)</td>
+</tr>
+<tr class="even">
+<td>Month</td>
+<td>Month</td>
+</tr>
+<tr class="odd">
+<td>FecundPopulation</td>
+<td>Fecund population</td>
+</tr>
+<tr class="even">
+<td>BirthCount</td>
+<td>Number of births in the month</td>
+</tr>
+<tr class="odd">
+<td>Date</td>
+<td>Date when the data were collected</td>
+</tr>
+<tr class="even">
+<td>DaysInMonth</td>
+<td>Number of days in the month</td>
+</tr>
+<tr class="odd">
+<td>DaysInYear</td>
+<td>Number of days in the year</td>
+</tr>
+<tr class="even">
+<td>StageID</td>
+<td>Indicate the time 9 months after the bombing</td>
+</tr>
+<tr class="odd">
+<td>BirthRateMonthly</td>
+<td>Birth</td>
+</tr>
+</tbody>
+</table>
+<p>The dataset contains observations from multiple counties, but for this exercise we are going to consider only the county of Oklahoma city.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Subset the data to keep only Oklahoma county data</span>
+oklahoma &lt;-<span class="st"> </span><span class="kw">subset</span>(data, data<span class="op">$</span>CountyName <span class="op">==</span><span class="st"> &quot;oklahoma&quot;</span>) </code></pre></div>
+<p>To get a first sense of the data we can look at this plot that Rodgers and colleagues used to represent birth rate over time in Oklahoma county:</p>
+<div class="figure"><span id="fig:f13"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/PictureRodgers.png" alt="Oklahoma county, Birth rate over time (Source: Rodgers et al., 2005)"  />
+<p class="caption">
+Figure 3.1: Oklahoma county, Birth rate over time (Source: Rodgers et al., 2005)
+</p>
+</div>
+<p>What do you expect to find based on the figure?</p>
+</div>
+<div id="analysis" class="section level2">
+<h2><span class="header-section-number">3.2</span> Analysis</h2>
+<p>When preparing data for time series analysis, we need to create three new variables to apply our time series equation <a href="#eq:timeseries">(1.1)</a>:</p>
+<ol style="list-style-type: decimal">
+<li>a variable indicating the time;</li>
+<li>a variable indicating if the observation occured before and after the event;</li>
+<li>a variable indicating the time passed since the bombing.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a time variable from 1 to last row of the dataset</span>
+oklahoma<span class="op">$</span>time &lt;-<span class="st"> </span><span class="kw">rep</span>( <span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="kw">nrow</span>( oklahoma )) 
+
+<span class="co"># Create a dummy variable equal to 1 if after 1995 or after May 1995, and equal to 0 otherwise</span>
+oklahoma<span class="op">$</span>treatment &lt;-<span class="st"> </span><span class="kw">ifelse</span>( oklahoma<span class="op">$</span>Year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1995</span> <span class="op">|</span><span class="st"> </span>oklahoma<span class="op">$</span>Year <span class="op">==</span><span class="st"> </span><span class="dv">1995</span> <span class="op">&amp;</span><span class="st"> </span>oklahoma<span class="op">$</span>Month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+<span class="co"># Create a dummy variable that is equal to 0 before time = 64 (when the event occured) and 1 otherwise.</span>
+oklahoma<span class="op">$</span>timeSince &lt;-<span class="st"> </span><span class="kw">ifelse</span>( oklahoma<span class="op">$</span>time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">64</span>, <span class="dv">0</span>, <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="dv">64</span>))</code></pre></div>
+<p>We can now calculate the coefficients as we did before:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg_OK &lt;-<span class="st"> </span><span class="kw">lm</span>( BirthRateMonthly <span class="op">~</span><span class="st"> </span>
+<span class="st">              </span>time <span class="op">+</span><span class="st"> </span>
+<span class="st">              </span>treatment <span class="op">+</span><span class="st"> </span>
+<span class="st">              </span>timeSince, 
+              <span class="dt">data =</span> oklahoma)
+
+<span class="kw">stargazer</span>( reg_OK, 
+           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, 
+           <span class="dt">dep.var.labels =</span> (<span class="st">&quot;Monthly Birth Rate&quot;</span>),
+           <span class="dt">column.labels =</span> <span class="st">&quot;&quot;</span>,
+           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Time&quot;</span>, <span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Time Since&quot;</span>),
+           <span class="dt">omit.stat =</span> <span class="st">&quot;all&quot;</span>, 
+           <span class="dt">digits =</span> <span class="dv">3</span> )</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Monthly Birth Rate
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time
+</td>
+<td>
+-0.005<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Treatment
+</td>
+<td>
+0.054
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.123)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time Since
+</td>
+<td>
+0.014<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+5.924<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.085)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Can you interpret results from the table? In particular:</p>
+<ol style="list-style-type: decimal">
+<li>What was the trend of the birth rate before the event?</li>
+<li>What was the change in the birth rate immediatedly after the event?</li>
+<li>What is the trend of the birth rate after the event?</li>
+</ol>
+<p>We can see that:</p>
+<ul>
+<li>Each month, the birth rate decreased of 0.005. The decrease, although small, is statistically significant from zero. <br></li>
+<li>The event has no immediate effect on the birth rate as the Treatment coefficient is not significantly different from zero. <br></li>
+<li>The difference between the slope of the line before and after the intervention is positive and statistically significant, suggesting a sustained effect of the event. We can calculate the new slope: (-0.005) + 0.0014 = 0.009. After the intervention the birht rate positively increases of 0.009 each month.</li>
+</ul>
+<p>We can look at our observed and predicted birth rate on a plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict Birth rate</span>
+pred_OK &lt;-<span class="st"> </span><span class="kw">predict</span>( reg_OK, oklahoma )
+
+<span class="kw">plot</span>( oklahoma<span class="op">$</span>BirthRateMonthly,
+      <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,
+      <span class="dt">xlim =</span> <span class="kw">c</span>( <span class="dv">1</span>, <span class="kw">nrow</span> (oklahoma) ), 
+      <span class="dt">ylim =</span> <span class="kw">c</span>( (<span class="kw">min</span> ( oklahoma<span class="op">$</span>BirthRateMonthly ) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>), (<span class="kw">max</span> (oklahoma<span class="op">$</span>BirthRateMonthly) <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span>)),
+      <span class="dt">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>, 
+      <span class="dt">ylab =</span> <span class="st">&quot;Birth rate&quot;</span> )
+
+<span class="kw">lines</span>( pred_OK, <span class="dt">col=</span><span class="st">&quot;dodgerblue4&quot;</span>, <span class="dt">lwd =</span> <span class="dv">3</span> )
+
+<span class="co"># Line marking the interruption</span>
+<span class="kw">abline</span>( <span class="dt">v=</span><span class="dv">64</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span> )</code></pre></div>
+<div class="figure"><span id="fig:fRodgers"></span>
+<img src="TimeSeries_files/figure-html/fRodgers-1.png" alt="Observed and predicted birth rates in Oklahoma county" width="960" />
+<p class="caption">
+Figure 3.2: Observed and predicted birth rates in Oklahoma county
+</p>
+</div>
+</div>
+<div id="delayed-effect" class="section level2">
+<h2><span class="header-section-number">3.3</span> Delayed effect</h2>
+<p>When conducting an interrupted time series analysis is important to think about possible threats to the validity of the study. In this case, Rodgers and colleagues noted that it would be difficult to observe an increase in the birth rate right after the event for the simple reason that a pregnancy lasts 9 months!</p>
+<p>We can run our analysis again and see whether we can find an immediate affect 9 months after the bombing. We do it by changing our Treatment and Time Since variables to indicate a different point in time.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">oklahoma<span class="op">$</span>treatment2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(oklahoma<span class="op">$</span>Year <span class="op">&gt;</span><span class="st"> </span><span class="dv">1996</span> <span class="op">|</span><span class="st"> </span>oklahoma<span class="op">$</span>Year <span class="op">==</span><span class="st"> </span><span class="dv">1996</span> <span class="op">&amp;</span><span class="st"> </span>oklahoma<span class="op">$</span>Month <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="co"># Our new treatment variable is equal to 1 if the bombing has occured and 9 months have passed.It is equal to zero otherwise.</span>
+
+oklahoma<span class="op">$</span>timeSince2 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(oklahoma<span class="op">$</span>time <span class="op">&lt;=</span><span class="st"> </span><span class="dv">73</span>, <span class="dv">0</span>, <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="dv">73</span>))
+<span class="co"># Our Time Since variable starts 9 months after the bombing, instead than at the time of the bombing.</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg_OK2 =<span class="st"> </span><span class="kw">lm</span>(BirthRateMonthly <span class="op">~</span><span class="st"> </span>
+<span class="st">             </span>time <span class="op">+</span><span class="st"> </span>
+<span class="st">             </span>treatment2 <span class="op">+</span><span class="st"> </span>
+<span class="st">             </span>timeSince2,
+             <span class="dt">data =</span> oklahoma)
+
+<span class="kw">stargazer</span>( reg_OK2, 
+           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, 
+           <span class="dt">dep.var.labels =</span> (<span class="st">&quot;Monthly Birth Rate&quot;</span>),
+           <span class="dt">column.labels =</span> <span class="st">&quot;&quot;</span>,
+           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Time&quot;</span>, <span class="st">&quot;Treatment - 9 months delay&quot;</span>, <span class="st">&quot;Time Since - 9 months delay&quot;</span>),
+           <span class="dt">omit.stat =</span> <span class="st">&quot;all&quot;</span>, 
+           <span class="dt">digits =</span> <span class="dv">2</span> )</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Monthly Birth Rate
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time
+</td>
+<td>
+-0.004<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Treatment - 9 months delay
+</td>
+<td>
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Time Since - 9 months delay
+</td>
+<td>
+0.01<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+5.90<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.08)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Again, we don’t find a significant immediate effect. Given the further evidence, we can rule out that an immediate an effect has occured as result of the event.</p>
+</div>
+</div>
+<div id="additional-notes" class="section level1">
+<h1><span class="header-section-number">4</span> Additional notes</h1>
+<p>In this section we are going to discuss some additional issues that you might need to consider with interrupted time series.</p>
+<div id="autocorrelation" class="section level2">
+<h2><span class="header-section-number">4.1</span> Autocorrelation</h2>
+<p>Autocorrelation is a major issue when working with time series. Autocorrelation occurs when observation at one point in time depends from observations at another point in time. For example:</p>
+<ul>
+<li>it is possible that your level of wellbeing depends on how you have been feeling in the past days;</li>
+<li>the number of hours you study today might depend on how many hours have you studies a week ago;</li>
+<li>the diffusion of diseases over time depends on whether there has been other cases in the past weeks;</li>
+<li>and so on. Autocorrelation is a common phenomenon.</li>
+</ul>
+<p>When we use OLS, we assume that error terms associated with each observation are <strong>not</strong> correlated. But, this assumption does not hold in the presence of autocorrelation because error terms are correlated across observations. If you don’t correct for autocorrelation, you might underestimate the standard errors, meaning that you are overestimating the statistical significance.</p>
+<p>You can assess autocorrelation by looking at the residual pattern. If residuals are randomly dispersed, then there is no autocorrelation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regTS_OK &lt;-<span class="st"> </span><span class="kw">lm</span>(BirthRateMonthly <span class="op">~</span><span class="st"> </span>time, <span class="dt">data =</span> oklahoma)
+<span class="co"># Calculate a simple regression where birth rate depends only on time </span>
+
+<span class="kw">plot</span>(<span class="kw">resid</span>( regTS_OK ))</code></pre></div>
+<div class="figure"><span id="fig:fres"></span>
+<img src="TimeSeries_files/figure-html/fres-1.png" alt="Residuals of a time series" width="960" />
+<p class="caption">
+Figure 4.1: Residuals of a time series
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the residuals</span></code></pre></div>
+<p>Some times, it can be difficult to detect small correlation patterns using the residual plot as in figure <a href="#fig:fres">4.1</a>. As alternative, we can test autocorrelation of residuals using the Durbin-Watson test in the package <strong>lmtest</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;lmtest&quot;, repos=&quot;https://cran.cnr.berkeley.edu&quot;)</span>
+<span class="co">#library(&quot;lmtest&quot;)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dwtest(oklahoma$BirthRateMonthly ~ oklahoma$time)</span></code></pre></div>
+<p>The test is positive as the p-value is smaller than 0.05. We can conclude that autocorrelation is an issue.</p>
+<p>The function <strong>acf</strong> is another easy way to plot your residuals and assess autocorrelation. We can have a look at it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">regTS_OK &lt;-<span class="st"> </span><span class="kw">lm</span>(BirthRateMonthly <span class="op">~</span><span class="st"> </span>time, <span class="dt">data =</span> oklahoma)
+<span class="co"># We run again a simple regression where the outcome depends solely on time</span>
+
+<span class="kw">acf</span>(<span class="kw">resid</span>( regTS_OK ))</code></pre></div>
+<div class="figure"><span id="fig:facf"></span>
+<img src="TimeSeries_files/figure-html/facf-1.png" alt="Autocorrelation plt" width="960" />
+<p class="caption">
+Figure 4.2: Autocorrelation plt
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We use the acf function to plot the residuals</span></code></pre></div>
+<p>In figure <a href="#fig:facf">4.2</a>, the x axis represents the time while the y axis is the level of autocorrelation. If a line goes outside the blue horizontal line, the autocorrelation is significant at that point in time (p-value &lt;= 0.05).</p>
+<p>In our figure, it looks like our error terms are correlated at T = 1, T = 11, and T = 12. We can retrieve from the acf function the level of correlation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Correlation at time 1 (note that 0 is time 1, so time 1 is actually our second observation )</span>
+<span class="kw">acf</span>(<span class="kw">resid</span>( regTS_OK ))<span class="op">$</span>acf[<span class="dv">2</span>]   
+
+<span class="co"># Correlation at time 12 </span>
+<span class="kw">acf</span>(<span class="kw">resid</span>( regTS_OK) )<span class="op">$</span>acf[<span class="dv">12</span>]</code></pre></div>
+<p><img src="TimeSeries_files/figure-html/unnamed-chunk-18-1.png" width="960" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Correlation at time 13 </span>
+<span class="kw">acf</span>(<span class="kw">resid</span>( regTS_OK ))<span class="op">$</span>acf[<span class="dv">13</span>]</code></pre></div>
+<pre><code>## [1] 0.2747975
+## [1] 0.2440887
+## [1] 0.489367</code></pre>
+<p>We can use the value of the correlation that we just retrieve to correct our standard errors.</p>
+<p>Another alternative is to an <a href="https://datascienceplus.com/time-series-analysis-using-arima-model-in-r/">ARIMA model</a> which allows to adjust for autocorrelation and other time series characteristics such seasonality. In this course, we do not address ARIMA models.</p>
+</div>
+<div id="time-of-the-intervention-effect" class="section level2">
+<h2><span class="header-section-number">4.2</span> Time of the intervention effect</h2>
+<p>Time series can get complicated as there might be late effects (as we saw in our Section <a href="#replication-of-a-study">3</a>) that can be misleading. A classical example are traning programs. Let’s imagine a state that introduces a new training program at T = 8 and we want to evaluate the immediate and sustained effect. Our data are represented in figure <a href="#fig:ftraining">4.3</a>.</p>
+<p>Look at the lines. If we consider the time of the intervention, we would conclude that the program has a negative effect on income! But this is because individuals drop out from the labour market or stop working as they need to attend the training. Income, in fact, increases over time when individuals re-enter the labour market.</p>
+<div class="figure"><span id="fig:ftraining"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture8.png" alt="Figure 13. Training program intervention " width="60%" />
+<p class="caption">
+Figure 4.3: Figure 13. Training program intervention
+</p>
+</div>
+<p>Thinking about <strong>when</strong> the effect is likely to occur is importan in time series. As we mentioned in section <a href="#the-counterfactual">1.2</a>, we cannot test if the slope difference is significant at different point in time.</p>
+<p>If we suspect a late effect, we can look at immediate and sustained effects some months after the intervention. In the training example, we would observe an immediate, positive effect if we look at t = 18. Moreover, the “Time since” coefficient would have indicated a larger, positive effect.</p>
+<div class="figure"><span id="fig:unnamed-chunk-19"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture8.1.png" alt="Figure 14. Training program intervention" width="60%" />
+<p class="caption">
+Figure 4.4: Figure 14. Training program intervention
+</p>
+</div>
+</div>
+<div id="regression-to-the-mean" class="section level2">
+<h2><span class="header-section-number">4.3</span> Regression to the mean</h2>
+<p>It is also difficult to know for how long the effect of a policy will be sustained. In several cases researchers note a <em>regression to the mean</em> phenomenon, whereas the outcome slowly returns to its initial value.</p>
+<p>For instance, let’s think of our first example about wellbeing. It is possible that the school program has a positive effect in the short term, as students draw benefits from the new class. But in the long term, it is likely that students will get used to the wellbeing program and their wellbeing goes back to its initial values. This is shown in figure <a href="#fig:regTOmean">4.5</a>.</p>
+<p>There are also factors that are outside the policy makers’ control and might affect the sustained effect of the intervention. For instance, family and other environmental factors might push back wellbeing to its initial value.</p>
+<div class="figure"><span id="fig:regTOmean"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture9.png" alt="Regression to the mean" width="60%" />
+<p class="caption">
+Figure 4.5: Regression to the mean
+</p>
+</div>
+</div>
+<div id="validity-threats" class="section level2">
+<h2><span class="header-section-number">4.4</span> Validity threats</h2>
+<p>Finally, time series are also subject to threats to internal validity, such as:</p>
+<ul>
+<li>Another event occurred at the same time of the intervention and cause the immediate and sustained effect that we observe;</li>
+<li>Selection processes, as only some individuals are affected by the policy intervention.</li>
+</ul>
+<p>To address these issues, you can:</p>
+<ul>
+<li>Control for another group that is not subject to the intervention (e.g., students who do not attend the wellbeing class)</li>
+</ul>
+<p>This design makes sure that the effect we observe is the result of the policy intervention. We will have two observation per each point in time and will include a dummy variable to differentiate the effect across the two groups. Then, we will interact our dummy variable with our 3 time series coefficients to see if there is a statistically significant difference across the 2 groups. You can see this in the following equation, where <span class="math inline">\(\text{G}\)</span> is a dummy indicating treatment and control group.</p>
+<span class="math display" id="eq:2timeseries">\[\begin{equation} 
+\text{Y} = \text{b}_0 + \text{b}_1*T + \text{b}_2*D + \text{b}_3*P + \text{b}_4*G + \text{b}_5*G*T + \text{b}_6*G*D + \text{b}_7*G*P
+  \tag{4.1}
+\end{equation}\]</span>
+<div class="figure"><span id="fig:f16"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture10.1.png" alt="Time series with control group" width="60%" />
+<p class="caption">
+Figure 4.6: Time series with control group
+</p>
+</div>
+<ul>
+<li>Analyze multiple time series where the effect has occured at multiple points in time.</li>
+</ul>
+<p>We can also take two (or more) groups where the intervention has occured at different point in time and see whether the effect of the intervention is significant for both of them.</p>
+<div class="figure"><span id="fig:f17"></span>
+<img src="O:/Users/ffusi/Jesse/TimeSeries/Picture10.2.png" alt="Time series with intervention at different points in time" width="60%" />
+<p class="caption">
+Figure 4.7: Time series with intervention at different points in time
+</p>
+</div>
+<style type="text/css">
+p {
+color: black;
+margin: 0 0 20px 0;
+}
+
+p.caption {
+    text-align: center;
+    font-style: italic;
+}
+
+td {
+    padding: 3px 10px 3px 10px;
+    }
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:30px;
+    margin-bottom:100px;
+}
+
+h1, h2{
+  margin-top:100px;
+  margin-bottom:20px;
+}
+
+H5{
+    text-align: center;
+    color: green;
+    font-size:0.8em;
+}
+
+ul.a {
+  list-style-type: circle;
+  color: black;
+}
+
+img {
+    max-width: 90%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   margin-bottom:20px;
+}
+
+code {
+  font-size: 92%;
+  border: 10px solid #F8F8F8;
+  margin-bottom: 2px;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+</style>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+>>>>>>> bb73cb77de33ba95336f70c0c26ee58267c67d34
