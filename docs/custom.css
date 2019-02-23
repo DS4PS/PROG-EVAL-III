@@ -3,8 +3,8 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-
      font-weight:300;line-height:1.65;
      -webkit-font-smoothing:antialiased;
      -moz-osx-font-smoothing:grayscale;
-     margin-left:15%;
-     margin-right:15%} 
+     margin-left:20%;
+     margin-right:20%} 
 
 body,aside,main{flex-direction:column} 
 body{display:flex;min-height:100vh} 
