@@ -6,8 +6,6 @@ title: "Program Evaluation"
 # FOUNDATIONS OF PROGRAM EVALUATION III: REGRESSION TOOLS
 
 
-### Evaluation Frameworks
-
 * Fixed Effects Models 
 * Instrumental Variables
 * Matching
