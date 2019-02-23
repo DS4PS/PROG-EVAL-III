@@ -12,6 +12,10 @@ navbar:
       href: Datasets_in_R.html
     - text: "Difference-in-Difference"
       href: DiffInDiff.html
+    - text: "Time Series"
+      href: TimeSeries.html
+    - text: "Instrumental Variables"
+      href: InstrumentalVariables.html 
   right:
     - icon: fa-github fa-2x
       href: https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK

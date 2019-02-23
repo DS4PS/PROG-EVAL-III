@@ -1,18 +1,11 @@
 ---
 title: "Interrupted Time Series"
-output: 
-  bookdown::html_document2:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hid
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.width = 10)
 ```
+
 **Packages**
 
 Here are the packages we will use in this lecture. If you don't remember how to install them, you can have a look at the code. 
@@ -34,13 +27,13 @@ library( "stargazer" )
 * What is autocorrelation? 
 * Applying a time series model to data in R
 
-```{r, echo=FALSE, results="hide"}
+```{r, eval=FALSE, echo=F, results="hide"}
 install.packages("stargazer", repos="https://cran.cnr.berkeley.edu")
 install.packages("scales", repos="https://cran.cnr.berkeley.edu")
 install.packages("Wats", repos="https://cran.cnr.berkeley.edu")
 ```
 
-```{r, echo=FALSE, results="hide"}
+```{r, echo=TRUE, results="show"}
 library("scales")
 library("stargazer")
 library("Wats")
@@ -68,7 +61,7 @@ Number of books read monthly by students in a school  |Does the opening of a new
 In our first example, let's assume we have data on the total consumption of tobacco in a US state from a point in time (t0) to ten years later (t10). Our observations are represented in the graph \@ref(fig:f1) below. The line suggests an upward trend, with state residents consuming more tobacco over time. 
 
 ```{r f1, fig.cap="Yearly consumption of tobacco from t0 to t10", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture1.png" )
 ```
 
 Now let's imagine that the policymakers decide to introduce a new tax on tobacco at the end of year t10 to reduce its consumption. *What are the possible outcomes of this intervention?*
@@ -78,25 +71,25 @@ We can represent some possible outcomes in figures \@ref(fig:f2) - \@ref(fig:f5)
 In figure \@ref(fig:f2), the tax has no effect on tobacco consumption, which continues to increase at the same trend as before. 
 
 ```{r f2, fig.cap="No policy effect", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture2.1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture2.1.png" )
 ```
 
 In figure \@ref(fig:f3), the tax reduces tobacco consumption right after the policy intervention but the upward trend continues over time. There is an **immediate policy effect** but no sustained effect.
 
 ```{r f3, fig.cap="Immediate policy effect", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture2.2.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture2.2.png" )
 ```
 
 In figure \@ref(fig:f4), the tax does not reduce tobacco consumption immediately, but it shifts the trend downward in the long term. There is no immediate policy effect but we observe a **sustained effect** of the policy.
 
 ```{r f4, fig.cap="Sustained policy effect", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture2.3.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture2.3.png" )
 ```
 
 Finally, we can also imagine that the tax decreases tobacco consumption immediately after AND shifts the trend downward. Figure \@ref(fig:f5) shows **both an immediate and a sustained policy effect**. 
 
 ```{r f5, fig.cap="Immediate + sustained policy effect", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture2.4.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture2.4.png" )
 ```
 
 Interrupted time series enable us to investigate each effect, thereby understanding if the policy intervention:
@@ -132,7 +125,7 @@ $\text{P}$ is a continuous variable indicating time passed since the interventio
 Our dataset will look like this:
 
 ```{r fdataset, fig.cap="A time series dataset", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture5.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture5.png" )
 ```
 
 We can graphically illustrated each coefficient and gradually build equation \@ref(eq:timeseries). 
@@ -145,7 +138,7 @@ In figure \@ref(fig:f6), $\text{b}_0$ is the baseline level of the outcome (the 
 \end{equation}
 
 ```{r f6, fig.cap="Coefficients b0 and b1, if b2 = 0 and b3 = 0", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture3.1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture3.1.png" )
 ```
 
 In figure \@ref(fig:f7), $\text{b}_2$ is the **immediate effect** that occurs after the intervention. It represents how the outcome level has changed from the last observation before the intervention to the first one after. In this case the slope of the line has not changed, and the lines after and before the intervention are parallel. Their slope is equal to $\text{b}_1$.
@@ -156,7 +149,7 @@ In figure \@ref(fig:f7), $\text{b}_2$ is the **immediate effect** that occurs af
 \end{equation}
 
 ```{r f7, fig.cap="Coefficient b0, b1, and b2, if b3 = 0", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture3.2.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture3.2.png" )
 ```
 
 In figure \@ref(fig:f8), the slope has changed after the intervention. $\text{b}_3$ is the **difference between the slope of the line before and the slope of the line after the intervention**. It represents the **sustained effect** of the policy intervention. Note that $\text{b}_2$ = 0,  meaning that there has been no immediate effect of the policy.
@@ -167,7 +160,7 @@ In figure \@ref(fig:f8), the slope has changed after the intervention. $\text{b}
 \end{equation}
 
 ```{r f8, fig.cap="Coefficient b0, b1, and b3, with b2 = 0", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture3.3.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture3.3.png" )
 ```
 
 Finally, in figure \@ref(fig:f9), we have **both an immediate and sustained effect** and $\text{b}_2$ and $\text{b}_3$ are both different from zero.
@@ -178,7 +171,7 @@ Finally, in figure \@ref(fig:f9), we have **both an immediate and sustained effe
 \end{equation}
 
 ```{r f9, fig.cap="Coefficient b0, b1, b2, and b3", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture3.4.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture3.4.png" )
 ```
 
 ## The counterfactual
@@ -207,7 +200,7 @@ Or just:
 \end{equation}
 
 ```{r f10, fig.cap="Time series counterfactual ", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture4.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture4.png" )
 ```
 
 We can calculate the counterfactual for each point in time. For instance, we look at t = 12. The predicted Y is calculated in the equation \@ref(eq:t12). The predicted Y for t = 12 falls on the green line in figure \@ref(fig:f11). Its counterfactual is calculcated in equation \@ref(eq:t12counterfactual). It is located on the dotted line, perpendicularly above the predicted Y. 
@@ -223,7 +216,7 @@ We can calculate the counterfactual for each point in time. For instance, we loo
 \end{equation} 
 
 ```{r f11, fig.cap="Time series counterfactual, T=12 ", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture4.1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture4.1.png" )
 ```
 
 The counterfactual changes for each point in time. Let's look at t = 18. 
@@ -239,7 +232,7 @@ The counterfactual changes for each point in time. Let's look at t = 18.
 \end{equation} 
 
 ```{r f12, fig.cap="Time series counterfactual, T=18 ", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture4.2.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture4.2.png" )
 ```
 
 We will apply these concepts in the following working example. 
@@ -262,7 +255,7 @@ dataTS = as.data.frame(cbind(Y, T, D, P))
 ```
 
 ```{r image, out.width='50%', echo=F, fig.align='center' }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/StudentWellbeing.jpg" )
+knitr::include_graphics( "FIGURE/TimeSeries/StudentWellbeing.jpg" )
 ```
 
 We are going to have a look at a simulated dataset describing the wellbeing of a class of students. Students' wellbeing is an increasingly discussed topic in [policy debates](http://oecdeducationtoday.blogspot.com/2018/03/mental-health-students-school.html) and some states are introducing [mental health education classes](https://www.nbcnews.com/better/health/fall-all-new-york-students-will-be-learning-about-mental-ncna911031) (even some [universities](https://www.nytimes.com/2018/01/26/nyregion/at-yale-class-on-happiness-draws-huge-crowd-laurie-santos.html)). 
@@ -621,7 +614,7 @@ oklahoma <- subset(data, data$CountyName == "oklahoma")
 To get a first sense of the data we can look at this plot that Rodgers and colleagues used to represent birth rate over time in Oklahoma county:
 
 ```{r f13, fig.cap="Oklahoma county, Birth rate over time (Source: Rodgers et al., 2005)", echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/PictureRodgers.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/PictureRodgers.png" )
 ```
 
 What do you expect to find based on the figure?
@@ -809,7 +802,7 @@ Time series can get complicated as there might be late effects (as we saw in our
 Look at the lines. If we consider the time of the intervention, we would conclude that the program has a negative effect on income! But this is because individuals drop out from the labour market or stop working as they need to attend the training. Income, in fact, increases over time when individuals re-enter the labour market. 
 
 ```{r ftraining, fig.cap="Figure 13. Training program intervention ", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture8.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture8.png" )
 ```
 
 Thinking about **when** the effect is likely to occur is importan in time series. As we mentioned in section \@ref(the-counterfactual), we cannot test if the slope difference is significant at different point in time. 
@@ -817,7 +810,7 @@ Thinking about **when** the effect is likely to occur is importan in time series
 If we suspect a late effect, we can look at immediate and sustained effects some months after the intervention. In the training example, we would observe an immediate, positive effect if we look at t = 18. Moreover, the "Time since" coefficient would have indicated a larger, positive effect. 
 
 ```{r, fig.cap="Figure 14. Training program intervention", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture8.1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture8.1.png" )
 ```
 
 ## Regression to the mean
@@ -829,7 +822,7 @@ For instance, let's think of our first example about wellbeing. It is possible t
 There are also factors that are outside the policy makers' control and might affect the sustained effect of the intervention. For instance, family and other environmental factors might push back wellbeing to its initial value. 
 
 ```{r regTOmean, fig.cap="Regression to the mean", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture9.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture9.png" )
 ```
 
 ## Validity threats
@@ -851,7 +844,7 @@ This design makes sure that the effect we observe is the result of the policy in
 \end{equation} 
 
 ```{r f16, fig.cap="Time series with control group", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture10.1.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture10.1.png" )
 ```
 
 * Analyze multiple time series where the effect has occured at multiple points in time. 
@@ -859,76 +852,7 @@ knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture10.1.png" )
 We can also take two (or more) groups where the intervention has occured at different point in time and see whether the effect of the intervention is significant for both of them. 
 
 ```{r f17, fig.cap="Time series with intervention at different points in time", out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/TimeSeries/Picture10.2.png" )
+knitr::include_graphics( "FIGURE/TimeSeries/Picture10.2.png" )
 ```
 
 
-```{css, echo=F}
-p {
-color: black;
-margin: 0 0 20px 0;
-}
-
-p.caption {
-    text-align: center;
-    font-style: italic;
-}
-
-td {
-    padding: 3px 10px 3px 10px;
-    }
-
-table
-{ 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:30px;
-    margin-bottom:100px;
-}
-
-h1, h2{
-  margin-top:100px;
-  margin-bottom:20px;
-}
-
-H5{
-    text-align: center;
-    color: green;
-    font-size:0.8em;
-}
-
-ul.a {
-  list-style-type: circle;
-  color: black;
-}
-
-img {
-    max-width: 90%;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top:30px;
-    margin-bottom:20px;
-}
-
-pre {
-  overflow-x: auto;
-}
-
-pre code {
-   display: block; 
-   padding: 0.5em;
-   margin-bottom:20px;
-}
-
-code {
-  font-size: 92%;
-  border: 10px solid #F8F8F8;
-  margin-bottom: 2px;
-}
-
-code[class] {
-  background-color: #F8F8F8;
-}
-
-```

@@ -1,24 +1,18 @@
 ---
 title: "Instrumental variables"
-output: 
-  bookdown::html_document2:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hid
+
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.width = 10)
+knitr::opts_chunk$set( echo = TRUE, message=F, warning=F, fig.width = 10)
 ```
-**Packages**
+
+## Packages
 
 Here are the packages we will use in this lecture. If you don't remember how to install them, you can have a look at the code. 
 
-* **AER** for the ivreg function.
-* **stargazer** for nice tables
+* **AER** for the ivreg function  
+* **stargazer** for nice tables  
 
 ```{r, eval=F}
 install.packages( AER )
@@ -35,14 +29,14 @@ library( "stargazer" )
 * What are the main characteristics of a valid instrumental variable? 
 * Understanding key mechanisms behind an instrumental variable model
 
-```{r, echo=FALSE, results="hide", cache=F}
+```{r, eval=F, echo=FALSE, results="hide", cache=F}
 install.packages("AER", repos="https://cran.cnr.berkeley.edu")
 install.packages("stargazer", repos="https://cran.cnr.berkeley.edu")
 install.packages("scales", repos="https://cran.cnr.berkeley.edu")
 install.packages( "wooldridge", repos="https://cran.cnr.berkeley.edu" )
 ```
 
-```{r, echo=FALSE, results="hide"}
+```{r, echo=TRUE, results="show"}
 library("scales")
 library(AER) # To use the ivreg function. Make sure to install it beforehand (install.packages)
 library(stargazer)
@@ -56,7 +50,7 @@ We use instrumental variables to address **omitted variable bias**. As you might
 Figure \@ref(fig:figure1) illustrates the covariance structure of a model with an omitted variable correlated with both Y and X1:
 
 ```{r figure1, fig.cap="Covariance structure of an omitted variable model", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Picture2.png" )
+knitr::include_graphics( "FIGURE/InstVar/Picture2.png" )
 ```
 
 In the illustrated case, the "full model" would include all variables, such as:
@@ -78,25 +72,25 @@ Y=\text{b}_0 + \text{b}_1X_1
 When we omit a variable that is correlated with the policy and the outcome variable, it affects both the slope and the standard error of the model - you can observe this in figure \@ref(fig:figure2). Including or excluding X2 significantly changes the covariance between Y and X1 (the intersection between Y and X1) and the residual of Y (the part of Y which does not intersect with X1 or X2).   
 
 ```{r figure2, fig.cap="Covariance structure and residuals", out.width='80%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Cov_Structure.png" )
+knitr::include_graphics( "FIGURE/InstVar/Cov_Structure.png" )
 ```
 
 Instrumental variables are helpful to reduce the omitted variable bias and get a more precise estimate of the effect of X1 on Y. An instrumental variable is a variable correlated with the policy variable, so that it can be a good "substitute" for it, but not correlated with the omitted variable, so as to reduce its interference in estimating the effect of Y. Figure \@ref(fig:figure3) represents the covariance structure:
 
 ```{r figure3, fig.cap="Instrumental variable modeal, covariance structure", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Picture3.png" )
+knitr::include_graphics( "FIGURE/InstVar/Picture3.png" )
 ```
 
 Note that because the instrumental variable is correlated to the policy variable, it is also correlated with the outcome variable (figure \@ref(fig:figure3)). However, this correlation only occurs through X1 as illustrated in the path diagram.
 
 ```{r figure4, fig.cap="Path diagram of the instrumental variable model", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Picture6.png" )
+knitr::include_graphics( "FIGURE/InstVar/Picture6.png" )
 ```
 
 We use the instrumental variable to partition the variance of the policy variable into 2 parts. One part (A) that is highly correlated with the instrumental variable and will be used to predict the outcome variable and one part (B+C) that is uncorrelated with the instrumental variable but it is correlated with the omitted variable and will be excluded from the model:
 
 ```{r figure5, fig.cap="Partitioning the variance of X1", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Picture7.png" )
+knitr::include_graphics( "FIGURE/InstVar/Picture7.png" )
 ```
 
 ## The statistical model
@@ -176,7 +170,7 @@ stargazer( dat,
 When estimating the relationship between wage and education, scholars have encountered issues in dealing with the so-called "ability bias": individuals who have higher ability are more likely both to stay longer in school and get a more highly paid job. We can represent these relationships in this diagram:
 
 ```{r figure6, fig.cap="Ability bias", out.width='70%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Ex_Model.png" )
+knitr::include_graphics( "FIGURE/InstVar/Ex_Model.png" )
 ```
 
 Ability, however, is difficult to measure and cannot be included in the model. It is an omitted variable, which is correlated with both our outcome variable and our policy variable. Excluding "ability" from the analysis creates a bias in the estimation of $\beta_1$.
@@ -301,7 +295,7 @@ The instrumental variable, however, is correlated only with the policy variable,
 Therefore, we can use the instrumental variable to partition the variance of education into a component that is highly correlated with ability (the residual), and a component that is uncorrelated with ability (X1-hat).  Remember the figure \@ref(fig:figure5) we discussed at the beginning of the lecture:
 
 ```{r figure7, fig.cap="Instrumental variable model", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/Ex_Partition.png" )
+knitr::include_graphics( "FIGURE/InstVar/Ex_Partition.png" )
 ```
 
 To see this in practice, we can plot the predicted values (x1_hat) and the residual (e_x1) of the first stage in two graphs and look at the correlation with the omitted variable ability. You can see that there is almost no correlation between h1_hat and ability, but ability is highly correlated with the residual (e_x1).
@@ -369,7 +363,7 @@ abline(lm( y ~ z ), col = "green")
 However, it is important to be able to argue that such correlation occurs only through the policy variable and there is no direct correlation between the instrumental and the outcome variable. 
 
 ```{r figure8, fig.cap="Instrumental variable model, path diagram", out.width='40%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/IV/PathDiagram_2.png" )
+knitr::include_graphics( "FIGURE/InstVar/PathDiagram_2.png" )
 ```
 
 In our previous example, a father's education increases the hourly wage only if it makes an individual stays longer in school. If not, it has no effect on the wage. 
@@ -597,68 +591,3 @@ Crime                |Incarceration rate            |Simultaneous causality     
 Election outcomes    |Federal spending in a district|Political  vulnerability         |Federal spending in the rest of the state    |
 Conflicts            |Economic growth               |Simultaneous causality           |Rainfall                   |
 
-
-```{css, echo=F}
-p {
-color: black;
-margin: 0 0 20px 0;
-}
-
-p.caption {
-    text-align: center;
-    font-style: italic;
-}
-
-td {
-    padding: 3px 10px 3px 10px;
-    }
-
-table
-{ 
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:80px;
-    margin-bottom:100px;
-}
-
-h1, h2{
-  margin-top:100px;
-  margin-bottom:20px;
-}
-
-H5{
-    text-align: center;
-    color: gray;
-    font-size:0.8em;
-}
-
-img {
-    max-width: 90%;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top:30px;
-    margin-bottom:20px;
-}
-
-pre {
-  overflow-x: auto;
-}
-
-pre code {
-   display: block; 
-   padding: 0.5em;
-   margin-bottom:20px;
-}
-
-code {
-  font-size: 92%;
-  border: 10px solid #F8F8F8;
-  margin-bottom: 2px;
-}
-
-code[class] {
-  background-color: #F8F8F8;
-}
-
-```
