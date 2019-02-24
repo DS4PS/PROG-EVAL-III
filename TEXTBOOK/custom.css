@@ -49,9 +49,10 @@ h2,h3,h4,h5,h6{
 
 article a{color:#68f} 
 
-article header a,article footer a{font-weight:inherit;color:inherit} 
+article header a, article footer a{font-weight:inherit;color:inherit} 
 
-header time{color:#949494} 
+/* header time{color:#949494} */
+header time{color:green}
 
 hr{border:1px solid rgba(148,148,148,0.3);margin:2em 0} 
 
@@ -59,10 +60,9 @@ blockquote{border-left:4px solid #68f;padding-left:1.5em}
 
 /* img{border-radius:2px;max-width:100%;height:auto;margin:.5em 0} */
 
-@media (prefers-color-scheme: light){body{background:#fff !important;color:#000 !important} } 
 
+@media (prefers-color-scheme: light){body{background:#fff !important;color:#000 !important} } 
 @media (prefers-color-scheme: dark){body{background:#282828 !important;color:#fff !important} } 
- 
 
 main,article{flex-grow:1} 
 
@@ -221,25 +221,32 @@ body>header h1{width:100%;line-height:1.8;margin-bottom:.5em}
 /* The navigation bar */
 .navbar {
   overflow: hidden;
-  background-color: #333;
-  position: fixed; /* Set the navbar to fixed position */
+  /* background-color: #333; */
+  background-color: #f7f7f7;
+  color: orange;
+  /* position: fixed; */ /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
 }
 
-/* Links inside the navbar */
-.navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+
+
+/* Links inside the navbar  */
+.nav.navbar-nav li a {
+  /* background: #ddd; #f7f7f7 */
+  color: darkgray;
 }
+
 
 /* Change background on mouse-over */
-.navbar a:hover {
-  background: #ddd;
-  color: black;
+.nav.navbar-nav li a:hover {
+  /* background: #ddd; #f7f7f7 */
+  color: orange;
 }
 
+/* highlight current tab */
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover
+{
+    color: black;
+    background-color: #f7f7f7;
+}
