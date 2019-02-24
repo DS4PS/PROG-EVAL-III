@@ -197,19 +197,13 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
-</li>
-<li>
-  <a href="Datasets_in_R.html">Data</a>
-</li>
-<li>
-  <a href="DiffInDiff.html">Difference-in-Difference</a>
-</li>
-<li>
   <a href="TimeSeries.html">Time Series</a>
 </li>
 <li>
   <a href="InstrumentalVariables.html">Instrumental Variables</a>
+</li>
+<li>
+  <a href="Datasets_in_R.html">Data</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -1672,9 +1666,228 @@ head( affairs ) %&gt;% pander()</code></pre>
 </div>
 <div id="school-voucher-dataset" class="section level2">
 <h2><span class="header-section-number">2.2</span> School Voucher Dataset</h2>
-<pre class="r"><code>## data( &#39;voucher&#39; )
-## head( voucher ) %&gt;% pander()
-## </code></pre>
+<pre class="r"><code>data( &#39;voucher&#39; )
+head( voucher ) %&gt;% pander()</code></pre>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="13%" />
+<col width="10%" />
+<col width="15%" />
+<col width="12%" />
+<col width="13%" />
+<col width="9%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">studyid</th>
+<th align="center">black</th>
+<th align="center">hispanic</th>
+<th align="center">female</th>
+<th align="center">appyear</th>
+<th align="center">mnce</th>
+<th align="center">select</th>
+<th align="center">choice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">90</td>
+<td align="center">44</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">90</td>
+<td align="center">46</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">90</td>
+<td align="center">20</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">31</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">90</td>
+<td align="center">36</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">90</td>
+<td align="center">32</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">39</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">90</td>
+<td align="center">76</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="12%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">selectyrs</th>
+<th align="center">choiceyrs</th>
+<th align="center">mnce90</th>
+<th align="center">selectyrs1</th>
+<th align="center">selectyrs2</th>
+<th align="center">selectyrs3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">NA</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">19</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:90%;">
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">selectyrs4</th>
+<th align="center">choiceyrs1</th>
+<th align="center">choiceyrs2</th>
+<th align="center">choiceyrs3</th>
+<th align="center">choiceyrs4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="package-ecdat" class="section level1">
