@@ -220,6 +220,7 @@ $(document).ready(function () {
 <div class="fluid-row" id="header">
 
 <div class="btn-group pull-right">
+  <a class="uk-button uk-button-default" onclick="onlyprint();">PRINT</a>
 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
@@ -2527,23 +2528,13 @@ $(document).ready(function () {
 
 <script>
   function onlyprint(){
-            var div = document.getElementsByTagName("article")[0];
-            var t = document.getElementsByTagName('');
-            var divC = document.getElementsByTagName("article")[0].cloneNode(true);
+            
 
-            var secs = divC.getElementsByTagName("section");
-           
-            for(var j=0;j<secs.length-1;j++){
-              var hr = document.createElement("hr");
-             secs[j].appendChild(hr);
-              var h1 = secs[j].getElementsByTagName("h1");
-              (h1[0]).setAttribute();
-              h1[0].appendChild(hr);
-            }
-            divC.setAttribute("display","block");
+            var divC = document.getElementsByTagName("body").cloneNode(true);
+            $("#rmd-show-all-code").click()
             var divContents = "<br>"+divC.innerHTML;
             var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>Course Syllabus</title>');
+            printWindow.document.write('<html><head><title>Print</title>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(divContents);
             printWindow.document.write('</body></html>');
