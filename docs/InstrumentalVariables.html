@@ -217,8 +217,14 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
+<br>
+<br>
 <div class="fluid-row" id="header">
-<button type="button" > <a class="uk-button uk-button-default" onclick="onlyprint();"><span>Print</span> </a></button>
+  <br>
+  <br>
+
+  <button type="button" > <a class="uk-button uk-button-default" onclick="onlyprint();"><span>Print</span> </a></button>
+
 <div class="btn-group pull-right">
 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu" style="min-width: 50px;">
@@ -2529,7 +2535,7 @@ $(document).ready(function () {
   function onlyprint(){
             
 
-            var divC = document.getElementsByTagName("body")[0].cloneNode(true);
+            var divC = document.getElementsByTagNameClassName("main-container")[0].cloneNode(true);
             $("#rmd-show-all-code").click()
             var divContents = "<br>"+divC.innerHTML;
             var printWindow = window.open('', '', 'height=400,width=800');
