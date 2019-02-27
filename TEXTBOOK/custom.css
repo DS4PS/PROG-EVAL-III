@@ -39,13 +39,19 @@ article a,b,strong,th{font-weight:400}
 h1{
   font-weight:300;
   margin-top:80px !important;
-  margin-bottom:30px;} 
+  margin-bottom:30px;
+  color:darkred;
+  } 
 
 h2,h3,h4,h5,h6{
   font-weight:300;
   margin-top:60px !important;
   margin-bottom:30px;} 
 
+p.caption {
+    text-align: center;
+    font-style: italic;
+}
 
 article a{color:#68f} 
 

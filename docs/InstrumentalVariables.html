@@ -23,9 +23,8 @@
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -101,6 +100,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -115,7 +117,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -135,6 +136,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -156,13 +194,73 @@ $(document).ready(function () {
 });
 </script>
 
-
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
@@ -175,7 +273,6 @@ $(document).ready(function () {
   window.initializeCodeFolding("hide" === "show");
 });
 </script>
-
 
 
 
@@ -292,16 +389,16 @@ Figure 1.1: Covariance structure of an omitted variable model
 </p>
 </div>
 <p>In the illustrated case, the “full model” would include all variables, such as:</p>
-<span class="math display" id="eq:fullmodel">\[\begin{equation} 
+<p><span class="math display" id="eq:fullmodel">\[\begin{equation} 
 Y=\beta_0 + \beta_1X_1 + \beta_2X_2
   \tag{1.1}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>In reality, the omitted variable cannot be observed nor measured, so we end up with a “naive model” where the omitted variable is excluded:</p>
-<span class="math display" id="eq:naivemodel">\[\begin{equation} 
+<p><span class="math display" id="eq:naivemodel">\[\begin{equation} 
 Y=\text{b}_0 + \text{b}_1X_1
   \tag{1.2}
 \end{equation}\]</span>
-<p><br>
+<br>
 <br></p>
 <p>When we omit a variable that is correlated with the policy and the outcome variable, it affects both the slope and the standard error of the model - you can observe this in figure <a href="#fig:figure2">1.2</a>. Including or excluding X2 significantly changes the covariance between Y and X1 (the intersection between Y and X1) and the residual of Y (the part of Y which does not intersect with X1 or X2).</p>
 <div class="figure"><span id="fig:figure2"></span>
@@ -334,25 +431,25 @@ Figure 1.5: Partitioning the variance of X1
 <div id="the-statistical-model" class="section level2">
 <h2><span class="header-section-number">1.1</span> The statistical model</h2>
 <p>We can express this in formula, where we first predict X1 using Z:</p>
-<span class="math display" id="eq:step1">\[\begin{equation} 
+<p><span class="math display" id="eq:step1">\[\begin{equation} 
 \text{X}_1 = \text{b}_0 + \text{b}_1 \text{Z}_1 + \text{e}_x
   \tag{1.3}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>And then use the predicted value of X1 (the A section in figure <a href="#fig:figure5">1.5</a>) to predict Y. In this way we remove from the model the correlation between X1 and X2 (which is part of error term <span class="math inline">\(\text{e}_x\)</span>)</p>
-<span class="math display" id="eq:step2">\[\begin{equation} 
+<p><span class="math display" id="eq:step2">\[\begin{equation} 
 \text{Y}_1 = \text{b}_0 + \text{b}_1 \text{X}_1 + \text{e}_y
   \tag{1.4}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 </div>
 </div>
 <div id="an-instrumental-variable-model" class="section level1">
 <h1><span class="header-section-number">2</span> An instrumental variable model</h1>
 <p><img src="O:/Users/ffusi/Jesse/Diff in Diff/Graduation.jpg" width="60%" /></p>
 <p>In the following working example, we will look at the correlation between hourly wage and education. The discussion regarding <a href="https://www.nytimes.com/2014/09/11/business/economy/a-simple-equation-more-education-more-income.html">“more education, more income”</a> gets continuous attention in the media and in the policy world (see for instance the <a href="https://www.nytimes.com/2014/05/27/upshot/is-college-worth-it-clearly-new-data-say.html">New York Times</a>). We ask: <strong>how much does your salary (Y) increase for any additional year of education?</strong> In other words, we are interested in estimating <span class="math inline">\(\beta_1\)</span>.</p>
-<span class="math display" id="eq:example">\[\begin{equation} 
+<p><span class="math display" id="eq:example">\[\begin{equation} 
 Y=\beta_0 + \beta_1Education
   \tag{2.1}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <div id="data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Data</h2>
 <p>Our <strong>dependent variable</strong> represents an individual’s hourly wage in a given year in the United States. Our <strong>policy variable</strong> is the number of years that individuals have spent in school. We can look at some key summary statistics.</p>
@@ -399,10 +496,10 @@ Wage
 1,000
 </td>
 <td>
-154.00
+149.07
 </td>
 <td>
-48.54
+38.23
 </td>
 <td>
 7.75
@@ -419,10 +516,10 @@ Education
 1,000
 </td>
 <td>
-16.64
+16.94
 </td>
 <td>
-1.95
+1.84
 </td>
 <td>
 10.00
@@ -521,20 +618,20 @@ Naive Model
 Education
 </td>
 <td>
-9.54<sup>***</sup>
+9.39<sup>***</sup>
 </td>
 <td>
-13.58<sup>***</sup>
+12.39<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.43)
+(0.36)
 </td>
 <td>
-(0.63)
+(0.50)
 </td>
 </tr>
 <tr>
@@ -550,7 +647,7 @@ Education
 Ability
 </td>
 <td>
-0.34<sup>***</sup>
+0.23<sup>***</sup>
 </td>
 <td>
 </td>
@@ -577,20 +674,20 @@ Ability
 Control
 </td>
 <td>
-4.73<sup>***</sup>
+3.92<sup>***</sup>
 </td>
 <td>
-4.13<sup>***</sup>
+3.24<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.34)
+(0.30)
 </td>
 <td>
-(0.51)
+(0.43)
 </td>
 </tr>
 <tr>
@@ -606,20 +703,20 @@ Control
 Constant
 </td>
 <td>
--138.70<sup>***</sup>
+-111.77<sup>***</sup>
 </td>
 <td>
--102.22<sup>***</sup>
+-88.78<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(6.98)
+(6.09)
 </td>
 <td>
-(10.53)
+(8.81)
 </td>
 </tr>
 <tr>
@@ -731,7 +828,7 @@ First stage
 Father’s education
 </td>
 <td>
-0.68<sup>***</sup>
+0.67<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -752,7 +849,7 @@ Father’s education
 Control
 </td>
 <td>
-0.17<sup>***</sup>
+0.16<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -773,14 +870,14 @@ Control
 Constant
 </td>
 <td>
-4.34<sup>***</sup>
+4.76<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.37)
+(0.40)
 </td>
 </tr>
 <tr>
@@ -806,7 +903,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.53
+0.50
 </td>
 </tr>
 <tr>
@@ -814,7 +911,7 @@ R<sup>2</sup>
 F Statistic
 </td>
 <td>
-567.59<sup>***</sup> (df = 2; 997)
+489.19<sup>***</sup> (df = 2; 997)
 </td>
 </tr>
 <tr>
@@ -909,10 +1006,10 @@ IV model
 Education
 </td>
 <td>
-9.54<sup>***</sup>
+9.39<sup>***</sup>
 </td>
 <td>
-13.58<sup>***</sup>
+12.39<sup>***</sup>
 </td>
 <td>
 </td>
@@ -921,10 +1018,10 @@ Education
 <td style="text-align:left">
 </td>
 <td>
-(0.43)
+(0.36)
 </td>
 <td>
-(0.63)
+(0.50)
 </td>
 <td>
 </td>
@@ -944,7 +1041,7 @@ Education
 Ability
 </td>
 <td>
-0.34<sup>***</sup>
+0.23<sup>***</sup>
 </td>
 <td>
 </td>
@@ -981,7 +1078,7 @@ Predicted Education
 <td>
 </td>
 <td>
-8.61<sup>***</sup>
+9.59<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -992,7 +1089,7 @@ Predicted Education
 <td>
 </td>
 <td>
-(1.03)
+(0.87)
 </td>
 </tr>
 <tr>
@@ -1010,26 +1107,26 @@ Predicted Education
 Control
 </td>
 <td>
-4.73<sup>***</sup>
+3.92<sup>***</sup>
 </td>
 <td>
-4.13<sup>***</sup>
+3.24<sup>***</sup>
 </td>
 <td>
-4.95<sup>***</sup>
+3.61<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.34)
+(0.30)
 </td>
 <td>
-(0.51)
+(0.43)
 </td>
 <td>
-(0.61)
+(0.52)
 </td>
 </tr>
 <tr>
@@ -1047,26 +1144,26 @@ Control
 Constant
 </td>
 <td>
--138.70<sup>***</sup>
+-111.77<sup>***</sup>
 </td>
 <td>
--102.22<sup>***</sup>
+-88.78<sup>***</sup>
 </td>
 <td>
--25.46
+-44.40<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(6.98)
+(6.09)
 </td>
 <td>
-(10.53)
+(8.81)
 </td>
 <td>
-(16.61)
+(14.43)
 </td>
 </tr>
 <tr>
@@ -1105,10 +1202,10 @@ R<sup>2</sup>
 0.73
 </td>
 <td>
-0.38
+0.42
 </td>
 <td>
-0.16
+0.18
 </td>
 </tr>
 <tr>
@@ -1116,13 +1213,13 @@ R<sup>2</sup>
 F Statistic
 </td>
 <td>
-918.74<sup>***</sup> (df = 3; 996)
+894.97<sup>***</sup> (df = 3; 996)
 </td>
 <td>
-309.09<sup>***</sup> (df = 2; 997)
+368.36<sup>***</sup> (df = 2; 997)
 </td>
 <td>
-92.89<sup>***</sup> (df = 2; 997)
+106.97<sup>***</sup> (df = 2; 997)
 </td>
 </tr>
 <tr>
@@ -1257,7 +1354,7 @@ First Stage
 Father’s education
 </td>
 <td>
-0.68<sup>***</sup>
+0.66<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1278,14 +1375,14 @@ Father’s education
 Control
 </td>
 <td>
-0.01<sup>***</sup>
+0.005<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.0005)
+(0.0004)
 </td>
 </tr>
 <tr>
@@ -1299,14 +1396,14 @@ Control
 Constant
 </td>
 <td>
-3.82<sup>***</sup>
+4.96<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.36)
+(0.37)
 </td>
 </tr>
 <tr>
@@ -1332,7 +1429,7 @@ Observations
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.56
+0.51
 </td>
 </tr>
 <tr>
@@ -1340,7 +1437,7 @@ Adjusted R<sup>2</sup>
 F Statistic
 </td>
 <td>
-632.70<sup>***</sup> (df = 2; 997)
+530.96<sup>***</sup> (df = 2; 997)
 </td>
 </tr>
 <tr>
