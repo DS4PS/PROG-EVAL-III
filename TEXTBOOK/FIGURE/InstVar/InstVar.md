@@ -1,1 +1,0 @@
-Instrumental variables figures
