@@ -643,7 +643,12 @@ oklahoma$time <- rep( 1 : nrow( oklahoma ))
 oklahoma$treatment <- ifelse( oklahoma$Year > 1995 | oklahoma$Year == 1995 & oklahoma$Month >= 5, 1, 0)
 
 # Create a dummy variable that is equal to 0 before time = 64 (when the event occured) and 1 otherwise.
-oklahoma$timeSince <- ifelse( oklahoma$time <= 64, 0, rep(1 : 64))
+
+# If we look at the frequency of the treatment variable, we see that 64 rows has received no treatment and 56 rows did receive the treatment. 
+table(oklahoma$treatment)
+
+# The new variable will have 64 zeros and then will count time from 1 to 56
+oklahoma$timeSince <- c(rep(0, 64), rep(1:56))
 
 ```
 
