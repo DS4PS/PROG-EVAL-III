@@ -417,7 +417,50 @@ points( 1.5, 30, col="darkred", pch=19, cex=2 )
 text( 1.5, 30, "Control group", col="darkred", pos=4 )
 ```
 
+# Additional notes
 
+There are two main threats to validity in a regression discontinuity design.
+
+First, we assumed that the the **relationship between the rating variable and the outcome variable is linear**. 
+
+```{r Linear1, fig.cap = "Source: http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch6.pdf",  out.width='80%', echo=F }
+knitr::include_graphics( "FIGURE/RegDisc/Linear1.png" )
+```
+
+Yet this assumption might not be met. It might happen that the relationship between the rating and the outcome variable is non linear. If this is case you need to properly model it in your formula. For instance, you might need to include quadratic term or more complex polymers if the relationship is curvilinear. 
+
+```{r Linear2, fig.cap = "Source: http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch6.pdf",out.width='80%', echo=F }
+knitr::include_graphics( "FIGURE/RegDisc/Linear2.png" )
+```
+
+It could also happen that once a nonlinear relationship is modelled correctly, the "discontinuity" disappears as it was caused by a misspecification in the model. You can see this case in figure \@ref(fig:Linear3). The correct relationship is specified by the curve. But if we model it as a linear relationship, we might observe a discontinity that is not in the data.
+
+```{r Linear3, fig.cap = "Source: http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch6.pdf", out.width='80%', echo=F }
+knitr::include_graphics( "FIGURE/RegDisc/Linear3.png" )
+```
+
+The second threat is the **diffusion of the treatment**. 
+
+Regression discontinuity assumes that all individuals below (or above) the cutoff point received the treatment and none of the individuals above (or below) the cutoff received it. This might occur in some cases where the rating variable deterministically defines who receives the treatment and who does not (e.g., programs based on income). 
+
+However, in some circumstances the treatment and the control group might be contaminated. For instance, despite the mandatory attendance policy some students might have decided not to regularly attend classes. When enforcing a law at the international level, some countries might not implement it right away, despite being eligible. In some other cases, individuals below (or above) the cutoff might be allowed to attend special classes or programs. 
+
+Contamination of the control group or crossovers of the treatment group might affect the estimation of the main effect. In this case, the regression discontinuity is defined as "fuzzy" as the cut off is not deterministic but probabilistic (we assume that individuals who should receive the treatment are actually receiving it and viceversa). To solve the problem, you can:
+
+* acknowledge possible issues related to contamination and crossover but still run your regression discontinuity comparing eligible vs ineligible individuals
+* use eligibility as an instrumental variable. First you estimate you receive the treatment and then use regression discontinuity to estimate the treatment on the treated. 
+
+# Additional resources
+
+Additional resources are made available to help you to explore more advanced topics. In some cases, additional resources might also help you to better understand the topic by reading additional explanations and examples. 
+
+Additional slides on regression discontinuity can be found [here](https://www.ipr.northwestern.edu/workshops/past-workshops/quasi-experimental-design-and-analysis-in-education/quasi-experiments/docs/QE-Day2.pdf), [here](http://erikgahner.dk/slides/2015-aas/12-rdd.pdf) or [here](http://faculty.smu.edu/kyler/courses/7312/presentations/baumer/Baumer_RD.pdf).
+
+Little explanation, but nice graphs: [here](https://vizdatar.wordpress.com/author/vizdatar/). 
+
+More on [nonlinear relationships](http://econ.lse.ac.uk/staff/spischke/mhe/ex_ch6.pdf) and [fuzzy regression discontinuity](http://cega.berkeley.edu/assets/cega_events/39/Regression_Discontinuity.pdf). 
+
+[A complete guide to regression discontinuity for practitioners](http://dev.mdrc.org/sites/default/files/RDD%20Guide_Full%20rev%202016_0.pdf)  
 
 
 ```{css, echo=F}
