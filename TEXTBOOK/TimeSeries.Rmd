@@ -837,7 +837,7 @@ There are also factors that are outside the policy makers' control and might aff
 knitr::include_graphics( "FIGURE/TimeSeries/Picture9.png" )
 ```
 
-## Validity threats
+## Validity threats: control groups and multiple time series
 
 Finally, time series are also subject to threats to internal validity, such as:
 
@@ -846,14 +846,18 @@ Finally, time series are also subject to threats to internal validity, such as:
 
 To address these issues, you can:
 
-* Control for another group that is not subject to the intervention (e.g., students who do not attend the wellbeing class)
+* Use as a control a group that is not subject to the intervention (e.g., students who do not attend the well being class)
 
-This design makes sure that the effect we observe is the result of the policy intervention. We will have two observation per each point in time and will include a dummy variable to differentiate the effect across the two groups. Then, we will interact our dummy variable with our 3 time series coefficients to see if there is a statistically significant difference across the 2 groups. You can see this in the following equation, where $\text{G}$ is a dummy indicating treatment and control group. 
+This design makes sure that the observed effect is the result of the policy intervention. The data will have two observations per each point in time and will include a dummy variable to differentiate the treatment (=1) and the control (=0). The model has a similar structure but (1) we will include a dummy variable that indicates the treatment and the control group and (2) we will interact the group dummy variable with all 3 time serie coefficients to see if there is a statistically significant difference across the 2 groups. 
+
+You can see this in the following equation, where $\text{G}$ is a dummy indicating treatment and control group. 
 
 \begin{equation} 
 \text{Y} = \text{b}_0 + \text{b}_1*T + \text{b}_2*D + \text{b}_3*P + \text{b}_4*G + \text{b}_5*G*T + \text{b}_6*G*D + \text{b}_7*G*P
   (\#eq:2timeseries)
 \end{equation} 
+
+To interpret the coefficients you need to remember that the reference group is the treatment group (=1). The Group dummy (b4) indicates the difference between the treatment and the control group. b5 represents the slope difference between the intervention and control group in the pre-intervention period. b6 represents the difference between the control and intervention group associated with the intervention. b7 represents the difference between the sustained effect of the control and intervention group after the intervention.
 
 ```{r f16, fig.cap="Time series with control group", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/TimeSeries/Picture10.1.png" )
