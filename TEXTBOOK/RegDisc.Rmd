@@ -57,7 +57,7 @@ The regression discontinuity design is used when the treatment (or intervention)
 <br>
 * A law that faciliates admission to college for the top 10% students from low-ranked high schools; students in the top 10% will be part of the program (treatment group), while students below the top 10% will not (control group)
 
-Let's look at an example where a scholarship is offered to low income students to attend college. You can see a representation of the model in figure \@ref(fig:rdfigure). The x axis is the family income based on which we assign students to the treatment or control group. We call it the *rating variable*. The y axis is the likelihood to enroll into college. It is our *outcome variable*. There is a positive relationship between the two: students from higher income families are more likely to enroll to college. 
+The key problem is the **endogeneity between the outcome and the assignment of the treatment**. Scholarships are a classical example. For instance,  let's imagine a scholarship which is offered to low income students to attend college. You can see a representation of the model in figure \@ref(fig:rdfigure). The x axis is the family income based on which we assign students to the treatment or control group. We call it the *rating variable*. The y axis is the likelihood to enroll into college. It is our *outcome variable*. There is a positive relationship between the two: students from higher income families are more likely to enroll to college. 
 
 ```{r rdfigure, fig.cap="Students' family income and college enrollment", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/RegDisc/Picture1.png" )
@@ -69,13 +69,15 @@ We establish to give a scholarship to students below a given level of income (th
 knitr::include_graphics( "FIGURE/RegDisc/Picture2.png" )
 ```
 
-We expect a positive effect of the scholarship, such that more students in low income families (treatment group) will enroll into college than usual. 
+Comparing these two groups, however, is problematic. Students who did not receive the scholarship (the control group) are more likely to go to college even without the scholarship because of their income. Their enrollment is likely to remain higher than the enrollment of low-income students. This does not imply that the scholarship has no effect: it might be that in the absence of the treatment (i.e., without the scholarship), low-income students would have been even less likely to enroll to college. 
+
+Regression discontinuity is used to solve this problem and assess whether or not we observe a treatment effect. It does so by accounting for the relationship between the outcome and the rating variable and then calculating the difference between the two groups. 
 
 ```{r rdfigure3, fig.cap="Treatment effect", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/RegDisc/Picture3.png" )
 ```
 
-The scope of a regression discontinuity model is to assess whether or not we observe a treatment effect. The treatment effect is the difference in the outcome variable between units just above and just below the cutoff point.
+> The intuition behind the regression discontinuity design is the endogeneity of the outcome to the assignment of treatment, which might bias the estimation of the effect of the treatment. Low-income students might continue to enroll to college at a lower rate even with a scholarship, leading to a downward bias of the estimates. Similarly, low-income populations receiving a subsidy to pay rent might continue to have more housing issues than higher income individuals. Individuals who receive Medicare might have greater health problems because of age, and without controlling for the relationship between age and health outcomes, we might have a downward estimates of the effect of the program. 
 
 ## The statistical model
 
@@ -109,17 +111,17 @@ We can consider each coefficient of our equation \@ref(eq:RD) separately.
 
 1. $\beta_1$ represents the difference between the treatment and the control group and assesses whether the intervention had an effect.
 <br>
-2. $\beta_2$ represents the relationship between the outcome variable and the rating variable. 
+2. $\beta_2$ represents the relationship between the outcome variable and the rating variable. It allows us to control for endogeneity in this relationship. 
 
 ## The counterfactual 
 
-The counterfactual is *what it would have occured to Y, had the policy intervention not happened*. In our previous regression discontinuity model, the counterfactual is the students' likelihood to enroll, if they had not received the scholarship.
+The counterfactual is *what it would have occured to Y, had the policy intervention not happened*. It is very important in regression discontinuity . For instance, in our previous regression discontinuity model, the counterfactual is the students' likelihood to enroll, if they had not received the scholarship.
 
 ```{r counterfactual, fig.cap="Counterfactual", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/RegDisc/Picture5.png" )
 ```
 
-If we take our equation \@ref(eq:RD), the counterfactual is obtained by assuming that the intervetion has not occurend (Treatment = 0), so that Y is only predicted by its relationship with rating variable: 
+If we take our equation \@ref(eq:RD), the counterfactual is obtained by assuming that the intervetion has not occured (Treatment = 0), so that Y is only predicted by its relationship with rating variable: 
 
 \begin{equation} 
 \text{Y} = \beta_0 + \beta_1*0 + \beta_2*Score + \text{e}
@@ -178,6 +180,19 @@ $\text{Performance}$    |Final exam grade, from 0 to 100                        
 $\text{Treatment}$      |Dummy variable if Treatment group (=1) or Control group (=0)                                                  |
 $\text{Attendance}$     |Percentage of classes attended from 0% (attended no class) to 100% (attended all classes) - Rating variable   |
 $\text{Attendance_c}$   |Attendance variable centered around the cutoff. The cutoff was fixed at the median of Attendance              |
+
+The problem with comparing the treatment and the control group is that students with lower attendance (treatment group) are more likely to have lower grades than students with higher attendance. Because of this, if we compare the means of the two groups we might observe no different between them. 
+
+We can empirically see this:
+
+```{r}
+
+mean(data$Performance[data$Treatment==1])
+mean(data$Performance[data$Treatment==0])
+
+```
+
+Students who did not receive the treatment have a higher mean than students who did receive the treatment. If we were just to look at these results, we would conclude that the treatment had no effect. 
 
 ## Analysis
 

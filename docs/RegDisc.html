@@ -514,7 +514,7 @@ div.tocify {
 <li>A house subsidy program to support low-income populations paying rent. Only individuals with a income below a certain level will receive the subside (treatment group) while others will not (control group); <br> <br></li>
 <li>A law that faciliates admission to college for the top 10% students from low-ranked high schools; students in the top 10% will be part of the program (treatment group), while students below the top 10% will not (control group)</li>
 </ul>
-<p>Let’s look at an example where a scholarship is offered to low income students to attend college. You can see a representation of the model in figure <a href="#fig:rdfigure">1.1</a>. The x axis is the family income based on which we assign students to the treatment or control group. We call it the <em>rating variable</em>. The y axis is the likelihood to enroll into college. It is our <em>outcome variable</em>. There is a positive relationship between the two: students from higher income families are more likely to enroll to college.</p>
+<p>The key problem is the <strong>endogeneity between the outcome and the assignment of the treatment</strong>. Scholarships are a classical example. For instance, let’s imagine a scholarship which is offered to low income students to attend college. You can see a representation of the model in figure <a href="#fig:rdfigure">1.1</a>. The x axis is the family income based on which we assign students to the treatment or control group. We call it the <em>rating variable</em>. The y axis is the likelihood to enroll into college. It is our <em>outcome variable</em>. There is a positive relationship between the two: students from higher income families are more likely to enroll to college.</p>
 <div class="figure"><span id="fig:rdfigure"></span>
 <img src="FIGURE/RegDisc/Picture1.png" alt="Students' family income and college enrollment" width="60%" />
 <p class="caption">
@@ -528,14 +528,17 @@ Figure 1.1: Students’ family income and college enrollment
 Figure 1.2: Control and treatment group based on the cutoff
 </p>
 </div>
-<p>We expect a positive effect of the scholarship, such that more students in low income families (treatment group) will enroll into college than usual.</p>
+<p>Comparing these two groups, however, is problematic. Students who did not receive the scholarship (the control group) are more likely to go to college even without the scholarship because of their income. Their enrollment is likely to remain higher than the enrollment of low-income students. This does not imply that the scholarship has no effect: it might be that in the absence of the treatment (i.e., without the scholarship), low-income students would have been even less likely to enroll to college.</p>
+<p>Regression discontinuity is used to solve this problem and assess whether or not we observe a treatment effect. It does so by accounting for the relationship between the outcome and the rating variable and then calculating the difference between the two groups.</p>
 <div class="figure"><span id="fig:rdfigure3"></span>
 <img src="FIGURE/RegDisc/Picture3.png" alt="Treatment effect" width="60%" />
 <p class="caption">
 Figure 1.3: Treatment effect
 </p>
 </div>
-<p>The scope of a regression discontinuity model is to assess whether or not we observe a treatment effect. The treatment effect is the difference in the outcome variable between units just above and just below the cutoff point.</p>
+<blockquote>
+<p>The intuition behind the regression discontinuity design is the endogeneity of the outcome to the assignment of treatment, which might bias the estimation of the effect of the treatment. Low-income students might continue to enroll to college at a lower rate even with a scholarship, leading to a downward bias of the estimates. Similarly, low-income populations receiving a subsidy to pay rent might continue to have more housing issues than higher income individuals. Individuals who receive Medicare might have greater health problems because of age, and without controlling for the relationship between age and health outcomes, we might have a downward estimates of the effect of the program.</p>
+</blockquote>
 <div id="the-statistical-model" class="section level2">
 <h2><span class="header-section-number">1.1</span> The statistical model</h2>
 <p>In mathematical terms, we are interested in estimating the following equation:</p>
@@ -554,19 +557,19 @@ Figure 1.4: Regression discontinuity dataset
 <p>We can consider each coefficient of our equation <a href="#eq:RD">(1.1)</a> separately.</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\beta_1\)</span> represents the difference between the treatment and the control group and assesses whether the intervention had an effect. <br></li>
-<li><span class="math inline">\(\beta_2\)</span> represents the relationship between the outcome variable and the rating variable.</li>
+<li><span class="math inline">\(\beta_2\)</span> represents the relationship between the outcome variable and the rating variable. It allows us to control for endogeneity in this relationship.</li>
 </ol>
 </div>
 <div id="the-counterfactual" class="section level2">
 <h2><span class="header-section-number">1.2</span> The counterfactual</h2>
-<p>The counterfactual is <em>what it would have occured to Y, had the policy intervention not happened</em>. In our previous regression discontinuity model, the counterfactual is the students’ likelihood to enroll, if they had not received the scholarship.</p>
+<p>The counterfactual is <em>what it would have occured to Y, had the policy intervention not happened</em>. It is very important in regression discontinuity . For instance, in our previous regression discontinuity model, the counterfactual is the students’ likelihood to enroll, if they had not received the scholarship.</p>
 <div class="figure"><span id="fig:counterfactual"></span>
 <img src="FIGURE/RegDisc/Picture5.png" alt="Counterfactual" width="60%" />
 <p class="caption">
 Figure 1.5: Counterfactual
 </p>
 </div>
-<p>If we take our equation <a href="#eq:RD">(1.1)</a>, the counterfactual is obtained by assuming that the intervetion has not occurend (Treatment = 0), so that Y is only predicted by its relationship with rating variable:</p>
+<p>If we take our equation <a href="#eq:RD">(1.1)</a>, the counterfactual is obtained by assuming that the intervetion has not occured (Treatment = 0), so that Y is only predicted by its relationship with rating variable:</p>
 <span class="math display" id="eq:RDCounterfactual">\[\begin{equation} 
 \text{Y} = \beta_0 + \beta_1*0 + \beta_2*Score + \text{e}
   \tag{1.2}
@@ -627,6 +630,12 @@ Figure 2.1: Source: <a href="https://www.pinterest.com/youthchange/classroom-pos
 </tr>
 </tbody>
 </table>
+<p>The problem with comparing the treatment and the control group is that students with lower attendance (treatment group) are more likely to have lower grades than students with higher attendance. Because of this, if we compare the means of the two groups we might observe no different between them.</p>
+<p>We can empirically see this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(data<span class="op">$</span>Performance[data<span class="op">$</span>Treatment<span class="op">==</span><span class="dv">1</span>])</code></pre></div>
+<pre><code>## [1] 57.93795</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(data<span class="op">$</span>Performance[data<span class="op">$</span>Treatment<span class="op">==</span><span class="dv">0</span>])</code></pre></div>
+<pre><code>## [1] 76.67116</code></pre>
 </div>
 <div id="analysis" class="section level2">
 <h2><span class="header-section-number">2.2</span> Analysis</h2>
@@ -790,7 +799,7 @@ data<span class="op">$</span>Treatment2 =<span class="st"> </span><span class="k
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">26</span>, <span class="st">&quot;Treatment group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 </div>
 <div id="the-counterfactual-1" class="section level2">
 <h2><span class="header-section-number">2.4</span> The counterfactual</h2>
@@ -829,7 +838,7 @@ counterfactual =<span class="st"> </span><span class="kw">adjustcolor</span>(<sp
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="dv">10</span>, <span class="dv">14</span>, <span class="dt">col=</span><span class="st">&quot;goldenrod1&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">14</span>, <span class="st">&quot;Counterfactual&quot;</span>, <span class="dt">col=</span><span class="st">&quot;goldenrod1&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 </div>
 </div>
 <div id="replication-of-a-study" class="section level1">
@@ -1454,7 +1463,7 @@ data<span class="op">$</span>Treatment2 =<span class="st"> </span><span class="k
 <span class="kw">text</span>( <span class="fl">1.5</span>, <span class="dv">36</span>, <span class="st">&quot;Treatment group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="fl">1.5</span>, <span class="dv">30</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="fl">1.5</span>, <span class="dv">30</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-14-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
 </div>
 </div>
 <div id="additional-notes" class="section level1">
