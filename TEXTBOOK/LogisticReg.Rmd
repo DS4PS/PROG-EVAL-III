@@ -135,7 +135,7 @@ colnames(df) <- c("Admission", "LSAT", "Essay", "GPA")
 knitr::include_graphics( "FIGURE/Logit/SupremeCourt.jpg" )
 ```
 
-We start with a simple example to illustrate the **Linear Probability Model**. We want to estimate the probability that a student will be admitted to law school based on [some key variables](https://www.usnews.com/education/blogs/law-admissions-lowdown/2012/11/12/learn-the-5-deciding-factors-in-law-school-admissions). Admission to law school can be challenging, although there are claims that the [average score for admission has decreased](https://www.nytimes.com/2015/10/27/business/dealbook/study-cites-lower-standards-in-law-school-admissions.html) in the past years and there are [disparities in admission and job market for female and male students](https://www.nytimes.com/2016/11/30/business/dealbook/more-law-degrees-for-women-but-fewer-good-jobs.html)
+We start with a simple example to illustrate the **Linear Probability Model**. We want to estimate the probability that a student will be admitted to law school based on [some key variables](https://www.usnews.com/education/blogs/law-admissions-lowdown/2012/11/12/learn-the-5-deciding-factors-in-law-school-admissions). Admission to law school can be challenging, although there are claims that the [average score for admission has decreased](https://www.nytimes.com/2015/10/27/business/dealbook/study-cites-lower-standards-in-law-school-admissions.html) over the past years.
 
 Our variables include:
 
@@ -154,6 +154,7 @@ stargazer( df,
            type = "html", 
            omit.summary.stat = c("p25", "p75"),
            digits = 2 )
+
 ```
 
 We expect that students with higher scores will be more likely to be admitted (i.e., they will have a higher probability of admission).
@@ -165,93 +166,112 @@ In previous lectures we used OLS models to estimate the relationship between an 
   (\#eq:LPM)
 \end{equation}
 
-As before, we use the *lm* function to estimate our coefficients. Reslts are summarized in the table below.
+As before, we use the *lm* function to estimate our coefficients. Results are summarized in the table below.
 
 ```{r, results='asis'}
 
+# We use the "lm" function to estimate the linear probability model with an OLS estimator.
 LPM = lm( Admission ~ LSAT + Essay + GPA )
 
 stargazer( LPM,
-           
            type = "html", digits = 3,
-           
            intercept.bottom = FALSE,
-           
            covariate.labels = c("Constant", "LSAT", "Essay", "GPA"),
-           
            omit.stat = c("ser","f","rsq","adj.rsq") )
 ```
 
-Results from a LPM can be interpreted in the same way we interpret results from an OLS model. However, in a LPM we refer to a probability outcome. For instance, for each one-unit increase in the LSAT score, the probability of the event to occur increases of 0.019. For a one unit increase in the Essay score, the probability increases of 0.010. Finally, for one unit increase in the GPA, the probability of being admitted increases of 0.132. 
+Results from a LPM can be interpreted in the same way we interpret results from an OLS model. However, in a LPM we refer to the outcome in terms of probability. For instance: 
+
+* for each one-unit increase in the LSAT score, the probability of being admitted to law school increases of 0.019; 
+* for a one-unit increase in the Essay score, the probability of being admitted to law school increases of 0.010;
+* for one-unit increase in the GPA, the probability of being admitted to law school increases of 0.132. 
 
 ## Limitations of the LPM
 
-Yet there are some limitations when using a LPM with a binary variable. 
+Yet there are some limitations when using an OLS estimator with a binary variable. 
 
-1. First, the model suffers from *heteroskedasticity*. Heteroskedasticity occurs when the variance of the error terms is not constant but depends on X1. We can see this graphically by plotting the residuals against the predict values. If the model was homoskedasticc, we would expect the residuals to be randomly distributed.   
+1. First, the model suffers from *heteroskedasticity*. Heteroskedasticity occurs when the variance of the error terms is not constant but varies for different values of Y. We can see this graphically by plotting the residuals against the predicted values. If the model was homoskedastic, we would expect the residuals to be randomly distributed.   
 
-```{r residuals, fig.cap= "Residuslas vs fitted values"}
+```{r residuals, fig.cap= "Residuals vs fitted values"}
 
+# Estimate the residuals
 res = LPM$residuals
 
+# Predicted values based on the linear probability model
 yhat = predict( LPM )
- 
+
+# Plot residuals against the predicted value. If the model is homoskedastic, we would observe a random distribution. If the model is heteroskedastic, we would observe some kind of correlation between residuals and predicted values.
 plot( yhat, res, xlab = "Predicted values", ylab = "Residuals" )
 ```
 
-You might remember that we can use *robust standard errors* to overcome heteroskedasticity. Robust standard errors allow the the variance to be difference across observations.
+To overcome heteroskedasticity, we can use *robust standard errors* . Robust standard errors allow the variance of the residuals to be difference across observations and "fix" the standard errors accordingly.
 
 ```{r}
 
+# Note: you need to install the lmtest and sandwich packages to run the following line. 
+
+# Calculate robust standard errors
 coeftest( LPM, vcov = vcovHC(LPM, type="HC1") )
 
 ```
 
-In this case, the standard errors have little change - for GPA, the standard error decreases from 0.016 to 0.0149.The essay standard error decreases from 0.001 to 0.0006. 
+In the previous example, the standard errors change little after we use a robust estimator. For GPA, the standard error decreases from 0.016 to 0.0149. The essay standard error decreases from 0.001 to 0.0006. 
 
-2. Second, a LPM assumes a linear relationships between Y and the independent variables. A linear relationship might be a good approximation when the variable is continuous but it is not necessarily a good approximation when the variable is binary.
+2. Second, a LPM assumes a linear relationships between Y and the independent variables. A linear relationship might be a good approximation of the "true" relationship when the dependent variable is continuous but it is not necessarily a good approximation when the dependent variable is binary.
 
-In OLS models, we assume a linear relationship between X and Y. When using an OLS with binary data, it's like we are calculating the average probabilities across groups of observations based on their independent variables. 
+We can see this in practice. When using an OLS estimator with a binary dependent variable, it's like grouping your DVs based on a independent variable and calculating the average probability for each group. 
 
-For instance, let's order our observations by LSAT score and take the 50 students with the lowest LSAT score. The average LSAT score is  131.44. The average probability is equal to 0.16. We can plot this point on the our graph. 
+This process is easily understood with an example. Let's think about our previous model and see what happens when we predict the probabilities of being admitted to a law school based on LSAT scores. 
 
-Then we can take the average probability for the 51st observation to the 100th observations. The probability is equal to 0.34 - we expect an higher probability as the average LSAT score has also increased to 137.54. 
+First, we order our observations by LSAT score and take the 50 students with the lowest LSAT score. Their average LSAT score is 131.44 while their average probability of being admitted to law school is equal to 0.16. The probability of being admitted to law school is simply the average number of students admitted on the total number of students in the group. 
 
 ```{r}
 
+# We order our observation by LSAT score
 df <- df[ order( df$LSAT ), ] 
 
-mean( df$Admission[ 1:50 ] )
+# We can calculate the LSAT mean for the 50 students with the lowest score. 
 mean( df$LSAT[ 1:50 ] )
 
-mean( df$Admission[ 51:100 ] )
-mean( df$LSAT[ 51:100 ] )
-
-plot(df$LSAT, df$Admission, col = adjustcolor("gray", alpha.f = 0.3), pch = 19, bty = "n", cex = 2, xlab = "LSAT", ylab = "Admission into law school")
-points( mean( df$LSAT[ 1:50 ] ), mean( df$Admission[ 1:50 ] ), col = "red", lwd = 4)
-points( mean( df$LSAT[ 51:100 ] ), mean( df$Admission[ 51:100 ] ), col = "red", lwd = 4)
+# We calculate the mean of Admission, which represents the probability of being admitted to law school for the 50 students with the lowest LSAT score. 
+mean( df$Admission[ 1:50 ] )
 
 ```
 
-If we do this process for all observations and we plot the results on the graph, we would have something like this. 
-
-We also add the regression line for the a linear probability model including only the LSAT score. 
+We can repeat the process and take the average probability for the 51st observation to the 100th observations. The probability of being admitted to law school is equal to 0.34, while the average LSAT score has also increased to 137.54. This suggests a positive relationship between LSAT and Admission. 
 
 ```{r}
 
+# We can calculate the LSAT mean for the 51st-100th students in the LSAT score ranking. 
+mean( df$LSAT[ 51:100 ] )
+
+# We calculate the mean of Admission, which represents the probability of being admitted to law school for the 51st-100th students in the LSAT score ranking. 
+mean( df$Admission[ 51:100 ] )
+
+
+```
+
+We can apply the same process for all groups of 50 observations (101st-150th, 151st-200th, and so on) and plot the average LSAT score of each group against the admission probability for that same group. We also add the regression line for a linear probability model including only the LSAT score. 
+
+```{r}
+
+# We order our observation by LSAT score
 df <- df[order(df$LSAT),] 
 
-df$d = c(rep(1,50), rep(2,50), rep(3,50), rep(4,50), rep(5,50), rep(6,50),
-rep(7,50), rep(8,50), rep(9,50), rep(10,50), rep(11,50), rep(12,50), rep(13,50), rep(14,50), rep(15,50), rep(16,50),
+# We create groups of 50 observation. 
+df$d = c(rep(1,50), rep(2,50), rep(3,50), rep(4,50), rep(5,50), rep(6,50), rep(7,50), rep(8,50), rep(9,50), rep(10,50), rep(11,50), rep(12,50), rep(13,50), rep(14,50), rep(15,50), rep(16,50),
 rep(17,50), rep(18,50), rep(19,50), rep(20,50))
 
-gr_mean = aggregate(df[, 1], list(df$d), mean)
-
+# Average LSAT score for each group. Note that the LSAT variable is positioned in the second column of the df dataset, so it can be indicated at df[, 2].
 gr_mean2 = aggregate(df[, 2], list(df$d), mean)
 
+# We calculate the probability of being admitted to law school. The Admission variable is in the first column of the dataset.
+gr_mean = aggregate(df[, 1], list(df$d), mean)
+
+# We plot the average LSAT score against the group average probability of being admitted to law school. 
 plot(df$LSAT, df$Admission, col = adjustcolor("gray", alpha.f= 0.3), pch=19, bty="n", cex = 2, xlab="LSAT", ylab="Admission into law school")
-points(gr_mean2$x, gr_mean$x, col = "red", lwd = 4)
-abline(lm(df$Admission ~ df$LSAT), col = "darkred", lwd = 3)
+points(gr_mean2$x, gr_mean$x, col = "red", lwd = 4) #Add points to the graph
+abline(lm(df$Admission ~ df$LSAT), col = "darkred", lwd = 3) #Add a regression line
 
 ```
 
@@ -261,9 +281,11 @@ We can observe that:
 
 * However, the OLS 'misses' observations that are at the extreme points - when the LSAT scores are particularly high or low, the OLS line does not approximate the probability very well. 
 
-* Because of this last point, several persons prefer a logit model over a LPM. In the logit, we move from a line to a s-shaped curve (see \@ref(the-logit-model))
+* Because of this last point, several persons prefer a logit model over a LPM. In a logit model, we move from a linear relationship between X and Y to a s-shaped relationship (see \@ref(the-logit-model)). 
 
-3. Third, an OLS model does not constraint the predicted values to be between 0 and 1 as a probability model would require. As a result, we can have negative predicted values or predicted values that are greater than 1. For instance, you can look at the descriptive statistics of yhat of the previous model. Values range from -0.015 to 1.30. But a probability greater than 1 is not realistic. This is another reason why most people prefer a logit model. A logit model will contraint the outcome variable to range from 0 to 1. 
+3. Third, while we interpret the results of LPM in terms of probabilities, the predicted values are not constrained between 0 and 1. As a result, we could obtain negative predicted values or predicted values that are greater than 1. You can look at the descriptive statistics of yhat (the predicted values) of the previous LPM. 
+
+Values range from -0.015 to 1.30. But a probability greater than 1 is not realistic. This is another reason why most people prefer a logit model. A logit model will contraint the outcome variable to range from 0 to 1. 
 
 ```{r}
 
@@ -273,49 +295,53 @@ summary(yhat)
 
 # The logit model
 
-We utilize a logistic (or logit) model, which relies on S-shaped logistic function to estimate the likelihood of the event to occur. 
+A logistic (or logit) model relies on a S-shaped logistic function to estimate the likelihood of an event to occur.
 
-We can see in the same example we discussed before. We plot again the LSAT score against the probability of being admitted to law school. We also add the average probability per group of observations. 
+We can see the S-shaped logistic function in the graph below. Again we plot LSAT scores against the probability of being admitted to law school. We also add the group average probabilities that we estimate in the previous section. 
 
-But instead than plotting a straight line as in the LPM, we plot the s-shape function of the logit model. While there are not big differences in the middle of the graph, the s-shaped function better approximates the values at the two extremes. 
+But, instead than plotting the regression line of the LPM, we plot the s-shape function of a logit model. 
+
+While there are not big differences in the middle of the graph, the s-shaped function better approximates the values at the two extremes (very high or very low LSAT scores). 
 
 ```{r binaryfunction, fig.cap= "Binary function"}
 
+# Logit model
 log = glm( Admission ~ LSAT, data = df, family = "binomial")
 
+# Plot of LSAT scores against the probability of being admitted to law school
 plot(df$LSAT, df$Admission, col = adjustcolor("gray", alpha.f= 0.3), pch=19, bty="n", cex = 2, xlab="LSAT", ylab="Admission into law school")
+points(gr_mean2$x, gr_mean$x, col = "red", lwd = 4) #Group averages
 
-points(gr_mean2$x, gr_mean$x, col = "red", lwd = 4)
-
-
+# Logit s-shaped curve
 curve( predict( log, data.frame(LSAT = x), type = "response"), 
       lty = 1, lwd = 2, col = "blue",                            
       add = TRUE)
+
 ```
 
 ## Maximum Likelihood Estimation 
 
-In order to utilize a s-shaped function, we need to move from an OLS model to a Maximum Likelihood estimator. It is beyond the scope of this lecture to enter into detailes about maximum likelihood estimation. So, we present here only some key points: 
+In order to utilize a s-shaped function, we need to move from an OLS model to a Maximum Likelihood estimator. It is beyond the scope of this lecture to enter into detailes about maximum likelihood estimation. We present only some key points: 
 
 1. The Maximum Likelihood (ML) is an estimation method (like OLS). 
 
-An estimation method is a statistical technique that helps us to find a set of parameters (the coefficients) that generate the data. 
+An estimation method is a statistical technique that helps us to find a set of parameters (the coefficients) generating the data. 
 
-2. The ML estimator requires assumptions about the distribution function - in other words, it wants to know the basic process that generated the data. 
+2. The ML estimator requires assumptions about the distribution function - in other words, it wants to know the nature of the process that generated the data. 
 
 In the case of a binary variable, we assume that the generation process follows an S-shaped curve as the one we plotted in figure \@ref(fig:binaryfunction) instead than a linear curve as in the OLS model. 
 
-3. Once we decide a distribution function, ML tries to find the most likely values (our coefficients) that would explain the data (outcomes) we observe according to our distribution function.
+3. Once we decide a distribution function, ML tries to find the most likely values (our coefficients) that would explain the data (the outcome variable) given our distribution function.
 
-The ML estimator utilizes an iterative process - in simple words, it tries several combination of values until it finds the one that gets closer to the real data. The output is a set of a coefficient that allows us to predict our dependent variable. 
+The ML estimator utilizes an iterative process - in simple words, it tries several combination of values until it finds the one that gets closer to the real data. The output is a set of a coefficients that predict our dependent variable. 
 
-Note that When using a statistical software, the process is based on various algorithms trying different combinations of coefficient.  
+When using a statistical software, these values are searched by various algorithms.  
 
-4. At the end of the process, the ML estimator returns our coefficients, standard errors, and t-test as an OLS model. Moreover, we get a likelihood function which measures the probability of observing our dependent variable values given our chosen set of coefficients. As you might imagine, the scope of MLE is to maximize the likelihood function. 
+4. At the end of the process, the ML estimator returns coefficients, standard errors, and t-test as an OLS model. Moreover, we get a likelihood function which measures the probability of observing our dependent variable values given our chosen set of coefficients. As you might imagine, the scope of MLE is to maximize the likelihood function. 
 
 ### An example
 
-The Maximum Likelihood is easy to implement. The *glm* function in R utilizes a Maximum Likelihood Estimator to calculate the coefficients. We can use the same data we used for the LPM (see \@ref(linear-probability-model-(pm))) to run a logit example to predict the probabilities of being admitted to law school. 
+The Maximum Likelihood is easy to implement. The *glm* function in R utilizes a Maximum Likelihood Estimator to calculate the coefficients. We can use the same data of the LPM (see \@ref(linear-probability-model-(lpm))) to run a logit model predicting the probability of being admitted to law school. 
 
 ```{r, results = 'asis'}
 
@@ -331,21 +357,23 @@ stargazer( log,
 
 ```
 
-As you can see the output does not fundamentally change from an OLS model. We have the coefficient, standard errors and significance levels. 
+The output does not fundamentally change from an OLS model. We have the coefficients, standard errors and significance levels. 
 
-The two parameter reported at the bottom of the table are the Log Likelihood and the Akaike Inferior Criteria (AIC). Both values are per se not meaningful but we will use them to compare across models.  
+The two parameter reported at the bottom of the table are the Log Likelihood and the Akaike Inferior Criteria (AIC). Both values are not meaningful per se, but we will use them to compare across models.  
 
-* the log likelihood is the logarithm of the likelihood function - i.e., the probability of observing our actual dependent variables based on the coefficient we obtain (\@ref(maximum-likelihood-estimation)). We can use the log likelihood to compare across models. The lower the log-likelihood, the more the model is a better fit to the data. 
+* the log likelihood is the logarithm of the likelihood function - i.e., the probability of observing the true values of Y given our coefficients (\@ref(maximum-likelihood-estimation)). We can use the log likelihood to compare across models. The lower the log-likelihood, the better the model fits the data. 
 
-* the AIC represents how much information gets lost when estimating the model. Each model looses some information (in fact, each model has residuals!). Higher quality model will have a lower AIC indicating the less information has been lost. 
+* the AIC represents how much information gets lost when estimating the model. Each model losses some information (each model has residuals!) but higher quality models will have a lower AIC, which indicates that less information has been lost. 
 
-While there is not a "good" AIC or a "good" log likelihood, you can use these two parameter to compare models. 
+While there is not a "good" AIC or a "good" log likelihood, you can use these two parameters to compare models. 
 
 ## Interpretation
 
-The tricky part of logit model is to interpret coefficients. In this section we explain why it is problematic, before discussing an example. 
+The tricky part of a logit model is the interpretation of the coefficients. In this section we explain why it is problematic before discussing an example. 
 
-One problem with modeling probability is the limited range of the variable, from 0 to 1. We discussed it before in the LPM; one limitation of the LPM is not taking into account the restricted range of values for the dependent variable (\@ref(limitations-of-the-lpm)). To solve this problem, the dependent variable is transformed from a binary variable to log odds.
+One problem with modeling probabilities is the limited range, as a probability ranges only from 0 to 1. The LPM solves this problem by ignoring the limited range of the dependent variable and predicting values that are smaller than 0 or greater than 1. 
+
+By contrast, the logit model transforms the dependent variable so that it assumes values ranging from negative infinite to positive infinite as shown in the table below:  
 
 ```{r VarRange, fig.cap="Variable transformation", out.width='40%', echo=F }
 
@@ -353,50 +381,54 @@ knitr::include_graphics( "FIGURE/Logit/VarRange.png" )
 
 ```
 
-We naturally transform the dependent variable into **probabilities** when we consider its distribution to be a function of s-shaped curve moving from 0 to 1. 
-
-**Odds ratios** are a probability ratio. If the probability of an event to occur is equal to 0.4, then the probability of not occurring is 0.6 (= 1 - 0.4). The odds are: 
+The first transformation is from probabilities to **odds ratios**. Odds ratio are a probability ratio; if the probability of an event to occur is equal to 0.4, then the probability of the event not to occur is 0.6 (= 1 - 0.4). The odds ratios are: 
 
 <center>$\text{Prob of Success  / Prob of Failure}$</center>
 <br>
-in other words 0.4 / 0.6 = 0.67, so as the probability of an event to occur is 0.67 against 1. 
+in other words 0.4 / 0.6 = 0.67. The probability of an event to occur is 0.67 against 1. 
 
-We can make another example. If an event has a probability to occur equal to 0.8, then its probability not to occur is 0.2. The odds ratio is 0.8/0.2 = 4. The event is 4 times more likely to occur than not to occur.
+We can take another example. If an event has a probability to occur equal to 0.8, then its probability not to occur is 0.2. The odds ratio is 0.8/0.2 = 4. The event is 4 times more likely to occur than not to occur.
 
-We can look at the relationship between  probabilities and odds ratio in graph \@ref(fig:prOR). They are positive correlated as an increase in the probability increases the odds ratio. 
+Graph \@ref(fig:prOR) shows the relationship between probabilities and odds ratios. An increase in the probability of an event to occur increases its odds ratio. 
 
-Also, note that odd ratios can assume values greater than 1. Yet odd ratios can assume only positive values, whereas an odds ratio grater than 1 means that success is more likely to occur, while an odds ratio lower than one indicate that failure is more likely to occur. 
+Note that odds ratios can assume values greater than 1 but not smaller than 0. Odds ratios can assume only positive values, whereas an odds ratio greater than 1 indicates that an event is more likely to occur than not to occur. Vice versa an odds ratio smaller than 1 indicates that an event is more likely not to occur than to occur.
 
 ```{r prOR, fig.cap = "Relationship between probability and odd ratio"}
 
+# Some probabilities
 pr = c(0.001, 0.01, 0.10, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9)
 
+# We put them in a data frame.
 data = as.data.frame(pr)
 
+# Calculate their respective odds ratios
 data$OR = round(data$pr/(1-data$pr), 2)
 
+# We plot probabilities against their odds ratios.
 plot(data$pr, data$OR, xlab = "Probability", ylab = "Odds Ratio", lty = 1, type = "l")
 
 ```
 
-To further transform our binary variable into a continuous one, we transform the odds ratio into **log odds** using a logarithm transformation. This is called the *logit transformation*. 
+Second, we transform the odds ratios into **log odds** using a logarithm transformation. This is called the *logit transformation*. A logit transformation enlarges the range of the value of our DV to include negative numbers. 
 
-Again, we can plot the odds ratios against the log odds. As you can see, log odds can assume both poistive and negative values.
+We can see it by plotting the odds ratios against the log odds. The log odds can assume both positive and negative values.
 
 ```{r}
 
+# We use a logit transformation to transform the odds ratios into log odds. 
 data$LogsO = log(data$OR)
 
+# We plot the odds ratios against the log odds. 
 plot(data$OR, data$LogsO, xlab = "Odds Ratio", ylab = "Log Odds", lty = 1, type = "l")
 
 ```
 
-Log odds represent the unit of analysis of our coefficients. Each coefficient represent a one-unit change in the log odds that the event will occur. 
+Log odds represent the unit of analysis of our coefficients. Each coefficient represents a one-unit change in the log odds that the event will occur. 
 
-While the transformation from binary to log odds facilitate the model estimation, it does not help with interpretation. 
+While the transformation from a binary variable to log odds facilitate the model estimation, it does not help with interpretation. 
 
-1. The log odds that are not very meaningful. So, we need to tranform back our coefficients into odds ratio or probabilities, which are easier to interpret. 
-2. Yet probabilities are distributes along a non-straight line. While in linear models, the relationship between X and Y is constant (e.g., it is represented by the slope of the line as in figure \@ref(fig:linear)), in non-linear models the relationship is not constant but depend on the value of x (look again at graph \@ref(fig:binaryfunction)).
+1. Log odds are not very meaningful. Because of this, we need to tranform our coefficients into odds ratio or probabilities, which are easier to interpret. 
+2. Yet probabilities are distributes along a s-shaped line. While in linear models the relationship between X and Y is constant, in non-linear models the relationship varies according to  the value of x (look again at graph \@ref(fig:binaryfunction)).
 
 ### Log odds
 
