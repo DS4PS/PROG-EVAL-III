@@ -103,6 +103,8 @@ Why does the relationship change so much?
 
 One possible explanation is that country C is poorer and, because of that, receives more funding than the other countries. However, when compared against them its growth is still limited. So across countries variation is negative. The trend is positive only if we compare **within** the country. As country C receives more funding, its economic growth improves.
 
+This statistical phenomenon is known as the Simpson's Paradox, where trends are different depeding on whether data are observed by groups or at the aggregate level (you can read more about the Simpson's paradox [here](https://towardsdatascience.com/simpsons-paradox-how-to-prove-two-opposite-arguments-using-one-dataset-1c9c917f5ff9) and [here](https://towardsdatascience.com/simpsons-paradox-and-interpreting-data-6a0443516765))
+
 As we will see in the remain of the lecture, **fixed effect** wil enable us to consider differences across groups so that we can estimated the within effect of the policy intervention.
 
 ## OLS, demeaning, and fixed effects.
@@ -213,7 +215,7 @@ stargazer( OLS, Pooled_OLS,
            digits = 2, intercept.bottom = FALSE )
 ```
 
-A less known way to look at the data is by demeaning our observations. De-meaning means to substract the mean from each variable. In this case, we are interested in demeaning by group, so that the values of x and y are centered around each group mean. You can observe the process in table \@ref(fig:f5). 
+Anoter way to look at the data is by demeaning our observations. De-meaning means to substract the mean from each variable. In this case, we are interested in demeaning by group, so that the values of x and y are centered around each group mean. You can observe the process in table \@ref(fig:f5). 
 
 The mean value of x in group A is 4. We substract 4 from each value of x within group A (2, 4, 6) and obtain -2, 0, and 2. We repeat the same process for each group, and for both x and y (and any other variable in our model).
 
