@@ -81,29 +81,33 @@ knitr::include_graphics( "FIGURE/FixEffs/Picture2.png" )
 
 Are we supposed to conclude that international aid has a negative effect on growth?
 
-A way to check this result is to collect data about each country over an extended period of time. In this way, we move from **cross-sectional** data to **panel** data, where each unit is observed over time. 
+A way to confirm this result is to collect data about each country over an extended period of time. In this way, we move from **cross-sectional** data to **panel** data, where each variable in the datset is observed along a given time period.
+
+The small "t" next to each observation indicates the time at which data were collected. 
+
+The graph \@ref(fig:f3) represents observations from three countries across three time periods.
 
 ```{r f3, fig.cap="Relationship between growth and international aid: panel data", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/FixEffs/Picture3.png" )
 ```
 
-If we consider the relationship between international aid and growth at each point in time, **across** the 3 countries, the relationship is again negative. 
+If we consider the relationship between international aid and growth **within** each time period and **across** the 3 countries, the relationship is once again negative. 
 
-```{r f4, fig.cap="Relationship between growth and international aid: Across countries variation", out.width='60%', echo=F }
+```{r f4, fig.cap="Relationship between growth and international aid: **Across** countries variation", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/FixEffs/Picture4.png" )
 ```
 
-However, if we change our way to look at the data and we consider the correlation between international aid and growth **within** one single country across time, we would observe a positive relationship.
+However, if we change the way we look at the data and consider the relationship between international aid and growth **within** one single country and **across** time, we would observe a positive relationship.
 
-```{r f5, fig.cap="Relationship between growth and international aid: Within countries variation", out.width='60%', echo=F }
+```{r f5, fig.cap="Relationship between growth and international aid: **Within** countries variation", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/FixEffs/Picture5.png" )
 ```
 
 Why does the relationship change so much?
 
-One possible explanation is that country C is poorer and, because of that, receives more funding than the other countries. However, when compared against them its growth is still limited. So across countries variation is negative. The trend is positive only if we compare **within** the country. As country C receives more funding, its economic growth improves.
+One possible explanation is that country C is poorer and, because of that, it receives more funding than the other countries. However, when we compare country C against other countries, its growth is still limited. As results, **across** countries variation is negative. The trend is positive only if we compare growth over time **within** each country. As country C receives more funding, its economic growth improves.
 
-This statistical phenomenon is known as the Simpson's Paradox, where trends are different depeding on whether data are observed by groups or at the aggregate level (you can read more about the Simpson's paradox [here](https://towardsdatascience.com/simpsons-paradox-how-to-prove-two-opposite-arguments-using-one-dataset-1c9c917f5ff9) and [here](https://towardsdatascience.com/simpsons-paradox-and-interpreting-data-6a0443516765))
+This statistical phenomenon is known as the **Simpson's Paradox**, where trends are different depeding on whether data are observed by groups or at the aggregate level (you can read more about the Simpson's paradox [here](https://towardsdatascience.com/simpsons-paradox-how-to-prove-two-opposite-arguments-using-one-dataset-1c9c917f5ff9) and [here](https://towardsdatascience.com/simpsons-paradox-and-interpreting-data-6a0443516765)). 
 
 As we will see in the remain of the lecture, **fixed effect** wil enable us to consider differences across groups so that we can estimated the within effect of the policy intervention.
 
@@ -124,9 +128,9 @@ data = as.data.frame(cbind(data, g))
 
 We will continue our example and look at some numbers to better understand differences between OLS and fixed effects.
 
-Let's take a look at a simulated dataset that replicates the example illustrated in figure \@ref(fig:f3). We plot all observation on a similar graph. We have three countries (A, B, C) and we observe the relationship between international aid and economic growth at 3 points in time. 
+Let's take a look at a simulated dataset that replicates the example illustrated in figure \@ref(fig:f3). We plot the observations on a graph. We have three countries (A, B, C) and we observe the relationship between international aid and economic growth at three points in time. 
 
-```{r f6 , fig.cap = "Simulated dataset: Economic growth and international aid"}
+```{r f6, fig.cap = "Simulated dataset: Economic growth and international aid"}
 
 palette( c( "steelblue", "darkred", "darkgreen"  ) )
 
@@ -145,9 +149,11 @@ text(data$x[8], data$y[8]+1, "C t2")
 text(data$x[9], data$y[9]+1, "C t3")
 ```
 
-First, we could try to estimate the relationship between x and y by considering only one year of data (cross-sectional dataset as in figure \@ref(fig:f2)) and estimating an **OLS model**. 
+### OLS model
 
-You can see in the OLS result table that the coefficient of x is significantly and negative correlated with y. It suggests that for each additional milion received in international aid funding, economic growth decreases by 11%. 
+First, we estimate the relationship between x and y considering only one year of data (cross-sectional dataset as in figure \@ref(fig:f2)). We can use an **OLS model**. 
+
+The OLS results show that the coefficient of International Aid is significantly and negatively correlated with Economic Growth. It suggests that for each additional milion received in international aid funding, economic growth decreases by 11%. 
 
 ```{r f7, fig.cap = "Simulated dataset: Year = 1"}
 
@@ -178,9 +184,13 @@ stargazer( OLS,
 
 ```
 
-Another way to look at the data is by using a **pooled OLS** regression, where we use all observations across years to predict Y (as in figure \@ref(fig:f3)). 
+### Pooled OLS model
 
-We can compare results across the two models. When using a pooled OLS regression, we would conclude that international aid funding has no effect on economic growth; the beta coefficient is not significantly different from zero. 
+Since we have data across multiple years, we can also use a **pooled OLS** regression, where we use all observations across years to predict Economic Growth (as in figure \@ref(fig:f3)). 
+
+We compare results across a cross-sectional OLS and a pooled OLS model. The pooled OLS regression indicates that international aid has no effect on economic growth; the beta coefficient is not significantly different from zero.
+
+Results are substantially different between the cross-sectional and the pooled OLS model. 
 
 ```{r f8, fig.cap = "Simulated dataset: All observations"}
 
@@ -215,9 +225,15 @@ stargazer( OLS, Pooled_OLS,
            digits = 2, intercept.bottom = FALSE )
 ```
 
-Anoter way to look at the data is by demeaning our observations. De-meaning means to substract the mean from each variable. In this case, we are interested in demeaning by group, so that the values of x and y are centered around each group mean. You can observe the process in table \@ref(fig:f5). 
+### De-meaned OLS model
 
-The mean value of x in group A is 4. We substract 4 from each value of x within group A (2, 4, 6) and obtain -2, 0, and 2. We repeat the same process for each group, and for both x and y (and any other variable in our model).
+As we discussed before, OLS can be problematic with panel data because it takes into account **across-country** variation. The effect of international aid on growth is negative because the overall trend across countries is negative. Countries which receive more funding (like Country C) report a lower economic growth. To observe the true effect of international aid, we need to remove the across-country variation. We can do it by demeaning the data. 
+
+De-meaning requires you to substract the mean from each variable. In this case, we are interested in demeaning by group, so that the values of x and y are centered around each group mean. You can observe the process in table \@ref(fig:f5). 
+
+>By demeaning the data, we remove across-country variation: the mean of each country across years is now equal to 0.
+
+The mean value of Economic Growth in group A is 4. We substract 4 from each value of Economic Growth within group A (2, 4, 6) and obtain -2, 0, and 2. We repeat the same process for each group, and for both Economic Growth (x) and International Aid (note: you need to demean all the variables in your model, including control variables).
 
 ```{r f9, fig.cap="Relationship between growth and international aid: Within countries variation", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/FixEffs/Picture6.png" )
@@ -236,7 +252,7 @@ data$y_dem = ifelse(
           ifelse(data$g == "c", data$y - mean(data$y[data$g == "c"]),NA)))
 ```
 
-By de-meaning each variable, we will obtain a new dataset where our observations are disposed along a line. In graph \@ref(fig:f10), there are no longer significant differences across the 3 countries - they all lay on the same line. All we observed are **within** countries differences. 
+As a result, we obtain a new dataset where our observations are disposed along a line. In graph \@ref(fig:f10), there are no longer significant differences **across** the 3 countries - they all lay on the same line. We observe only **within** countries differences. 
 
 ```{r f10, fig.cap = "Simulated dataset: De-meaned observations"}
 
@@ -253,9 +269,9 @@ text(2.4, -4.5, "B", col = "darkred")
 text(2.4, -5, "C", col = "darkgreen")
 ```
 
-In fact, we can estimate the relationship between x and y using an OLS model. Our beta coefficient is positive and statistically significant. For each milion dollar received in funding aid, a country's economic growth increases - on average - of 1.01 points percentage. 
+At this point, we can estimate the relationship between x and y using an OLS model. Our beta coefficient is positive and statistically significant. For each milion dollar received in funding aid, a country's economic growth increases - on average - of 1.01 points percentage. 
 
-Note that we do not know whether a country grows more than another. We are estimating an *average within country effect*. 
+>Note that we do not know whether a country grows more than another. We are estimating an **average within country effect**. 
 
 ```{r, echo=T, results='asis', fig.cap="Pooled OLS regression"}
 
@@ -270,11 +286,15 @@ stargazer( OLS, Pooled_OLS, Demean_OLS,
            digits = 2, intercept.bottom = FALSE )
 ```
 
-Finally, we estimate a fixed effect. We are going to talk more about the statistical model in the next section \@ref("the-statistical-model"); for now, we only need to know that a fixed effect model is an OLS model including a set of dummy variables for each group in your dataset. In our case, we need to include 3 dummy variable - one for each country. The model will automatically exclude one to avoid multicollinearity problems. 
+### Fixed-effect model
 
-Results for our policy variable in the fixed effect model are identical to the de-meaned OLS. The international aid coefficient represents the one-unit change in the economic growth, on average, within a country. 
+The demeaning procedure shows what happens when we use a fixed effect model.  
 
-But the fixed effect model also includes different intercepts for each country. The intercept for country A is represented by the constant. Country B intercept is 4.90 points percentage lower than Country A. Country C intercept is 12.8 points percentage lower than Country A. 
+A fixed effect model is an OLS model including a set of dummy variables for each group in your dataset. In our case, we need to include 3 dummy variable - one for each country. The model automatically excludes one to avoid multicollinearity problems. 
+
+Results for our policy variable in the fixed effect model are identical to the de-meaned OLS. The international aid coefficient represents a one-unit change in the economic growth, on average, within a country for each additional one-milion dollar received.
+
+The fixed effect model also includes different intercepts for each country. The intercept for country A is represented by the constant. It represents the average economic growth when international aid is equal to 0. Country B intercept is 4.90 points percentage lower than Country A. Country C intercept is 12.8 points percentage lower than Country A. The coefficient of Country B and Country C indicate how much a country is different, on average, from country A (the reference category). 
 
 ```{r, echo=T, results='asis', fig.cap="Pooled OLS regression"}
 
@@ -354,7 +374,7 @@ abline( lm( Outcome ~ X, data=data ), col="red", lwd=2 )
 
 ```
 
-3. Because we know that data are grouped into 7 different batches we can use fixed effets to control for *between variation* and estimate the average *within groups* effect of x on y. 
+3. Because we know that data are grouped into 7 different groups we can use fixed effets to control for *between variation* and estimate the average *within groups* effect of x on y. 
 
 In other words, we would like to obtain a regression line for each group in our dataset, as one unique regression line is not a good approximation.  
 
@@ -369,7 +389,7 @@ plot( data$X, data$Outcome,
 abline( lm( Outcome ~ X, data=data ), col="red", lwd=2 )
 ```
 
-4. We can use a fixed effects which adds a set of dummy variables that represent each group. The equation of the fixed effect model is the following: 
+4. A fixed effects includes a set of dummy variables each of which represents a group. The equation of a fixed effect model is the following: 
 
 \begin{equation} 
 \text{Yit} = \beta_1*Xit + \alpha_i + \text{e}
@@ -395,6 +415,8 @@ $\alpha_i$ is a set of dummy variable for each entity;
 <br>
 $\text{e}$ is the error term.
 
+We can estimate the model as follows: 
+
 ```{r, echo = T, results = 'asis'}
 
 reg = lm( Outcome ~ X + factor(G) - 1, data = data )
@@ -417,7 +439,9 @@ yhat <- fe$fitted
 
 ```
 
-We plot our results in graph \@ref(fig:graph2). As you can see, the lines have the same slope, but different intercept. In this way we are able to better approximate the actual strucutre of the data, which is grouped. 
+We plot our results in graph \@ref(fig:graph2). As you can see, the lines have the same slope, but different intercept. The slope is represented by the coefficient of international aid, the policy variable. It represents the average within-group variation across time. The intercepts represent the average of each group when international aid is equal to 0. A fixed effect model better approximates the actual strucutre of the data and controls for group-level characteristics. 
+
+> Note that the group-level dummy variables control for all time-invariant characteristics of the group. But they do not control for characteristics that change over time.  
 
 ```{r graph2, fig.cap = "Fixed effect model"}
 
