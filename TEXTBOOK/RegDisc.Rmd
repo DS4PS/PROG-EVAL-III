@@ -217,10 +217,28 @@ stargazer( reg,
 
 We interpret each coefficients:
 
+$\beta_0$ represents the Performance of a student exactly at the cut-off point
 $\beta_1$ is positive and significantly different from zero. This indicates that the Treatment had an effect and students in the treatment group saw their grade increased of 7 points. 
 <br>
 <br>
 $\beta_2$ is positive and significantly different from zero. This indicates a positive relationship between attendance and the final exam grade. 
+
+> It's common practice to center the score (rating) variable. Because our rating variable is centered, the intercept is located at the cutoff point and represents the average final score of a student with a median attendance. It's possible to run the same model without centering the score variable. However, the interpretation of our intercept would change. It would be the final score of a student with 0 attendance. Centering the score variable simplying our interpretation of the results and more precisely estimate the average treatment effect right after and right before the cutoff point.
+
+We can see this by running the model with an uncentered rating variable. The coefficient of Treatment and Attendance do not change but the intercept significantly change. 
+
+```{r, echo=T, results='asis'}
+
+reg = lm(Performance ~ Treatment + Attendance, data = data)
+
+stargazer( reg, 
+           type = "html", 
+           dep.var.labels = ("Final exam grade"),
+           column.labels = c(""),
+           covariate.labels = c("Treatment", "Attendance"),
+           omit.stat = "all", 
+           digits = 2 )
+```
 
 ## Plotting the results 
 

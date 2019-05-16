@@ -537,7 +537,7 @@ Figure 1.3: Treatment effect
 </p>
 </div>
 <blockquote>
-<p>The intuition behind the regression discontinuity design is the endogeneity of the outcome to the assignment of treatment, which might bias the estimation of the effect of the treatment. Low-income students might continue to enroll to college at a lower rate even with a scholarship, leading to a downward bias of the estimates. Similarly, low-income populations receiving a subsidy to pay rent might continue to have more housing issues than higher income individuals. Individuals who receive Medicare might have greater health problems because of age, and without controlling for the relationship between age and health outcomes, we might have a downward estimates of the effect of the program.</p>
+<p>The intuition behind the regression discontinuity design is the endogeneity of the outcome to the assignment of treatment, which might bias the estimation of the effect of the treatment. Low-income students might continue to enroll to college at a lower rate even with a scholarship, leading to a downward bias of the estimates. Similarly, low-income populations receiving a subsidy to pay rent might continue to have more housing issues than higher income individuals. Individuals who receive Medicare might have greater health problems because of age, and without controlling for the relationship between age and health outcomes, we might have a downward estimates of the effect of the program. The regression discontinuity model allows us to estimate the local treatment effect, comparing individuals close by the cut off points.</p>
 </blockquote>
 <div id="the-statistical-model" class="section level2">
 <h2><span class="header-section-number">1.1</span> The statistical model</h2>
@@ -636,6 +636,7 @@ Figure 2.1: Source: <a href="https://www.pinterest.com/youthchange/classroom-pos
 <pre><code>## [1] 57.93795</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(data<span class="op">$</span>Performance[data<span class="op">$</span>Treatment<span class="op">==</span><span class="dv">0</span>])</code></pre></div>
 <pre><code>## [1] 76.67116</code></pre>
+<p>Students who did not receive the treatment have a higher mean than students who did receive the treatment. If we were just to look at these results, we would conclude that the treatment had no effect.</p>
 </div>
 <div id="analysis" class="section level2">
 <h2><span class="header-section-number">2.2</span> Analysis</h2>
@@ -770,7 +771,135 @@ Constant
 </tr>
 </table>
 <p>We interpret each coefficients:</p>
-<p><span class="math inline">\(\beta_1\)</span> is positive and significantly different from zero. This indicates that the Treatment had an effect and students in the treatment group saw their grade increased of 7 points. <br> <br> <span class="math inline">\(\beta_2\)</span> is positive and significantly different from zero. This indicates a positive relationship between attendance and the final exam grade.</p>
+<p><span class="math inline">\(\beta_0\)</span> represents the Performance of a student exactly at the cut-off point <span class="math inline">\(\beta_1\)</span> is positive and significantly different from zero. This indicates that the Treatment had an effect and students in the treatment group saw their grade increased of 7 points. <br> <br> <span class="math inline">\(\beta_2\)</span> is positive and significantly different from zero. This indicates a positive relationship between attendance and the final exam grade.</p>
+<blockquote>
+<p>It’s common practice to center the score (rating) variable. Because our rating variable is centered, the intercept is located at the cutoff point and represents the average final score of a student with a median attendance. It’s possible to run the same model without centering the score variable. However, the interpretation of our intercept would change. It would be the final score of a student with 0 attendance. Centering the score variable simplying our interpretation of the results and more precisely estimate the average treatment effect right after and right before the cutoff point.</p>
+</blockquote>
+<p>We can see this by running the model with an uncentered rating variable. The coefficient of Treatment and Attendance do not change but the intercept significantly change.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg =<span class="st"> </span><span class="kw">lm</span>(Performance <span class="op">~</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Attendance, <span class="dt">data =</span> data)
+
+<span class="kw">stargazer</span>( reg, 
+           <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, 
+           <span class="dt">dep.var.labels =</span> (<span class="st">&quot;Final exam grade&quot;</span>),
+           <span class="dt">column.labels =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>),
+           <span class="dt">covariate.labels =</span> <span class="kw">c</span>(<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Attendance&quot;</span>),
+           <span class="dt">omit.stat =</span> <span class="st">&quot;all&quot;</span>, 
+           <span class="dt">digits =</span> <span class="dv">2</span> )</code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Final exam grade
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Treatment
+</td>
+<td>
+7.03<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.59)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Attendance
+</td>
+<td>
+1.16<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-25.22<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.89)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
 </div>
 <div id="plotting-the-results" class="section level2">
 <h2><span class="header-section-number">2.3</span> Plotting the results</h2>
@@ -799,7 +928,7 @@ data<span class="op">$</span>Treatment2 =<span class="st"> </span><span class="k
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">26</span>, <span class="st">&quot;Treatment group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 </div>
 <div id="the-counterfactual-1" class="section level2">
 <h2><span class="header-section-number">2.4</span> The counterfactual</h2>
@@ -838,7 +967,7 @@ counterfactual =<span class="st"> </span><span class="kw">adjustcolor</span>(<sp
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">20</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="dv">10</span>, <span class="dv">14</span>, <span class="dt">col=</span><span class="st">&quot;goldenrod1&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="dv">10</span>, <span class="dv">14</span>, <span class="st">&quot;Counterfactual&quot;</span>, <span class="dt">col=</span><span class="st">&quot;goldenrod1&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
 </div>
 </div>
 <div id="replication-of-a-study" class="section level1">
@@ -1463,7 +1592,7 @@ data<span class="op">$</span>Treatment2 =<span class="st"> </span><span class="k
 <span class="kw">text</span>( <span class="fl">1.5</span>, <span class="dv">36</span>, <span class="st">&quot;Treatment group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )
 <span class="kw">points</span>( <span class="fl">1.5</span>, <span class="dv">30</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="dv">2</span> )
 <span class="kw">text</span>( <span class="fl">1.5</span>, <span class="dv">30</span>, <span class="st">&quot;Control group&quot;</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">pos=</span><span class="dv">4</span> )</code></pre></div>
-<p><img src="RegDisc_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
+<p><img src="RegDisc_files/figure-html/unnamed-chunk-16-1.png" width="960" /></p>
 </div>
 </div>
 <div id="additional-notes" class="section level1">
