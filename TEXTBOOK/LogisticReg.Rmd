@@ -1,13 +1,5 @@
 ---
 title: "Logit model"
-output: 
-  bookdown::html_document2:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hid
 ---
 
 ```{r setup, include=FALSE}
@@ -50,27 +42,27 @@ library( "lmtest" )
 * How can you interpret results from a logit model?
 * What is the difference between odds ratios, probabilities, log odds and marginal effects?
 
-```{r, echo=FALSE, results="hide"}
+```{r, echo=TRUE, eval=FALSE, results="hide"}
 
-install.packages("stargazer", repos="https://cran.cnr.berkeley.edu")
-install.packages("car", repos="https://cran.cnr.berkeley.edu")
-install.packages( "wooldridge", repos="https://cran.cnr.berkeley.edu" )
-install.packages( "sandwich", repos="https://cran.cnr.berkeley.edu" )
-install.packages( "lmtest", repos="https://cran.cnr.berkeley.edu" )
-install.packages( "margins", repos="https://cran.cnr.berkeley.edu" )
-install.packages( "scales", repos="https://cran.cnr.berkeley.edu" )
+install.packages( "stargazer" )
+install.packages( "car" )
+install.packages( "wooldridge" )
+install.packages( "sandwich" )
+install.packages( "lmtest" )
+install.packages( "margins" )
+install.packages( "scales" )
 
 ```
 
 ```{r, echo=FALSE, results="hide"}
 
-library("stargazer")
-library("car")
+library( "stargazer" )
+library( "car" )
 library( "wooldridge" )
-library( "sandwich")
-library("lmtest")
-library("margins")
-library("scales")
+library( "sandwich" )
+library( "lmtest" )
+library( "margins" )
+library( "scales" )
 
 ```
 

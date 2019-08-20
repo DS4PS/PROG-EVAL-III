@@ -51,6 +51,7 @@ h2,h3,h4,h5,h6{
 p.caption {
     text-align: center;
     font-style: italic;
+    margin-bottom:30px;
 }
 
 article a{color:#68f} 
@@ -241,6 +242,7 @@ body>header h1{width:100%;line-height:1.8;margin-bottom:.5em}
 .nav.navbar-nav li a {
   /* background: #ddd; #f7f7f7 */
   color: darkgray;
+  font-size:.8em;
 }
 
 

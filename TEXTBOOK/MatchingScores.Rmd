@@ -1,14 +1,5 @@
 ---
 title: "Propensity Score Matching"
-output: 
-  bookdown::html_document2:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hid
-  new_session: true
 ---
 
 ```{r setup, include=FALSE}
@@ -43,24 +34,24 @@ library("kableExtra")
 
 ```{r, echo=FALSE, results="hide"}
 
-install.packages( "scales", repos="https://cran.cnr.berkeley.edu" )
+# install.packages( "scales", repos="https://cran.cnr.berkeley.edu" )
 library("scales")
 
-install.packages( "dplyr", repos="https://cran.cnr.berkeley.edu" )
+# install.packages( "dplyr", repos="https://cran.cnr.berkeley.edu" )
 library("dplyr")
 
-install.packages( "kableExtra", repos="https://cran.cnr.berkeley.edu" )
+# install.packages( "kableExtra", repos="https://cran.cnr.berkeley.edu" )
 library("kableExtra")
 
-install.packages( "MatchIt", repos="https://cran.cnr.berkeley.edu" )
+# install.packages( "MatchIt", repos="https://cran.cnr.berkeley.edu" )
 library("MatchIt")
 
-install.packages( "ggplot2", repos="https://cran.cnr.berkeley.edu" )
+# install.packages( "ggplot2", repos="https://cran.cnr.berkeley.edu" )
 library("ggplot2")
 
 ```
 
-```{r doppel, fig.cap="Doppelgänger", out.width='80%', echo=F }
+```{r doppel, fig.cap="Doppelg?nger", out.width='80%', echo=F }
 knitr::include_graphics( "FIGURE/MatchScores/doppel.jpg" )
 ```
 
@@ -72,7 +63,7 @@ Propensity score matching is another methodology that tries to replicate a rando
 
 The key idea behind **propensity scores** is to find individuals that are similar based on a given set of characteristics but that self-selected into the treatment and the control group. In order words, we are looking for two (or more) similar businesses, one of which applied and received funding (treatment), another which did not apply for funding (control or counterfactual). We can then compare their outcomes.
 
-In very simple terms, we are looking for **doppelgänger** as the ones in the picture above. A [doppelgänger](https://en.wikipedia.org/wiki/Doppelg%C3%A4nger) are two individuals that look identical even if they are not genetically related!
+In very simple terms, we are looking for **doppelg?nger** as the ones in the picture above. A [doppelg?nger](https://en.wikipedia.org/wiki/Doppelg%C3%A4nger) are two individuals that look identical even if they are not genetically related!
 
 
 ## A simple example

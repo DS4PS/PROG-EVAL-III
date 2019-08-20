@@ -6,12 +6,24 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Time Series"
+    - text: "Data1"
+      href: Datasets_in_R.html 
+    - text: "Data2"
+      href: EvalDataPackage.html
+    - text: "TimeS"
       href: TimeSeries.html
-    - text: "Instrumental Variables"
+    - text: "InstrumentalVs"
       href: InstrumentalVariables.html 
-    - text: "Data"
-      href: Datasets_in_R.html  
+    - text: "Diff-in-Diff"
+      href: DiffInDiff.html
+    - text: "Matching"
+      href: MatchingScores.html
+    - text: "Logistic Reg"
+      href: LogisticReg.html
+    - text: "Fixed Effects"
+      href: FixedEffects.html
+    - text: "Panel Models"
+      href: panel-model-selection.html
   right:
     - icon: fa-github fa-2x
       href: https://github.com/DS4PS/PROG-EVAL-III/tree/master/TEXTBOOK

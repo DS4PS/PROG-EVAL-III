@@ -15,38 +15,6 @@ rmarkdown::render_site()
 rmarkdown::render_site("about.Rmd")
 ```
 
-The default rmarkdown [syntax highlighting options](https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/) are:
-
-* default 
-* tango 
-* pygments 
-* kate 
-* monochrome 
-* espresso 
-* zenburn 
-* haddock 
-* textmate
-
-For more syntax highlighting styles check out this [GALLERY](http://animation.r-forge.r-project.org/knitr/) of options from knitr. 
-
-For theme options you can use the default [Bootswatch](https://bootswatch.com/3/) selections.
-
-* default 
-* cerulean  
-* journal  
-* flatly  
-* darkly  
-* readable 
-* spacelab 
-* united 
-* cosmo 
-* lumen 
-* paper 
-* sandstone 
-* simplex 
-* yeti 
-
-Or scroll to the end here for some [additional options](http://www.datadreaming.org/post/r-markdown-theme-gallery/) from custom theme pacakges.
 
 -----
 
@@ -84,6 +52,8 @@ output:
 
 -----
 
+# Hosting On GitHub
+
 Note that GitHub pages can render an MD or an RMD file, but they will not render the R code.
 
 To include R code convert the file to an HTML, and link to that.
@@ -96,3 +66,41 @@ So for example to link to a lecture file in LECTURES from here:
 [Lecture 01](../../LECTURES/lecture-01.html)
 ```
 
+----
+
+
+
+# RMD Themes
+
+The default rmarkdown [syntax highlighting options](https://eranraviv.com/syntax-highlighting-style-in-rmarkdown/) are:
+
+* default 
+* tango 
+* pygments 
+* kate 
+* monochrome 
+* espresso 
+* zenburn 
+* haddock 
+* textmate
+
+For more syntax highlighting styles check out this [GALLERY](http://animation.r-forge.r-project.org/knitr/) of options from knitr. 
+
+For theme options you can use the default [Bootswatch](https://bootswatch.com/3/) selections.
+
+* default 
+* cerulean  
+* journal  
+* flatly  
+* darkly  
+* readable 
+* spacelab 
+* united 
+* cosmo 
+* lumen 
+* paper 
+* sandstone 
+* simplex 
+* yeti 
+
+Or scroll to the end here for some [additional options](http://www.datadreaming.org/post/r-markdown-theme-gallery/) from custom theme pacakges.

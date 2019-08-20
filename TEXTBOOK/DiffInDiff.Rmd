@@ -1,13 +1,5 @@
 ---
 title: "Difference in Difference"
-output: 
-  bookdown::html_document2:
-    df_print: paged
-    theme: cerulean
-    highlight: haddock
-    toc: yes
-    toc_float: yes
-    code_fold: hid
 ---
 
 ```{r setup, include=FALSE}
