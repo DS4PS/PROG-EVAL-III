@@ -67,7 +67,7 @@ Y=\text{b}_0 + \text{b}_1X_1
 <br>
 <br>
 
-When we omit a variable that is correlated with the policy and the outcome variable, it affects both the slope and the standard error of the model - you can observe this in figure \@ref(fig:figure2). Including or excluding X2 significantly changes the covariance between Y and X1 (the intersection between Y and X1) and the residual of Y (the part of Y which does not intersect with X1 or X2).   
+When we omit a variable that is correlated with the policy and the outcome variable, it affects both the slope and the standard error of the model - you can observe this in figure \@ref(fig:figure2). Including or excluding Ability significantly changes the covariance between Y and X1 (the intersection between Y and X1) and the residual of Y (the part of Y which does not intersect with X1 or X2).   
 
 ```{r figure2, fig.cap="Covariance structure and residuals", out.width='80%', echo=F }
 knitr::include_graphics( "FIGURE/InstVar/Cov_Structure.png" )
@@ -110,32 +110,32 @@ And then use the predicted value of X1 (the A section in figure \@ref(fig:figure
 
 ```{r, echo=F}
 # Variable definitions for model  y ~ x1 + x2 + x3
+set.seed(103)
+experience <- rnorm(1000, 50000, 10000)    #Control variable (Experience)
 
-x3 <- rnorm(1000, 50000, 10000)    #Control variable
+ability <- rnorm(1000, 35000, 10000)    #Ability
 
-x2 <- rnorm(1000, 35000, 10000)    #Ability
-
-z  <- rnorm(1000, 15000, 20000)    #Father's education (IV)
+fathereduc  <- rnorm(1000, 15000, 20000)    #Father's education (IV)
 
 ex1 = rnorm(1000, 26000, 10000)
 
 ey = 0.43*rnorm(1000, 50000, 10000)
 
-x1 <- 3.7 + 0.52*z + 0.40*x2 + 0.33*x3 + ex1 #Education
+educ <- 3.7 + 0.52*fathereduc + 0.40*ability + 0.33*experience + ex1 #Education
 
-y  <- 5 + 0.23*x1 + 0.5*x2 + 0.2*x3 - ey #Wage
+wage  <- 5 + 0.23*educ + 0.5*ability + 0.2*experience - ey #Wage
 
-y  <- rescale(y,  to = c(7.75, 300)) #Rescale from minimum wage to Director wage (hourly)
+wage  <- rescale(wage,  to = c(7.75, 300)) #Rescale from minimum wage to Director wage (hourly)
 
-x3 <- rescale(x3, to = c(0, 15))     #Rescale as experience
+experience <- rescale(experience, to = c(0, 15))     #Rescale as experience
 
-x1 <- rescale(x1, to = c(10, 23))    #Rescale as years of school. Min 10 to max 23 (PhD)
+educ <- rescale(educ, to = c(10, 23))    #Rescale as years of school. Min 10 to max 23 (PhD)
 
-x2 <- rescale(x2, to = c(0, 600))    #Hypothetical test scores for ability
+ability <- rescale(ability, to = c(0, 600))    #Hypothetical test scores for ability
 
-z  <- rescale(z,  to = c(10, 23))  #Father's education
+fathereduc  <- rescale(fathereduc,  to = c(10, 23))  #Father's education
 
-dat <- data.frame(y, x1, x2, x3, z)
+dat <- data.frame(wage, educ, ability, experience, fathereduc)
 
 ```
 
@@ -154,12 +154,22 @@ Y=\beta_0 + \beta_1Education
 
 ## Data
 
+Data contain the following variables:
+
+**Variable nameb  ** | **Description    **                                               | 
+-------------------- | ------------------------------------------------------------------|
+wage                 |Wage
+educ                 |Education
+ability              |Ability (omitted variable)
+experience           |Experience                                       
+fathereduc           |Father's education         
+
 Our **dependent variable** represents an individual's hourly wage in a given year in the United States. Our **policy variable** is the number of years that individuals have spent in school. We can look at some key summary statistics.
 
 ```{r, echo=T, results='asis'}
 stargazer( dat,  
            type = "html", 
-           omit = c("x2", "x3", "z"),
+           omit = c("ability", "experience", "fathereduc"),
            omit.summary.stat = c("p25", "p75"), 
            covariate.labels = c("Wage", "Education"),
            digits = 2 )
@@ -175,29 +185,24 @@ Ability, however, is difficult to measure and cannot be included in the model. I
 
 We can observe this bias with our simulated data. Let's assume we can create a variable measuring ability and include it in our model (**full model**) based on equation \@ref(eq:fullmodel) such that:
 
-<center>$Y=\beta_0 + \beta_1\text{Education} + \beta_2\text{Ability} + \beta_3\text{Control}$</center>
-
-
-Where:
-
-$\beta_3$ =  Control variable (gender, geographical location, experience...)
+<center>$Y=\beta_0 + \beta_1\text{Education} + \beta_2\text{Ability} + \beta_3\text{Experience}$</center>
 
 Let's then run a more realistic model (**naive model**) based on equation \@ref(eq:naivemodel) where the ability variable is excluded:
 
-<center>$Y=\text{b}_0 + \text{b}_1\text{Education} + \text{b}_3\text{Control}$</center>
+<center>$Y=\text{b}_0 + \text{b}_1\text{Education} + \text{b}_3\text{Experience}$</center>
 <br>
 <br>
 We can now compare the different estimates: 
 
 ```{r, echo=T, results='asis'}
-full.model  <- lm( y ~ x1 + x2 + x3 ) # Full Model if we were able to measure ability
-naive.model <- lm( y ~ x1 + x3 )      # Naive Model where ability is excluded (omitted variable bias)
+full.model  <- lm( wage ~ educ + ability + experience ) # Full Model if we were able to measure ability
+naive.model <- lm( wage ~ educ + experience )      # Naive Model where ability is excluded (omitted variable bias)
 
 stargazer( full.model, naive.model, 
            type = "html", 
            dep.var.labels = ("Wage"),
            column.labels = c("Full Model", "Naive Model"),
-           covariate.labels = c("Education", "Ability", "Control"),
+           covariate.labels = c("Education", "Ability", "Experience"),
            omit.stat = "all", 
            digits = 2 )
 ```
@@ -221,34 +226,34 @@ We can empirically test these hypotheses by looking at correlations across the v
 ```{r}
 par( mfrow=c(1,3) )
 
-plot(z, x1, xlab = "Father's education", ylab = "Education" )   # Plot
+plot(fathereduc, educ, xlab = "Father's education", ylab = "Education" )   # Plot
 
-abline( lm( x1 ~ z ), col = "red")                              # regression line 
+abline( lm( educ ~ fathereduc ), col = "red")                              # regression line 
 
-plot( z, y, xlab = "Father's education", ylab = "Hourly wage" )
+plot( fathereduc, wage, xlab = "Father's education", ylab = "Hourly wage" )
 
-abline(lm( y ~ z ), col = "green") 
+abline(lm( wage ~ fathereduc ), col = "green") 
 
-plot( z, x2, xlab = "Father's education", ylab = "Ability")
+plot( fathereduc, ability, xlab = "Father's education", ylab = "Ability")
 
-abline(lm( x2 ~ z ), col = "blue")
+abline(lm( ability ~ fathereduc ), col = "blue")
 ```
 
 We now run the model using our instrumental variable. The model is defined in two stages: first, we estimate our policy variable based on our instrumental variable (equation \@ref(eq:step1)):
 
 **First stage:**
 
-<center>$Education=\beta_0 + \beta_1\text{Father's education} + \beta_2\text{Control variable}$</center>
+<center>$Education=\beta_0 + \beta_1\text{Father's education} + \beta_2\text{Experience}$</center>
 
 ```{r, results='asis'}
-first.stage  <- lm( x1 ~ z + x3)        #Run the first stage predict the education variable
+first.stage  <- lm( educ ~ fathereduc + experience)        #Run the first stage predict the education variable
 
 stargazer( first.stage,
            type = "html", 
            dep.var.labels = ("Education"),
            column.labels = c("First stage"),
            omit.stat = c("adj.rsq", "ser"), 
-           covariate.labels = c("Father's education", "Control"),
+           covariate.labels = c("Father's education", "Experience"),
            digits = 2 )
 ```
 
@@ -256,13 +261,14 @@ Then, we estimate our dependent variable (Wage) using the predicted values of ed
 
 **Second stage:**
 
-<center>$Wage=\beta_0 + \beta_1\text{Education} + \beta_2\text{Control variable}$</center>
+<center>$Wage=\beta_0 + \beta_1\text{Education} + \beta_2\text{Experience}$</center>
 
 ```{r, results='asis'}
+
 x1_hat       <- fitted( first.stage )   
 #Saved the predicted values of education from the first stage
 
-second.stage <- lm( y ~ x1_hat + x3 )   
+second.stage <- lm( wage ~ x1_hat + experience )   
 #Run the 2nd stage using the predicted values of education to look at the effect on income.
 
 
@@ -271,7 +277,7 @@ stargazer( full.model, naive.model, second.stage,
            dep.var.labels = ("Wage"),
            column.labels = c("Full Model", "Naive Model", "IV model"),
            omit.stat = c("adj.rsq", "ser"), 
-           covariate.labels = c("Education", "Ability", "Predicted Education", "Control"),
+           covariate.labels = c("Education", "Ability", "Predicted Education", "Experience"),
            digits = 2 )
 ```
 
@@ -284,22 +290,26 @@ Using our simulated data, we can have a look at what is happening when we estima
 We know that omitted variable bias results from the correlation of our policy variable (Education) and the omitted variable (Ability).
 
 ```{r plot1, fig.cap="Relationship between Y and the omitted variable"}
-plot(x2, x1, xlab = "Ability", ylab = "Education")
 
-abline(lm( x1 ~ x2 ), col = "green")
+plot(ability, educ, xlab = "Ability", ylab = "Education")
+
+abline(lm( educ ~ ability ), col = "green")
 ```
 
 The instrumental variable, however, is correlated only with the policy variable, not the omitted variable. 
 Therefore, we can use the instrumental variable to partition the variance of education into a component that is highly correlated with ability (the residual), and a component that is uncorrelated with ability (X1-hat).  Remember the figure \@ref(fig:figure5) we discussed at the beginning of the lecture:
 
 ```{r figure7, fig.cap="Instrumental variable model", out.width='40%', echo=F }
+
 knitr::include_graphics( "FIGURE/InstVar/Ex_Partition.png" )
+
 ```
 
 To see this in practice, we can plot the predicted values (x1_hat) and the residual (e_x1) of the first stage in two graphs and look at the correlation with the omitted variable ability. You can see that there is almost no correlation between h1_hat and ability, but ability is highly correlated with the residual (e_x1).
 
 ```{r plot2, fig.cap="Partitioning the variance of Education"}
-first.stage <- lm( x1 ~ z + x3 )          #Run again the first stage to predict education (x1)
+
+first.stage <- lm( educ ~ fathereduc + experience )          #Run again the first stage to predict education (x1)
 
 x1_hat      <- fitted( first.stage )      #Save the predicted values of education (x1_hat)
 
@@ -308,28 +318,29 @@ e_x1        <- residuals( first.stage )   #Save residuals of education (e_x1)
 par( mfrow=c(1,2) )
 
 #Plot the predicted values against ability
-plot( x2, x1_hat, xlab = "Ability (omitted variable)", ylab = "Predicted values of Education (x1_hat)")
+plot( ability, x1_hat, xlab = "Ability (omitted variable)", ylab = "Predicted values of Education (x1_hat)")
 
-abline( lm( x1_hat ~ x2), col = "blue")
+abline( lm( x1_hat ~ ability), col = "blue")
 
 #Plot the residual against ability
-plot( x2, e_x1, xlab = "Ability (omitted variable)", ylab = "Education - Residual (e_X1)" )
+plot( ability, e_x1, xlab = "Ability (omitted variable)", ylab = "Education - Residual (e_X1)" )
 
-abline( lm( e_x1 ~ x2), col = "green")
+abline( lm( e_x1 ~ ability), col = "green")
 ```
 
 One interesting thing about the instrumental variable model is that Education will be more correlated with Wage than X1-hat, but X1-hat does a better job of recovering the true slope B1 from the full model.
 
 ```{r plot3, fig.cap="Relationship between the 'parts' of education and Y"}
+
 par( mfrow=c(1,2) )
 
-plot( x1, y, xlab = "Education", ylab = "Wage" )
+plot( educ, wage, xlab = "Education", ylab = "Wage" )
 
-abline( lm( y ~ x1), col = "red")
+abline( lm( wage ~ educ), col = "red")
 
-plot( x1_hat, y, xlab = "Predicted values of Education (x1_hat)", ylab = "Wage" )
+plot( x1_hat, wage, xlab = "Predicted values of Education (x1_hat)", ylab = "Wage" )
 
-abline( lm( y ~ x1_hat), col = "blue")
+abline( lm( wage ~ x1_hat), col = "blue")
 ```
 
 ## Summary: How to select a valid instrumental variable 
@@ -339,12 +350,12 @@ Some things you should keep in mind about instrumental variables and how to sele
 1. An instrumental variable should be strongly correlated with your policy variable; the higher the correlation, the better. You can empirically test how 'good' the correlation is, when running the first stage. The rule of thumb is that the first stage should have an **F Statistic of at least 10** in the first stage model to avoid the **weak instrument problem**.`
 
 ```{r, results='asis'}
-first.stage <- lm( x1 ~ z + x2 )
+first.stage <- lm( educ ~ fathereduc + ability )
 
 stargazer( first.stage,
            column.labels = c("First Stage"),
            type="html",
-           covariate.labels = c("Father's education", "Control"),
+           covariate.labels = c("Father's education", "Experience"),
            omit.stat = c("rsq","ser"), 
            digits = 2 )
 ```
@@ -354,14 +365,18 @@ If your instrumental variable is weak, it means that it is little correlated wit
 2. Because the instrumental variable is correlated with the policy variable and the policy variable is correlated with the outcome variable, the instrumental variable is also correlated with the outcome. See for instance the correlation between father's education and wage. 
 
 ```{r plot4, fig.cap="Correlation between Y and the omitted variable"}
-plot( z, y, xlab = "Father's education", ylab = "Hourly wage")
-abline(lm( y ~ z ), col = "green") 
+
+plot( fathereduc, wage, xlab = "Father's education", ylab = "Hourly wage")
+abline(lm( wage ~ fathereduc ), col = "green") 
+
 ```
 
 However, it is important to be able to argue that such correlation occurs only through the policy variable and there is no direct correlation between the instrumental and the outcome variable. 
 
 ```{r figure8, fig.cap="Instrumental variable model, path diagram", out.width='40%', echo=F }
+
 knitr::include_graphics( "FIGURE/InstVar/PathDiagram_2.png" )
+
 ```
 
 In our previous example, a father's education increases the hourly wage only if it makes an individual stays longer in school. If not, it has no effect on the wage. 
@@ -370,11 +385,11 @@ The lack of direct correlation between the instrumental and the oucome variable 
 
 3. To recap, the covariance structure among the variables in an omitted variable model can be summarized in the following table, where:
 
-* Y is the outcome variable
-* X1 is the policy variable
-* X2 is the omitted variable
-* X3 is a control variable
-* Z is the instrumental variable
+* Wage is the outcome variable
+* Education is the policy variable
+* Ability is the omitted variable
+* Experience is a control variable
+* Father's education is the instrumental variable
 
 ```{r matrixstructure, fig.cap="Correlation matrix structure", echo=F}
 
