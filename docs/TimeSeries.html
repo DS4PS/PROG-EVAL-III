@@ -294,13 +294,31 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="TimeSeries.html">Time Series</a>
+  <a href="Datasets_in_R.html">Data1</a>
 </li>
 <li>
-  <a href="InstrumentalVariables.html">Instrumental Variables</a>
+  <a href="EvalDataPackage.html">Data2</a>
 </li>
 <li>
-  <a href="Datasets_in_R.html">Data</a>
+  <a href="TimeSeries.html">TimeS</a>
+</li>
+<li>
+  <a href="InstrumentalVariables.html">InstrumentalVs</a>
+</li>
+<li>
+  <a href="DiffInDiff.html">Diff-in-Diff</a>
+</li>
+<li>
+  <a href="MatchingScores.html">Matching</a>
+</li>
+<li>
+  <a href="LogisticReg.html">Logistic Reg</a>
+</li>
+<li>
+  <a href="FixedEffects.html">Fixed Effects</a>
+</li>
+<li>
+  <a href="panel-model-selection.html">Panel Models</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -351,7 +369,7 @@ $(document).ready(function () {
 <li><a href="#autocorrelation"><span class="toc-section-number">4.1</span> Autocorrelation</a></li>
 <li><a href="#time-of-the-intervention-effect"><span class="toc-section-number">4.2</span> Time of the intervention effect</a></li>
 <li><a href="#regression-to-the-mean"><span class="toc-section-number">4.3</span> Regression to the mean</a></li>
-<li><a href="#validity-threats"><span class="toc-section-number">4.4</span> Validity threats</a></li>
+<li><a href="#validity-threats-control-groups-and-multiple-time-series"><span class="toc-section-number">4.4</span> Validity threats: control groups and multiple time series</a></li>
 </ul></li>
 </ul>
 </div>
@@ -1444,7 +1462,14 @@ oklahoma$time &lt;- rep( 1 : nrow( oklahoma ))
 oklahoma$treatment &lt;- ifelse( oklahoma$Year &gt; 1995 | oklahoma$Year == 1995 &amp; oklahoma$Month &gt;= 5, 1, 0)
 
 # Create a dummy variable that is equal to 0 before time = 64 (when the event occured) and 1 otherwise.
-oklahoma$timeSince &lt;- ifelse( oklahoma$time &lt;= 64, 0, rep(1 : 64))</code></pre>
+
+# If we look at the frequency of the treatment variable, we see that 64 rows has received no treatment and 56 rows did receive the treatment. 
+table(oklahoma$treatment)</code></pre>
+<pre><code>## 
+##  0  1 
+## 64 56</code></pre>
+<pre class="r"><code># The new variable will have 64 zeros and then will count time from 1 to 56
+oklahoma$timeSince &lt;- c(rep(0, 64), rep(1:56))</code></pre>
 <p>We can now calculate the coefficients as we did before:</p>
 <pre class="r"><code>reg_OK &lt;- lm( BirthRateMonthly ~ 
               time + 
@@ -1881,8 +1906,8 @@ Figure 4.5: Regression to the mean
 </p>
 </div>
 </div>
-<div id="validity-threats" class="section level2">
-<h2><span class="header-section-number">4.4</span> Validity threats</h2>
+<div id="validity-threats-control-groups-and-multiple-time-series" class="section level2">
+<h2><span class="header-section-number">4.4</span> Validity threats: control groups and multiple time series</h2>
 <p>Finally, time series are also subject to threats to internal validity, such as:</p>
 <ul>
 <li>Another event occurred at the same time of the intervention and cause the immediate and sustained effect that we observe;</li>
@@ -1890,13 +1915,15 @@ Figure 4.5: Regression to the mean
 </ul>
 <p>To address these issues, you can:</p>
 <ul>
-<li>Control for another group that is not subject to the intervention (e.g., students who do not attend the wellbeing class)</li>
+<li>Use as a control a group that is not subject to the intervention (e.g., students who do not attend the well being class)</li>
 </ul>
-<p>This design makes sure that the effect we observe is the result of the policy intervention. We will have two observation per each point in time and will include a dummy variable to differentiate the effect across the two groups. Then, we will interact our dummy variable with our 3 time series coefficients to see if there is a statistically significant difference across the 2 groups. You can see this in the following equation, where <span class="math inline">\(\text{G}\)</span> is a dummy indicating treatment and control group.</p>
+<p>This design makes sure that the observed effect is the result of the policy intervention. The data will have two observations per each point in time and will include a dummy variable to differentiate the treatment (=1) and the control (=0). The model has a similar structure but (1) we will include a dummy variable that indicates the treatment and the control group and (2) we will interact the group dummy variable with all 3 time serie coefficients to see if there is a statistically significant difference across the 2 groups.</p>
+<p>You can see this in the following equation, where <span class="math inline">\(\text{G}\)</span> is a dummy indicating treatment and control group.</p>
 <p><span class="math display" id="eq:2timeseries">\[\begin{equation} 
 \text{Y} = \text{b}_0 + \text{b}_1*T + \text{b}_2*D + \text{b}_3*P + \text{b}_4*G + \text{b}_5*G*T + \text{b}_6*G*D + \text{b}_7*G*P
   \tag{4.1}
 \end{equation}\]</span></p>
+<p>To interpret the coefficients you need to remember that the reference group is the treatment group (=1). The Group dummy (b4) indicates the difference between the treatment and the control group. b5 represents the slope difference between the intervention and control group in the pre-intervention period. b6 represents the difference between the control and intervention group associated with the intervention. b7 represents the difference between the sustained effect of the control and intervention group after the intervention.</p>
 <div class="figure"><span id="fig:f16"></span>
 <img src="FIGURE/TimeSeries/Picture10.1.png" alt="Time series with control group" width="60%" />
 <p class="caption">
