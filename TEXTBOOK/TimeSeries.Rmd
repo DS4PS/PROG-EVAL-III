@@ -1,11 +1,18 @@
 ---
 title: "Interrupted Time Series"
+output: 
+  bookdown::html_document2:
+    df_print: paged
+    theme: cerulean
+    highlight: haddock
+    toc: yes
+    toc_float: yes
+    code_fold: hid
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.width = 10)
 ```
-
 **Packages**
 
 Here are the packages we will use in this lecture. If you don't remember how to install them, you can have a look at the code. 
@@ -27,13 +34,13 @@ library( "stargazer" )
 * What is autocorrelation? 
 * Applying a time series model to data in R
 
-```{r, eval=FALSE, echo=F, results="hide"}
+```{r, echo=FALSE, results="hide"}
 install.packages("stargazer", repos="https://cran.cnr.berkeley.edu")
 install.packages("scales", repos="https://cran.cnr.berkeley.edu")
 install.packages("Wats", repos="https://cran.cnr.berkeley.edu")
 ```
 
-```{r, echo=TRUE, results="show"}
+```{r, echo=FALSE, results="hide"}
 library("scales")
 library("stargazer")
 library("Wats")
@@ -275,12 +282,12 @@ The dataset contains four variables:
 $\text{Y}$ |$\text{Wellbeing}$    |Wellbeing index (from 0 to 300)                       |
 $\text{T}$ |$\text{Time}$         |Time (from 1 to 365)                                  |
 $\text{D}$ |$\text{Treatment}$    |Observation post (=1) and pre (=0) intervention       |
-$\text{P}$ |$\text{Time Since}$   |Time passed since the intervention                    |
+$\text{P}$ |$\text{Time Since Treatment}$   |Time passed since the intervention                    |
 
 Our model is based on the equation \@ref(eq:timeseries):
 
 \begin{equation} 
-\text{Y} = \text{b}_0 + \text{b}_1*Time + \text{b}_2*Treatment + \text{b}_3*Time Since + \text{e}
+\text{Y} = \text{b}_0 + \text{b}_1*Time + \text{b}_2*Treatment + \text{b}_3*Time Since Treatment + \text{e}
   (\#eq:example)
 \end{equation} 
 
@@ -293,7 +300,7 @@ stargazer( regTS,
            type = "html", 
            dep.var.labels = ("Wellbeing"),
            column.labels = ("Model results"),
-           covariate.labels = c("Time", "Treatment", "Time Since"),
+           covariate.labels = c("Time", "Treatment", "Time Since Treatment"),
            omit.stat = "all", 
            digits = 2 )
 ```
@@ -306,11 +313,11 @@ Let's interpret our coefficients:
 * The **Treatment** coefficient indicates the increase in the students' wellbeing immediately after the intervention. We can see that the immediate effect is positive and significant indicating that attending the first class increased the students' wellbeing of 13.09.
 <br>
 <br>
-* The **Time Since** coefficient indicates that the trend has changed after the intervention. The sustained effect is positive and significant, indicating that for each day that passes after the intervention, the wellbeing of students increases of 0.54 points on the index. 
+* The **Time Since Treatment** coefficient indicates that the trend has changed after the intervention. The sustained effect is positive and significant, indicating that for each day that passes after the intervention, the wellbeing of students increases of 0.54 points on the index. 
 
 ## Plotting the results 
 
-A useful exercise is to calculate outcomes at different points in time as we did in section \@ref(the-counterfactual). For instance, we can calculate the outcome right after the intervention, which occured at time = 200. Note that while $\text{Time}$ = 201, $\text{Time Since}$ is equal to 1 because it is the first day after the intervention.
+A useful exercise is to calculate outcomes at different points in time as we did in section \@ref(the-counterfactual). For instance, we can calculate the outcome right after the intervention, which occured at time = 200. Note that while $\text{Time}$ = 201, $\text{Time Since Treatment}$ is equal to 1 because it is the first day after the intervention.
 
 \begin{equation} 
 \text{Y} = \text{b}_0 + \text{b}_1*201 + \text{b}_2*1 + \text{b}_3*1 + \text{e}
@@ -344,7 +351,7 @@ abline( v=200, col="red", lty=2 )
 
 ```
 
-Now, we can calculate the outcome 30 days after the intervention. $\text{Time}$ will be equal to 230 while $\text{Time Since}$ will be equal to 30. $\text{Treatment}$ is always equal to 1 since it is a dummy variable indicating pre or post intervention. 
+Now, we can calculate the outcome 30 days after the intervention. $\text{Time}$ will be equal to 230 while $\text{Time Since Treatment}$ will be equal to 30. $\text{Treatment}$ is always equal to 1 since it is a dummy variable indicating pre or post intervention. 
 
 \begin{equation} 
 \text{Y} = \text{b}_0 + \text{b}_1*230 + \text{b}_2*1 + \text{b}_3*30 + \text{e}
@@ -387,7 +394,7 @@ abline( v=200, col="red", lty=2 )
 
 Using the same mechanism illustrated in section \@ref(the-counterfactual) and \@ref(plotting-the-results), we can calculate the counterfactual for any point in time. The counterfactual at $\text{Time}$ = 230 is the level of wellbeing at that point in time *if the intervention had not occured*. 
 
-Note the changes in our equation \@ref(eq:examplet230): $\text{Treatment}$ and $\text{Time Since}$ are both equal to 0.
+Note the changes in our equation \@ref(eq:examplet230): $\text{Treatment}$ and $\text{Time Since Treatment}$ are both equal to 0.
 
 \begin{equation} 
 \text{Y} = \text{b}_0 + \text{b}_1*230 + \text{b}_2*0 + \text{b}_3*0 + \text{e}
@@ -471,7 +478,7 @@ pred1 <- predict(regTS, dataTS)
 # To estimate all predicted values of Y, we just use our dataset
 
 datanew <- as.data.frame(cbind(T = rep(1 : 365), D = rep(0), P = rep(0))) 
-# Create a new dataset where Treatment and Time Since are equal to 0 as the intervention did not occur.
+# Create a new dataset where Treatment and Time Since Treatment are equal to 0 as the intervention did not occur.
 
 pred2 <- predict(regTS, datanew) 
 # Predict the counterfactuals
@@ -521,7 +528,7 @@ stargazer( reg2,
            type = "html", 
            dep.var.labels = ("Wellbeing"),
            column.labels = ("Model results"),
-           covariate.labels = c("Time", "Treatment", "Time Since"),
+           covariate.labels = c("Time", "Treatment", "Time Since Treatment"),
            omit.stat = "all", 
            digits = 2 )
 ```
@@ -654,7 +661,7 @@ stargazer( reg_OK,
            type = "html", 
            dep.var.labels = ("Monthly Birth Rate"),
            column.labels = "",
-           covariate.labels = c("Time", "Treatment", "Time Since"),
+           covariate.labels = c("Time", "Treatment", "Time Since Treatment"),
            omit.stat = "all", 
            digits = 3 )
 ```
@@ -697,14 +704,14 @@ abline( v=64, col="red", lty=2 )
 
 When conducting an interrupted time series analysis is important to think about possible threats to the validity of the study. In this case, Rodgers and colleagues noted that it would be difficult to observe an increase in the birth rate right after the event for the simple reason that a pregnancy lasts 9 months! 
 
-We can run our analysis again and see whether we can find an immediate affect 9 months after the bombing. We do it by changing our Treatment and Time Since variables to indicate a different point in time.
+We can run our analysis again and see whether we can find an immediate affect 9 months after the bombing. We do it by changing our Treatment and Time Since Treatment variables to indicate a different point in time.
 
 ```{r, echo = T}
 oklahoma$treatment2 <- ifelse(oklahoma$Year > 1996 | oklahoma$Year == 1996 & oklahoma$Month >= 2, 1, 0)
 # Our new treatment variable is equal to 1 if the bombing has occured and 9 months have passed.It is equal to zero otherwise.
 
 oklahoma$timeSince2 <- ifelse(oklahoma$time <= 73, 0, rep(1 : 73))
-# Our Time Since variable starts 9 months after the bombing, instead than at the time of the bombing.
+# Our Time Since Treatment variable starts 9 months after the bombing, instead than at the time of the bombing.
 ```
 
 ```{r, echo=T, results='asis'}
@@ -719,7 +726,7 @@ stargazer( reg_OK2,
            type = "html", 
            dep.var.labels = ("Monthly Birth Rate"),
            column.labels = "",
-           covariate.labels = c("Time", "Treatment - 9 months delay", "Time Since - 9 months delay"),
+           covariate.labels = c("Time", "Treatment - 9 months delay", "Time Since Treatment - 9 months delay"),
            omit.stat = "all", 
            digits = 2 )
 ```
@@ -807,7 +814,7 @@ knitr::include_graphics( "FIGURE/TimeSeries/Picture8.png" )
 
 Thinking about **when** the effect is likely to occur is importan in time series. As we mentioned in section \@ref(the-counterfactual), we cannot test if the slope difference is significant at different point in time. 
 
-If we suspect a late effect, we can look at immediate and sustained effects some months after the intervention. In the training example, we would observe an immediate, positive effect if we look at t = 18. Moreover, the "Time since" coefficient would have indicated a larger, positive effect. 
+If we suspect a late effect, we can look at immediate and sustained effects some months after the intervention. In the training example, we would observe an immediate, positive effect if we look at t = 18. Moreover, the "Time since Treatment" coefficient would have indicated a larger, positive effect. 
 
 ```{r, fig.cap="Figure 14. Training program intervention", out.width='60%', echo=F }
 knitr::include_graphics( "FIGURE/TimeSeries/Picture8.1.png" )
@@ -856,3 +863,72 @@ knitr::include_graphics( "FIGURE/TimeSeries/Picture10.2.png" )
 ```
 
 
+```{css, echo=F}
+p {
+color: black;
+margin: 0 0 20px 0;
+}
+
+p.caption {
+    text-align: center;
+    font-style: italic;
+}
+
+td {
+    padding: 3px 10px 3px 10px;
+    }
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:30px;
+    margin-bottom:100px;
+}
+
+h1, h2{
+  margin-top:100px;
+  margin-bottom:20px;
+}
+
+H5{
+    text-align: center;
+    color: green;
+    font-size:0.8em;
+}
+
+ul.a {
+  list-style-type: circle;
+  color: black;
+}
+
+img {
+    max-width: 90%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   margin-bottom:20px;
+}
+
+code {
+  font-size: 92%;
+  border: 10px solid #F8F8F8;
+  margin-bottom: 2px;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+```

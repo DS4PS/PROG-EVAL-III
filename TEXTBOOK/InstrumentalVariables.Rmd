@@ -1,18 +1,24 @@
 ---
 title: "Instrumental variables"
-
+output: 
+  bookdown::html_document2:
+    df_print: paged
+    theme: cerulean
+    highlight: haddock
+    toc: yes
+    toc_float: yes
+    code_fold: hid
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set( echo = TRUE, message=F, warning=F, fig.width = 10)
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F, fig.width = 10)
 ```
-
-## Packages
+**Packages**
 
 Here are the packages we will use in this lecture. If you don't remember how to install them, you can have a look at the code. 
 
-* **AER** for the ivreg function  
-* **stargazer** for nice tables  
+* **AER** for the ivreg function.
+* **stargazer** for nice tables
 
 ```{r, eval=F}
 install.packages( AER )
@@ -29,14 +35,14 @@ library( "stargazer" )
 * What are the main characteristics of a valid instrumental variable? 
 * Understanding key mechanisms behind an instrumental variable model
 
-```{r, eval=F, echo=FALSE, results="hide", cache=F}
+```{r, echo=FALSE, results="hide", cache=F}
 install.packages("AER", repos="https://cran.cnr.berkeley.edu")
 install.packages("stargazer", repos="https://cran.cnr.berkeley.edu")
 install.packages("scales", repos="https://cran.cnr.berkeley.edu")
 install.packages( "wooldridge", repos="https://cran.cnr.berkeley.edu" )
 ```
 
-```{r, echo=TRUE, results="show"}
+```{r, echo=FALSE, results="hide"}
 library("scales")
 library(AER) # To use the ivreg function. Make sure to install it beforehand (install.packages)
 library(stargazer)
@@ -144,7 +150,7 @@ dat <- data.frame(y, x1, x2, x3, z)
 # An instrumental variable model
 
 ```{r graduation, out.width='60%', echo=F }
-knitr::include_graphics( "O:/Users/ffusi/Jesse/Diff in Diff/Graduation.jpg" )
+knitr::include_graphics( "FIGURE/InstVar/Graduation.jpg" )
 ```
 
 In the following working example, we will look at the correlation between hourly wage and education. The discussion regarding ["more education, more income"](https://www.nytimes.com/2014/09/11/business/economy/a-simple-equation-more-education-more-income.html) gets continuous attention in the media and in the policy world (see for instance the [New York Times](https://www.nytimes.com/2014/05/27/upshot/is-college-worth-it-clearly-new-data-say.html)). We ask: **how much does your salary (Y) increase for any additional year of education?** In other words, we are interested in estimating $\beta_1$.
@@ -591,3 +597,68 @@ Crime                |Incarceration rate            |Simultaneous causality     
 Election outcomes    |Federal spending in a district|Political  vulnerability         |Federal spending in the rest of the state    |
 Conflicts            |Economic growth               |Simultaneous causality           |Rainfall                   |
 
+
+```{css, echo=F}
+p {
+color: black;
+margin: 0 0 20px 0;
+}
+
+p.caption {
+    text-align: center;
+    font-style: italic;
+}
+
+td {
+    padding: 3px 10px 3px 10px;
+    }
+
+table
+{ 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:80px;
+    margin-bottom:100px;
+}
+
+h1, h2{
+  margin-top:100px;
+  margin-bottom:20px;
+}
+
+H5{
+    text-align: center;
+    color: gray;
+    font-size:0.8em;
+}
+
+img {
+    max-width: 90%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre code {
+   display: block; 
+   padding: 0.5em;
+   margin-bottom:20px;
+}
+
+code {
+  font-size: 92%;
+  border: 10px solid #F8F8F8;
+  margin-bottom: 2px;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+```
